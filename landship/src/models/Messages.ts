@@ -5,22 +5,12 @@
 
 
 /**
- * Intended for use for automated tests.  Not used in the game itself.
- */
-export interface TestMessage {
-    topic: 'test';
-    payload: {
-        data: string;
-    };
-}
-
-/**
  * Ping message used to synchronize clocks between the console and the ship.
  */
 export interface PingMessage {
     topic: 'ping';
     payload: {
-        time_sent: number;
+        time_ping_sent: number;
     };
 }
 
@@ -32,6 +22,7 @@ export interface PongMessage {
     topic: 'pong';
     payload: {
         time_ping_sent: number;
+        time_server_recieved: number;
     };
 }
 
@@ -45,7 +36,7 @@ export interface SubscriptionsMessage {
     };
 }
 
-export type Message = TestMessage | PingMessage | PongMessage | SubscriptionsMessage;
+export type Message = PingMessage | PongMessage | SubscriptionsMessage;
 export type Topic = Message["topic"];
 
 export type Address = number;

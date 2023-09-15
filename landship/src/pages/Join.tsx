@@ -48,7 +48,7 @@ export const Join: React.FC<{ tracker: Tracker, gameData: GameDataResponse }> = 
         dataChannelConsole.send({
             'message': {
                 topic: 'ping',
-                payload: { time_sent: performance.now() }
+                payload: { time_ping_sent: performance.now() }
             }
         })
     }, [dataChannelConsole])

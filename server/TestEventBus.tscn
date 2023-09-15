@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dhxuhbd4ammok"]
 
-[ext_resource type="Script" path="res://Scripts/EventBus/EventBus.gd" id="1_th5t1"]
+[ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/EventBus.tscn" id="1_jge81"]
 [ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_455wp"]
 [ext_resource type="PackedScene" uid="uid://bun7i1h0spvvd" path="res://Scripts/EventBus/BusPrinter.tscn" id="3_xevse"]
 [ext_resource type="PackedScene" uid="uid://cgvq6r2xa8cgy" path="res://Scripts/EventBus/PingEmitter.tscn" id="4_e72er"]
@@ -10,8 +10,7 @@
 
 [node name="Node2D" type="RigidBody3D"]
 
-[node name="EventBus" type="Node" parent="."]
-script = ExtResource("1_th5t1")
+[node name="EventBus" parent="." instance=ExtResource("1_jge81")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_wowci")

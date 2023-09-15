@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://6836nojqh6ts"]
+
+[ext_resource type="Script" path="res://Scripts/EventBus/Console.gd" id="1_pbelb"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_h2gcc"]
+
+[node name="Console" type="Node"]
+script = ExtResource("1_pbelb")
+
+[node name="BusConnection" type="Node" parent="."]
+script = ExtResource("2_h2gcc")
+
+[connection signal="got_message" from="BusConnection" to="." method="_on_bus_connection_got_message"]

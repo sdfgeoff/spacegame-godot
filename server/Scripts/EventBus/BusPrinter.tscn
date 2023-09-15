@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bun7i1h0spvvd"]
 
 [ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="1_kslqc"]
-[ext_resource type="Script" path="res://Scripts/BusPrinter.gd" id="2_baq2v"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusPrinter.gd" id="2_baq2v"]
 
 [node name="BusPrinter" type="Node"]
 

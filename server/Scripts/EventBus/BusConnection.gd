@@ -1,7 +1,7 @@
 class_name BusConnection
 extends Node
 
-signal got_message
+signal got_message(message: Message)
 
 
 var _inbox: Array[Message] = []

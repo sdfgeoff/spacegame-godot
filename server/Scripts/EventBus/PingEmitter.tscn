@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgvq6r2xa8cgy"]
 
-[ext_resource type="Script" path="res://Scripts/PingEmitter.gd" id="1_g11hi"]
+[ext_resource type="Script" path="res://Scripts/EventBus/PingEmitter.gd" id="1_g11hi"]
 [ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_xyq6a"]
 
 [node name="PingEmitter" type="Node"]

@@ -18,17 +18,15 @@ func _process(_delta):
 
 		all_messages.append_array(messages)
 
-
 	for message in all_messages:
 		for device in _devices:
+			var topic_matches = device.subscriptions.find(message.topic) != -1
+			var subscribed_to_all = device.subscriptions.find(Message.Topic.ALL) != -1
+			var message_has_address = message.address_to != null
+			var address_matches = device._address == message.address_to
 			
-			if device.subscriptions.find(message.topic) != -1 and device.subscriptions.find(Message.Topic.ALL) != -1:
-				continue
-			
-			if message.address_to != null and device._address != message.address_to:
-				continue
-				
-			device._inbox.append(message)
+			if subscribed_to_all or address_matches or (topic_matches and !message_has_address):
+				device._inbox.append(message)
 
 	_devices.clear()
 

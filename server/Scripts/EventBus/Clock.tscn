@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt7u6n1rfy738"]
+
+[ext_resource type="Script" path="res://Scripts/EventBus/Clock.gd" id="1_qgqc5"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_cc87y"]
+
+[node name="Clock" type="Node"]
+script = ExtResource("1_qgqc5")
+
+[node name="BusConnection" type="Node" parent="."]
+script = ExtResource("2_cc87y")
+subscriptions = Array[int]([1])
+
+[connection signal="got_message" from="BusConnection" to="." method="_on_bus_connection_got_message"]

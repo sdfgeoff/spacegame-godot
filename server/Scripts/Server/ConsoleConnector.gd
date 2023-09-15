@@ -6,6 +6,8 @@ extends Node
 
 var LOG = Log.new("console_tracker")
 
+const CONSOLE_SCENE = preload("res://Components/Console.tscn")
+
 # The URL we will connect to
 const websocket_url = "ws://0.0.0.0:%d" % ConsoleTracker.PORT
 
@@ -53,6 +55,7 @@ func _on_data(message: Variant):
 		LOG.info("offer_recieved", {"id": addr_from})
 		clients[addr_from] = ConsoleConnection.new(tracker_client, addr_from)
 		clients[addr_from].peer.set_remote_description("offer", data["sdp"])
+		clients[addr_from].connect("established", _on_console_established)
 		
 	elif data['type'] == 'ice':
 		LOG.info("ice_recieved", {"id": addr_from})
@@ -87,9 +90,15 @@ func _process(delta):
 	var current_time = Time.get_ticks_msec()
 	if current_time > BROADCAST_DELAY_MSEC + _last_broadcast_time:
 		_advertise_ship()
-		
-		for client in clients:
-			clients[client].send_message(JSON.stringify({"test": "tester"}))
 
 	for client in clients:
 		clients[client]._process(delta)
+
+func _on_console_established(addr: int):
+	LOG.info("console_ready", {"id": addr})
+	var client = clients[addr]
+	clients.erase(addr)
+	
+	var console = CONSOLE_SCENE.instantiate()
+	console.setup(client)
+	get_parent().add_child(console)
