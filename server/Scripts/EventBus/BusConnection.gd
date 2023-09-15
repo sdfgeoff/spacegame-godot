@@ -13,6 +13,9 @@ var _address = -1
 func queue_message(topic, data, address_to=null):
 	_outbox.append(Message.new(topic, data, address_to, null))
 	
+func queue_message_direct(message: Message):
+	_outbox.append(message)
+	
 func clear_outbox() -> Array[Message]:
 	var out = _outbox
 	_outbox = []

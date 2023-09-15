@@ -47,7 +47,7 @@ export const Join: React.FC<{ tracker: Tracker, gameData: GameDataResponse }> = 
     const pingServer = useCallback(() => {
         dataChannelConsole.send({
             'message': {
-                topic: 'ping',
+                topic: 'Ping',
                 payload: { time_ping_sent: performance.now() }
             }
         })
