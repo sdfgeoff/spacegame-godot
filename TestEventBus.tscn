@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhxuhbd4ammok"]
+
+[ext_resource type="Script" path="res://Scripts/EventBus/EventBus.gd" id="1_th5t1"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_455wp"]
+[ext_resource type="PackedScene" uid="uid://bun7i1h0spvvd" path="res://Scripts/EventBus/BusPrinter.tscn" id="3_xevse"]
+[ext_resource type="PackedScene" uid="uid://cgvq6r2xa8cgy" path="res://Scripts/EventBus/PingEmitter.tscn" id="4_e72er"]
+[ext_resource type="PackedScene" uid="uid://x4s00nam2068" path="res://Components/WebServer.tscn" id="5_jgdi2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wowci"]
+
+[node name="Node2D" type="RigidBody3D"]
+
+[node name="EventBus" type="Node" parent="."]
+script = ExtResource("1_th5t1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_wowci")
+
+[node name="BusConnection" type="Node" parent="CollisionShape3D"]
+script = ExtResource("2_455wp")
+
+[node name="BusPrinter" parent="." instance=ExtResource("3_xevse")]
+
+[node name="PingEmitter" parent="." instance=ExtResource("4_e72er")]
+
+[node name="PingEmitter2" parent="." instance=ExtResource("4_e72er")]
+message = "TestMessage2"
+seconds_between = 0.5
+
+[node name="WebServer" parent="." instance=ExtResource("5_jgdi2")]

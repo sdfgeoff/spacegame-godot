@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://4h7we6lqcuab"]
+
+[ext_resource type="Script" path="res://Launcher.gd" id="1_e7onj"]
+[ext_resource type="PackedScene" uid="uid://dqvs6mmoety6n" path="res://Components/FakeMotor.tscn" id="2_mpb41"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gfrmr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uv4r4"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_i43t4"]
+size = Vector3(0.5, 0.8, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eugqn"]
+size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iek58"]
+size = Vector3(0.2, 1, 0.02)
+
+[node name="Launcher" type="CollisionShape3D"]
+shape = SubResource("SphereShape3D_gfrmr")
+script = ExtResource("1_e7onj")
+x_axis = NodePath("RY/Output/RX2")
+y_axis = NodePath("RY")
+node_sight = NodePath("RY/Output/RX2/Output/Sight")
+barrels = Array[NodePath]([NodePath("RY/Output/RX2/Output/MeshInstance3D/Barrel1"), NodePath("RY/Output/RX2/Output/MeshInstance3D2/Barrrel2")])
+target_node = NodePath("RY/Output/RX2/Output/Sight")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_uv4r4")
+
+[node name="RY" parent="." instance=ExtResource("2_mpb41")]
+allow_angle_wrap = true
+
+[node name="RYVisual" type="MeshInstance3D" parent="RY/Output" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.430893, 0)
+mesh = SubResource("BoxMesh_i43t4")
+skeleton = NodePath("../../..")
+
+[node name="RX2" parent="RY/Output" index="1" instance=ExtResource("2_mpb41")]
+transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, -1, -1, -4.37114e-08, -4.37114e-08, 0, 0.7, 0)
+max_angle = 1.0
+min_angle = -1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RY/Output/RX2/Output" index="0"]
+transform = Transform3D(-4.37114e-08, -1, -2.98023e-07, 1, -4.37114e-08, -1.65797e-14, 7.10543e-15, -2.98023e-07, 1, -0.2, -0.4, 0)
+mesh = SubResource("BoxMesh_eugqn")
+skeleton = NodePath("../../../../..")
+
+[node name="Barrel1" type="Node3D" parent="RY/Output/RX2/Output/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RY/Output/RX2/Output" index="1"]
+transform = Transform3D(-4.37114e-08, -1, -2.98023e-07, 1, -4.37114e-08, -1.65797e-14, 7.10543e-15, -2.98023e-07, 1, -0.2, 0.4, 0)
+mesh = SubResource("BoxMesh_eugqn")
+skeleton = NodePath("../../../../..")
+
+[node name="Barrrel2" type="Node3D" parent="RY/Output/RX2/Output/MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 0.4, 0)
+
+[node name="Sight" type="MeshInstance3D" parent="RY/Output/RX2/Output" index="2"]
+transform = Transform3D(8.74228e-08, -1, 4.37114e-08, -1, -8.74228e-08, -8.9407e-08, 8.9407e-08, -4.37114e-08, -1, -0.2, -8.74234e-09, 0)
+mesh = SubResource("BoxMesh_iek58")
+
+[editable path="RY"]
+[editable path="RY/Output/RX2"]

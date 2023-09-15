@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqvs6mmoety6n"]
+
+[ext_resource type="Script" path="res://Scripts/FakeMotor.gd" id="1_4oey2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8y5y4"]
+size = Vector3(0.05, 1, 0.05)
+
+[node name="FakeMotor" type="Node3D"]
+script = ExtResource("1_4oey2")
+
+[node name="MotorAxisVisualizer" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8y5y4")
+
+[node name="Output" type="Node3D" parent="."]

@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://x4s00nam2068"]
+
+[sub_resource type="GDScript" id="GDScript_bocmy"]
+script/source = "\"\"\"
+Very very minimal signalling server.
+When a datachannel connection is made it will create a ConnectedConsole on this ships event bus
+\"\"\"
+extends Node
+
+var server: TCPServer = null
+
+var peers: Array[StreamPeerTCP] = []
+
+var connections: Array[WebRTCDataChannel] = []
+
+@export var port: int = 8080 
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	server = TCPServer.new()
+	server.listen(port, \"*\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if server.is_connection_available():
+		var new_connection = server.take_connection()
+		peers.append(new_connection)
+
+	var to_remove = []
+	for peer in peers:
+		if peer.get_status() == StreamPeerTCP.STATUS_ERROR:
+			to_remove.append(peer)
+			continue
+
+		peer.poll()
+		if peer.get_status() == StreamPeerTCP.STATUS_CONNECTED:
+			var data = peer.get_partial_data(4096)
+			var _err_code = data[0]
+			var req = data[1]
+			if len(req) > 0:
+				print(parseRequest(req))
+				
+			var response =\"HTTP/1.0 200 OK
+
+<HTML>
+Test
+</HTML>\"
+			peer.put_data(response.to_utf8_buffer())
+			peer.disconnect_from_host()
+			
+			
+	for peer in to_remove:
+		var id = peers.find(peer)
+		peers.remove_at(id)
+			
+
+func parseRequest(data: PackedByteArray):
+	var as_str := data.get_string_from_utf8()
+	var main := as_str.split('\\n\\n', true, 1)
+
+	var url = main[0].split('\\r\\n')[0].split(' ')[1]
+	
+	var body = null
+	if len(main) == 2:
+		body = main[1]
+
+	return {
+		'url': url,
+		'body': body
+	}
+"
+
+[node name="WebServer" type="Node"]
+script = SubResource("GDScript_bocmy")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0wioa6et8eob"]
+
+[ext_resource type="PackedScene" uid="uid://cxkbkjdwp0rco" path="res://Components/Ship.tscn" id="1_iagks"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Node2D" parent="." instance=ExtResource("1_iagks")]
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6wgq2ifs41ms"]
+
+[ext_resource type="PackedScene" uid="uid://4h7we6lqcuab" path="res://Components/launcher.tscn" id="1_j37fo"]
+
+[sub_resource type="Environment" id="Environment_ajvhr"]
+ambient_light_color = Color(0.329412, 0.329412, 0.329412, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pj6ls"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.722557, 0.691311, 0, -0.691311, 0.722557, 0, 6.15242, 5.48659)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ajvhr")
+
+[node name="TargetNode" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68316, 3.77708, -4.41657)
+mesh = SubResource("BoxMesh_pj6ls")
+skeleton = NodePath("../StaticBody3D/Launcher")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(0.922733, 0.337285, 0.186553, -0.385439, 0.807454, 0.446603, 0, -0.484, 0.875068, 0, 0, 0)
+
+[node name="Launcher" parent="StaticBody3D" instance=ExtResource("1_j37fo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+target_node = NodePath("../../TargetNode")
