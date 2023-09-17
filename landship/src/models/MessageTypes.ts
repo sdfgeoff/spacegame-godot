@@ -12,6 +12,7 @@ export interface AllMessage {
 export interface GNC_StateMessage {
 	topic: 'GNC_State';
 	payload: {
+		time_sent: number;
 		pos_x: number;
 		pos_y: number;
 		pos_z: number;

@@ -8,6 +8,6 @@ script = ExtResource("1_hbf1l")
 
 [node name="BusConnection" type="Node" parent="."]
 script = ExtResource("2_dxjak")
-subscriptions = Array[int]([2])
+subscriptions = [2]
 
 [connection signal="got_message" from="BusConnection" to="." method="_on_bus_connection_got_message"]

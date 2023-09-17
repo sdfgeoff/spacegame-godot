@@ -26,12 +26,12 @@ export const Join: React.FC<JoinProps> = () => {
     
     const [latestMessage, setLatestMessage] = useState<FromRouterMessage<Topic> | undefined>(undefined)
 
-    useEffect(() => {
-        return subscribeTopic("GNC_State", (message) => {
-            console.log(message)
-        })
+    // useEffect(() => {
+    //     return subscribeTopic("GNC_State", (message) => {
+    //         console.log(message)
+    //     })
 
-    }, [subscribeTopic])
+    // }, [subscribeTopic])
 
     useEffect(() => {
         return dataChannelConsole.subscribeMessage((message) => {
