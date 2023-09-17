@@ -1,6 +1,7 @@
 class_name Log
 
 var logger_name: String
+
 func _init(n: String):
 	logger_name = n + '_'
 	

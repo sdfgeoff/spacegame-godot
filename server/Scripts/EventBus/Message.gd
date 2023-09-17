@@ -22,7 +22,7 @@ func serialize():
 		}
 	})
 
-static func deserialize(d: String):
+static func deserialize(d: String) -> Message:
 	var as_dict = JSON.parse_string(d)
 	var t = Payload.STRING_TO_TOPIC[as_dict["message"]['topic']]
 	return Message.new(
@@ -54,4 +54,5 @@ static func _dict_to_obj(t: Payload.Topic, d: Dictionary):
 		if prop['name'].contains('.'):
 			continue
 		new.set(prop['name'], d[prop['name']])
+
 	return new

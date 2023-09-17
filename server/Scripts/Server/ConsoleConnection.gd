@@ -62,9 +62,9 @@ func _process(_delta):
 	# Always poll the connection frequently
 	peer.poll()
 	toConsole.poll()
-	if toConsole.get_ready_state() == WebRTCDataChannel.STATE_OPEN:
-		while toConsole.get_available_packet_count() > 0:
-			print(get_path(), " received: ", toConsole.get_packet().get_string_from_utf8())
+#	if toConsole.get_ready_state() == WebRTCDataChannel.STATE_OPEN:
+#		while toConsole.get_available_packet_count() > 0:
+#			print(get_path(), " received: ", toConsole.get_packet().get_string_from_utf8())
 
 	if toServer != null:
 		toServer.poll()

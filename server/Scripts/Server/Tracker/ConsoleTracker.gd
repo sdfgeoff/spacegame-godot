@@ -103,6 +103,4 @@ func _on_data(id, message):
 
 
 func _process(_delta):
-	# Call this in _process or _physics_process.
-	# Data transfer, and signals emission will only happen when calling this function.
 	_server.poll()

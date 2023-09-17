@@ -18,7 +18,6 @@ export class Tracker {
     constructor(serverUrl: string) {
         this.socket = new WebSocket(serverUrl);
         this.url = serverUrl;
-        console.log("tracker created")
         this.connect()
     }
 

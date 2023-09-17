@@ -28,6 +28,8 @@ func _process(_delta):
 				device._inbox.append(message)
 
 	_devices.clear()
+	
+	
 
 func device_exists(device: BusConnection):
 	_devices.append(device)

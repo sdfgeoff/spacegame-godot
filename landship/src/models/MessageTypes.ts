@@ -36,4 +36,11 @@ export interface PongMessage {
 	};
 }
 
-export type Message = AllMessage | GNC_TargetsMessage | PingMessage | PongMessage
+export interface SubscriptionsMessage {
+	topic: 'Subscriptions';
+	payload: {
+		to_topics: Array
+	};
+}
+
+export type Message = AllMessage | GNC_TargetsMessage | PingMessage | PongMessage | SubscriptionsMessage

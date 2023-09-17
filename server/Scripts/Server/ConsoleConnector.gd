@@ -63,11 +63,15 @@ func _on_data(message: Variant):
 		if ice == null:
 			return # no more ice for now
 		else:
-			clients[addr_from].peer.add_ice_candidate(
-				ice['usernameFragment'],
-				ice['sdpMLineIndex'],
-				ice['candidate'],
-			)
+			var client = clients.get(addr_from)
+			if client == null:
+				LOG.warn("ice_for_unknown_client", {"id": addr_from})
+			else:
+				clients[addr_from].peer.add_ice_candidate(
+					ice['usernameFragment'],
+					ice['sdpMLineIndex'],
+					ice['candidate'],
+				)
 	else:
 		LOG.error('unknown_message_from_tracker', {'data': data})
 	
@@ -83,8 +87,6 @@ func _advertise_ship():
 	
 
 func _process(delta):
-	# Call this in _process or _physics_process. Data transfer, and signals
-	# emission will only happen when calling this function.
 	tracker_client.poll()
 	
 	var current_time = Time.get_ticks_msec()

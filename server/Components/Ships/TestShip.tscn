@@ -16,6 +16,7 @@ size = Vector3(6, 6, 6)
 [node name="TestShip" type="RigidBody3D"]
 
 [node name="BusPrinter" parent="." instance=ExtResource("3_8pet7")]
+process_mode = 4
 
 [node name="EventBus" parent="." instance=ExtResource("1_r486i")]
 

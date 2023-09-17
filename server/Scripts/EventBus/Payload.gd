@@ -6,12 +6,14 @@ const All = preload('res://Scripts/EventBus/Messages/All.gd')
 const GNC_Targets = preload('res://Scripts/EventBus/Messages/GNC_Targets.gd')
 const Ping = preload('res://Scripts/EventBus/Messages/Ping.gd')
 const Pong = preload('res://Scripts/EventBus/Messages/Pong.gd')
+const Subscriptions = preload('res://Scripts/EventBus/Messages/Subscriptions.gd')
 
 enum Topic {
 	ALL,
 	GNC_TARGETS,
 	PING,
 	PONG,
+	SUBSCRIPTIONS,
 }
 
 const TOPIC_TO_STRING = {
@@ -19,6 +21,7 @@ const TOPIC_TO_STRING = {
 	Topic.GNC_TARGETS: "GNC_Targets",
 	Topic.PING: "Ping",
 	Topic.PONG: "Pong",
+	Topic.SUBSCRIPTIONS: "Subscriptions",
 }
 
 const STRING_TO_TOPIC = {
@@ -26,6 +29,7 @@ const STRING_TO_TOPIC = {
 	"GNC_Targets": Topic.GNC_TARGETS,
 	"Ping": Topic.PING,
 	"Pong": Topic.PONG,
+	"Subscriptions": Topic.SUBSCRIPTIONS,
 }
 
 static func create_all():
@@ -54,9 +58,15 @@ static func create_pong(time_ping_sent: int, time_server_send: int):
 	message.time_server_send = time_server_send
 	return message
 
+static func create_subscriptions(to_topics: Array):
+	var message = Subscriptions.new()
+	message.to_topics = to_topics
+	return message
+
 const TOPIC_TO_TYPE = {
 	Topic.ALL: All,
 	Topic.GNC_TARGETS: GNC_Targets,
 	Topic.PING: Ping,
 	Topic.PONG: Pong,
+	Topic.SUBSCRIPTIONS: Subscriptions,
 }

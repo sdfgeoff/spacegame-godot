@@ -1,10 +1,26 @@
 // The datachannel is the primary means with which a console communicates
 // with the host. This file contains the code for the console side of the
 // game: the console has to establish a connection with the host
-import { FromRouterMessage, ToRouterMessage } from '../models/Messages';
-import { DATACHANNEL_CFG, DataChannelState, RTC_CFG } from './DataChannelShared';
+import { FromRouterMessage, ToRouterMessage, Topic } from '../models/Messages';
 import { Tracker } from './Tracker';
 import { MessageFromServer } from './TrackerMessages';
+
+
+
+export const RTC_CFG: RTCConfiguration = {
+    "iceServers": [
+        { "urls": "stun:stun4.l.google.com:19302" },
+        { "urls": "stun:stun.3cx.com" }
+    ],
+}
+
+export const DATACHANNEL_CFG: RTCDataChannelInit = {
+    ordered: true,
+    maxRetransmits: 0,
+}
+
+export type DataChannelState = 'connecting' | 'connected' | 'disconnected' | 'error';
+
 
 
 export class DataChannelConsole {
@@ -24,7 +40,7 @@ export class DataChannelConsole {
      * @param cb - The callback function to handle the received message.
      * @returns A function to unsubscribe from receiving messages.
      */
-    subscribeMessage = (cb: (message: FromRouterMessage) => void): (() => void) => {
+    subscribeMessage = (cb: (message: FromRouterMessage<Topic>) => void): (() => void) => {
         this.onMessage.push(cb);
         return () => {
             this.onMessage = this.onMessage.filter((c) => c !== cb);
@@ -50,7 +66,7 @@ export class DataChannelConsole {
      * Send a message to the host from thos console
      * @param message - The message to be sent.
      */
-    send = (message: ToRouterMessage) => {
+    send = (message: ToRouterMessage<Topic>) => {
         if (this.state !== 'connected') {
             console.error('Attempting to send message while disconnected')
             return
@@ -145,6 +161,12 @@ export class DataChannelConsole {
     _handleDataChannelFromHost = (e: RTCDataChannelEvent) => {
         this.receiveDataChannel = e.channel
         this.receiveDataChannel.onmessage = this._handleMessage
+        this.receiveDataChannel.onerror = () => {
+            this._setState('error')
+        }
+        this.receiveDataChannel.onclose = () => {
+            this._setState('disconnected')
+        }
     }
 
     _setState = (state: DataChannelState) => {

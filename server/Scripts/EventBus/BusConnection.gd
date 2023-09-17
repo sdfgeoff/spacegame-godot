@@ -7,7 +7,7 @@ signal got_message(message: Message)
 var _inbox: Array[Message] = []
 var _outbox: Array[Message] = []
 var _address = -1
-@export var subscriptions: Array[Payload.Topic] = []
+@export var subscriptions = []  # Should be typed as Array[Payload.Topic] but this breaks things for some reason
 
 
 func queue_message(topic, data, address_to=null):

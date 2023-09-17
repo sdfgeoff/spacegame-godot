@@ -5,14 +5,17 @@
 import { Message } from './MessageTypes'
 export type Topic = Message["topic"];
 
+export type MessageWithTopic<T extends Topic> = Extract<Message, { topic: T }>
+
+
 export type Address = number;
 
-export type FromRouterMessage = {
+export type FromRouterMessage<T extends Topic> = {
     address_from: Address,
-    message: Message,
+    message: MessageWithTopic<T>,
 }
 
-export type ToRouterMessage = {
+export type ToRouterMessage<T extends Topic> = {
     address_to?: Address,
-    message: Message,
+    message: MessageWithTopic<T>,
 }
