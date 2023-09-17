@@ -19,12 +19,19 @@ export const Join: React.FC<JoinProps> = () => {
         dataChannelConsole: {
             dataChannelConsole,
             dataChannelState,
+            subscribeTopic
         }
     } = useAppContext()
     
     
     const [latestMessage, setLatestMessage] = useState<FromRouterMessage<Topic> | undefined>(undefined)
 
+    useEffect(() => {
+        return subscribeTopic("GNC_State", (message) => {
+            console.log(message)
+        })
+
+    }, [subscribeTopic])
 
     useEffect(() => {
         return dataChannelConsole.subscribeMessage((message) => {

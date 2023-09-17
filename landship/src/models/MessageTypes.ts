@@ -9,6 +9,18 @@ export interface AllMessage {
 	};
 }
 
+export interface GNC_StateMessage {
+	topic: 'GNC_State';
+	payload: {
+		pos_x: number;
+		pos_y: number;
+		pos_z: number;
+		ang_x: number;
+		ang_y: number;
+		ang_z: number
+	};
+}
+
 export interface GNC_TargetsMessage {
 	topic: 'GNC_Targets';
 	payload: {
@@ -43,4 +55,4 @@ export interface SubscriptionsMessage {
 	};
 }
 
-export type Message = AllMessage | GNC_TargetsMessage | PingMessage | PongMessage | SubscriptionsMessage
+export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | PingMessage | PongMessage | SubscriptionsMessage

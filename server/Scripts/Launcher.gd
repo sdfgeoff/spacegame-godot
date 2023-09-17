@@ -20,6 +20,7 @@ extends CollisionShape3D
 @export var muzzle_velocity: float = 0.0
 @export var bullet: PackedScene = preload("res://Effects/MinigunRoundBase.tscn")
 
+@export var bullet_spread: float = 0.003
 @export var allow_firing: bool = true
 @export var suitable_angle_to_fire = 0.05;  # How locked on does it have to be to fire
 var active_barrel = 0
@@ -57,7 +58,11 @@ func _process(delta):
 			# Candidate for moving to some other function?
 			var new_shot: BulletBase = bullet.instantiate()
 			get_tree().get_root().add_child(new_shot)
-			new_shot.global_transform = b.global_transform
+			new_shot.global_transform = b.global_transform.rotated(Vector3(
+				randf_range(-1, 1),
+				randf_range(-1, 1),
+				randf_range(-1, 1),
+			).normalized(), bullet_spread)
 			new_shot.velocity = muzzle_velocity
 			new_shot.setup(delta, time_offset)
 

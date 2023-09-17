@@ -3,6 +3,7 @@ class_name Payload
 # Instead modify the files inside server/Scripts/EventBus/Messages
 	
 const All = preload('res://Scripts/EventBus/Messages/All.gd')
+const GNC_State = preload('res://Scripts/EventBus/Messages/GNC_State.gd')
 const GNC_Targets = preload('res://Scripts/EventBus/Messages/GNC_Targets.gd')
 const Ping = preload('res://Scripts/EventBus/Messages/Ping.gd')
 const Pong = preload('res://Scripts/EventBus/Messages/Pong.gd')
@@ -10,6 +11,7 @@ const Subscriptions = preload('res://Scripts/EventBus/Messages/Subscriptions.gd'
 
 enum Topic {
 	ALL,
+	GNC_STATE,
 	GNC_TARGETS,
 	PING,
 	PONG,
@@ -18,6 +20,7 @@ enum Topic {
 
 const TOPIC_TO_STRING = {
 	Topic.ALL: "All",
+	Topic.GNC_STATE: "GNC_State",
 	Topic.GNC_TARGETS: "GNC_Targets",
 	Topic.PING: "Ping",
 	Topic.PONG: "Pong",
@@ -26,6 +29,7 @@ const TOPIC_TO_STRING = {
 
 const STRING_TO_TOPIC = {
 	"All": Topic.ALL,
+	"GNC_State": Topic.GNC_STATE,
 	"GNC_Targets": Topic.GNC_TARGETS,
 	"Ping": Topic.PING,
 	"Pong": Topic.PONG,
@@ -35,6 +39,16 @@ const STRING_TO_TOPIC = {
 static func create_all():
 	var message = All.new()
 
+	return message
+
+static func create_gnc_state(pos_x: float, pos_y: float, pos_z: float, ang_x: float, ang_y: float, ang_z: float):
+	var message = GNC_State.new()
+	message.pos_x = pos_x
+	message.pos_y = pos_y
+	message.pos_z = pos_z
+	message.ang_x = ang_x
+	message.ang_y = ang_y
+	message.ang_z = ang_z
 	return message
 
 static func create_gnc_targets(linear_x: float, linear_y: float, linear_z: float, angular_x: float, angular_y: float, angular_z: float):
@@ -65,6 +79,7 @@ static func create_subscriptions(to_topics: Array):
 
 const TOPIC_TO_TYPE = {
 	Topic.ALL: All,
+	Topic.GNC_STATE: GNC_State,
 	Topic.GNC_TARGETS: GNC_Targets,
 	Topic.PING: Ping,
 	Topic.PONG: Pong,
