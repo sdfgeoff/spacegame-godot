@@ -1,6 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6wgq2ifs41ms"]
+[gd_scene load_steps=8 format=3 uid="uid://b6wgq2ifs41ms"]
 
+[ext_resource type="Script" path="res://TestLauncherTarget.gd" id="1_2w66r"]
 [ext_resource type="PackedScene" uid="uid://4h7we6lqcuab" path="res://Components/launcher.tscn" id="1_j37fo"]
+[ext_resource type="PackedScene" uid="uid://dyhgrk2607y4v" path="res://Components/Minigun.tscn" id="2_f1sl0"]
+[ext_resource type="PackedScene" uid="uid://df2o3pv4n4ttd" path="res://Components/RailGun.tscn" id="3_p4lty"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pggmk"]
+size = Vector2(20, 20)
 
 [sub_resource type="Environment" id="Environment_ajvhr"]
 ambient_light_color = Color(0.329412, 0.329412, 0.329412, 1)
@@ -9,22 +15,38 @@ ambient_light_color = Color(0.329412, 0.329412, 0.329412, 1)
 
 [node name="Node3D" type="Node3D"]
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_pggmk")
+skeleton = NodePath("../TargetNode")
+
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.722557, 0.691311, 0, -0.691311, 0.722557, 0, 6.15242, 5.48659)
+transform = Transform3D(1, 0, 0, 0, 0.85386, 0.520503, 0, -0.520503, 0.85386, 0, 7.61572, 12.7801)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 2, 0)
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ajvhr")
 
 [node name="TargetNode" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68316, 3.77708, -4.41657)
+transform = Transform3D(0.998757, -0.049843, 0, 0.049843, 0.998757, 0, 0, 0, 1, 4.01223, 1.55013, -2.88148)
 mesh = SubResource("BoxMesh_pj6ls")
 skeleton = NodePath("../StaticBody3D/Launcher")
+script = ExtResource("1_2w66r")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(0.922733, 0.337285, 0.186553, -0.385439, 0.807454, 0.446603, 0, -0.484, 0.875068, 0, 0, 0)
+
+[node name="Minigun" parent="StaticBody3D" instance=ExtResource("2_f1sl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+target_node = NodePath("../../TargetNode")
 
 [node name="Launcher" parent="StaticBody3D" instance=ExtResource("1_j37fo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+visible = false
+target_node = NodePath("../../TargetNode")
+
+[node name="RailGun" parent="StaticBody3D" instance=ExtResource("3_p4lty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 target_node = NodePath("../../TargetNode")

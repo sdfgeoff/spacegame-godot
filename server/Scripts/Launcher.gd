@@ -26,18 +26,15 @@ func _process(delta):
 	var sight = get_node(node_sight)
 
 	#var vect_to_global = sight.global_position - target.global_position
-	#var vect_to_local = global_transform.basis * vect_to_global
-
-	var error: Vector3 = (sight.global_transform.inverse() * target.global_position).normalized()
-
-	var error_x = atan2(error.z, error.y)
-	var error_y = atan2(error.x, error.y)
-
-
+	#var vect_to_local = global_tr0ansform.basis * vect_to_global
+	var vect_to_local: Vector3 = (sight.global_transform.inverse() * target.global_position).normalized()
+	
+	var error_tilt = -vect_to_local.y #atan2(error.x, error.y)
+	var error_yaw = vect_to_local.x #-atan2(error.z, error.y)
+	
 	var x_axis_node = get_node(x_axis)
-	x_axis_node.target_angle = wrapf(x_axis_node.current_angle - error_x, -PI, PI)
+	x_axis_node.target_angle = wrapf(x_axis_node.current_angle - error_tilt, -PI, PI)
 
 	var y_axis_node = get_node(y_axis)
-	y_axis_node.target_angle = wrapf(y_axis_node.current_angle - error_y, -PI, PI)
-	
-	
+	y_axis_node.target_angle = wrapf(y_axis_node.current_angle - error_yaw, -PI, PI)
+
