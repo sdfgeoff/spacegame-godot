@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends Node3D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,4 +21,13 @@ func _process(delta):
 		position.y += speed
 	if Input.is_action_pressed("strafe_down"):
 		position.y -= speed
+	
+func kinetic_impact(
+	hitShape,
+	hitPoint,
+	hitNormal,
+	hitVelocity,
+	hitMassKg,
+):
+	print("HIT!", hitMassKg)
 	

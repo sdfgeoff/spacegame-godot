@@ -15,7 +15,15 @@ extends CollisionShape3D
 @export var target_node: NodePath
 
 
+@export var ammo: int = 100
+@export var seconds_between_shots: float = 1.0
+@export var muzzle_velocity: float = 0.0
+@export var bullet: PackedScene = preload("res://Effects/MinigunRoundBase.tscn")
 
+@export var allow_firing: bool = true
+@export var suitable_angle_to_fire = 0.05;  # How locked on does it have to be to fire
+var active_barrel = 0
+var reload_state = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -25,8 +33,6 @@ func _process(delta):
 		
 	var sight = get_node(node_sight)
 
-	#var vect_to_global = sight.global_position - target.global_position
-	#var vect_to_local = global_tr0ansform.basis * vect_to_global
 	var vect_to_local: Vector3 = (sight.global_transform.inverse() * target.global_position).normalized()
 	
 	var error_tilt = -vect_to_local.y #atan2(error.x, error.y)
@@ -38,3 +44,21 @@ func _process(delta):
 	var y_axis_node = get_node(y_axis)
 	y_axis_node.target_angle = wrapf(y_axis_node.current_angle - error_yaw, -PI, PI)
 
+	if reload_state > 0:
+		reload_state -= delta
+
+	if allow_firing and abs(error_tilt) + abs(error_yaw) < suitable_angle_to_fire:
+		if reload_state <= 0 and ammo > 0:
+			var time_offset = -reload_state  # How much before the frame the bullet fired
+			reload_state += seconds_between_shots
+			ammo -= 1
+			var b = get_node(barrels[active_barrel])
+
+			# Candidate for moving to some other function?
+			var new_shot: BulletBase = bullet.instantiate()
+			get_tree().get_root().add_child(new_shot)
+			new_shot.global_transform = b.global_transform
+			new_shot.velocity = muzzle_velocity
+			new_shot.setup(delta, time_offset)
+
+			

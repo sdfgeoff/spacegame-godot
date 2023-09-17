@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5lxegjcyj4x4"]
+
+[ext_resource type="Script" path="res://Scripts/Server/ConsoleConnector.gd" id="1_pave7"]
+
+[node name="ConsoleConnector" type="Node"]
+script = ExtResource("1_pave7")

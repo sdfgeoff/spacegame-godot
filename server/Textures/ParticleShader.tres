@@ -1,0 +1,46 @@
+[gd_resource type="Shader" format=3 uid="uid://bitk6rx5q88j4"]
+
+[resource]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.1.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,unshaded,shadows_disabled;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+vec4 neon(float val, vec4 color) {
+	float r = clamp(val, 0.0, 1.0);
+	float r2 = r * r;
+	float r4 = r2 * r2;
+	vec4 c = color;
+	vec4 c2 = color * color * color * color; // A darker, more saturated version of color
+    
+	vec4 outp = vec4(0.0);
+	outp += c2 * r; // Darker color falloff
+	outp += c * r2; // Specified Color main part
+	outp += vec4(1.0) * r4; // White core
+	return outp;
+}
+
+
+void fragment() {
+	float viewAngle = dot(NORMAL, VIEW);
+	viewAngle *= viewAngle;
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	
+	float alpha = albedo_tex.r * viewAngle;
+	vec4 col = neon(albedo_tex.r * albedo.a, albedo);
+	
+	ALBEDO = col.rgb;
+	ALPHA *= col.a * alpha;
+}
+"

@@ -7,7 +7,7 @@ signal got_message(message: Message)
 var _inbox: Array[Message] = []
 var _outbox: Array[Message] = []
 var _address = -1
-@export var subscriptions: Array[Message.Topic] = []
+@export var subscriptions: Array[Payload.Topic] = []
 
 
 func queue_message(topic, data, address_to=null):
@@ -34,3 +34,5 @@ func _process(_delta):
 	var bus = get_parent().get_parent().get_node_or_null("EventBus")
 	if bus != null:
 		bus.device_exists(self)
+	else:
+		print("No Bus")

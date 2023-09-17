@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/FakeMotor.gd" id="3_uv7fu"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_45pf1"]
+radius = 1.0
 
 [node name="RailGun" type="CollisionShape3D"]
 shape = SubResource("SphereShape3D_45pf1")
@@ -12,7 +13,8 @@ script = ExtResource("1_7ypn8")
 x_axis = NodePath("RailGun/YawMotor/MainPart/TiltMotor")
 y_axis = NodePath("RailGun/YawMotor")
 node_sight = NodePath("RailGun/YawMotor/MainPart/TiltMotor/Sight")
-target_node = NodePath("RailGun/YawMotor/MainPart/TiltMotor/Sight")
+barrels = Array[NodePath]([NodePath("RailGun/YawMotor/MainPart/TiltMotor/PItchLeft/BarrelLeft/SpawnerLeft"), NodePath("RailGun/YawMotor/MainPart/TiltMotor/PItchRight/BarrelRight/SpawnerRight")])
+muzzle_velocity = 2401.0
 
 [node name="RailGun" parent="." instance=ExtResource("1_hs4ae")]
 

@@ -6,7 +6,7 @@ extends Node
 
 var LOG = Log.new("console_tracker")
 
-const CONSOLE_SCENE = preload("res://Components/Console.tscn")
+const CONSOLE_SCENE = preload("res://Components/ShipParts/Console.tscn")
 
 # The URL we will connect to
 const websocket_url = "ws://0.0.0.0:%d" % ConsoleTracker.PORT

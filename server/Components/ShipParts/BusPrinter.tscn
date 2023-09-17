@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://bun7i1h0spvvd"]
 
-[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="1_kslqc"]
-[ext_resource type="Script" path="res://Scripts/EventBus/BusPrinter.gd" id="2_baq2v"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="1_4kq1b"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusPrinter.gd" id="2_of14r"]
 
 [node name="BusPrinter" type="Node"]
 
 [node name="Connection" type="Node" parent="."]
-script = ExtResource("1_kslqc")
+script = ExtResource("1_4kq1b")
 subscriptions = Array[int]([0])
 
 [node name="Node" type="Node" parent="."]
-script = ExtResource("2_baq2v")
+script = ExtResource("2_of14r")
 
 [connection signal="got_message" from="Connection" to="Node" method="_on_connection_got_message"]

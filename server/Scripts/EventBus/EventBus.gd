@@ -21,10 +21,9 @@ func _process(_delta):
 	for message in all_messages:
 		for device in _devices:
 			var topic_matches = device.subscriptions.find(message.topic) != -1
-			var subscribed_to_all = device.subscriptions.find(Message.Topic.ALL) != -1
+			var subscribed_to_all = device.subscriptions.find(Payload.Topic.ALL) != -1
 			var message_has_address = message.address_to != null
 			var address_matches = device._address == message.address_to
-			
 			if subscribed_to_all or address_matches or (topic_matches and !message_has_address):
 				device._inbox.append(message)
 

@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://7g5ghxbt1cet"]
+
+[ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="1_r486i"]
+[ext_resource type="PackedScene" uid="uid://bt7u6n1rfy738" path="res://Components/ShipParts/Clock.tscn" id="2_uac2e"]
+[ext_resource type="PackedScene" uid="uid://bun7i1h0spvvd" path="res://Components/ShipParts/BusPrinter.tscn" id="3_8pet7"]
+[ext_resource type="PackedScene" uid="uid://dyhgrk2607y4v" path="res://Components/ShipParts/Minigun.tscn" id="4_dkqm2"]
+[ext_resource type="PackedScene" uid="uid://df2o3pv4n4ttd" path="res://Components/ShipParts/RailGun.tscn" id="5_5hb12"]
+[ext_resource type="PackedScene" uid="uid://5lxegjcyj4x4" path="res://Components/ShipParts/ConsoleConnector.tscn" id="6_yivvu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cg0e7"]
+size = Vector3(6, 6, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_heoj7"]
+size = Vector3(6, 6, 6)
+
+[node name="TestShip" type="RigidBody3D"]
+
+[node name="BusPrinter" parent="." instance=ExtResource("3_8pet7")]
+
+[node name="EventBus" parent="." instance=ExtResource("1_r486i")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cg0e7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("BoxMesh_heoj7")
+
+[node name="Minigun" parent="." instance=ExtResource("4_dkqm2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="RailGun" parent="." instance=ExtResource("5_5hb12")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 3, 0, 0)
+
+[node name="ConsoleConnector" parent="." instance=ExtResource("6_yivvu")]
+
+[node name="Clock" parent="." instance=ExtResource("2_uac2e")]

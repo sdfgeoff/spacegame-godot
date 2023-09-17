@@ -1,34 +1,11 @@
 class_name Message
 
-enum Topic {
-	ALL,
-	PING,
-	PONG,
-	SUBSCRIPTIONS,
-}
-
-const TOPIC_TO_STRING = {
-	Topic.ALL: "all",
-	Topic.PING: "ping",
-	Topic.PONG: "pong",
-	Topic.SUBSCRIPTIONS: "subscriptions"
-}
-
-const STRING_TO_TOPIC = {
-	"all": Topic.ALL,
-	"ping": Topic.PING,
-	"pong": Topic.PONG,
-	"subscriptions": Topic.SUBSCRIPTIONS,
-}
-
-
-
-var topic: Topic
+var topic: Payload.Topic
 var data
 var address_to
 var address_from
 
-func _init(t: Topic, d, at, af=null):
+func _init(t: Payload.Topic, d, at, af=null):
 	topic = t
 	data = d
 	address_to = at
@@ -67,7 +44,7 @@ static func _obj_to_dict(d: Object):
 	return out
 	
 	
-static func _dict_to_obj(t: Topic, d: Dictionary):
+static func _dict_to_obj(t: Payload.Topic, d: Dictionary):
 	var type = Payload.TOPIC_TO_TYPE[t]
 	var new = type.new()
 	

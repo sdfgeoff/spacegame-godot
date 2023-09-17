@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://drasdvr0s15mm"]
+
+[ext_resource type="Script" path="res://Effects/BulletBase.gd" id="1_mlhe1"]
+
+[node name="MinigunRoundBase" type="RayCast3D" groups=["minigun_round"]]
+script = ExtResource("1_mlhe1")
+mass_kg = 0.5

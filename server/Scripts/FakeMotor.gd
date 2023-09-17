@@ -1,6 +1,6 @@
+""" An angular joint that doesn't use the physics engine """
 class_name FakeMotor
 extends Node3D
-""" An angular joint that doesn't use the physics engine """
 
 @export var max_angle: float = PI
 @export var min_angle: float = -PI
