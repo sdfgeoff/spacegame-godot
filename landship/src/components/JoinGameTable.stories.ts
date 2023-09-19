@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { JoinGameTable } from '../components/JoinGameTable';
+import { JoinGameTable } from './JoinGameTable';
 
 const meta = {
   title: 'Menus/JoinGameTable',
@@ -23,14 +23,18 @@ export const EmptyTable: Story = {
   },
 };
 
-export const OneItem: Story = {
+export const SomeItems: Story = {
     args: {
       gameList: [{
         id: 1,
         game: {
             name: 'Test Game',
-            comment: 'This is a test game',
-            state: 'Join',
+        }
+      },
+      {
+        id: 2,
+        game: {
+            name: 'Test Game2',
         }
       }],
     },

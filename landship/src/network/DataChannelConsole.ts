@@ -141,7 +141,7 @@ export class DataChannelConsole {
             } else if (data.type === 'ice') {
                 this.host?.addIceCandidate(data.candidate)
             } else {
-                console.log('Received tracker message with unknown type', data)
+                console.warn('Received tracker message with unknown type', data)
             }
         }
     }
