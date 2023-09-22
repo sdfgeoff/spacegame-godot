@@ -91,15 +91,36 @@ export class DataChannelConsole {
         }
     }
 
+    disconnect = () => {
+        if (this.host) {
+            this.host.close()
+            this.host.onicecandidate = null
+            this.host.ondatachannel = null
+        }
+        if (this.sendDataChannel) {
+            this.sendDataChannel.close()
+            this.sendDataChannel.onopen = null
+            this.sendDataChannel.onerror = null
+            this.sendDataChannel.onclose = null
+        }
+        if (this.receiveDataChannel) {
+            this.receiveDataChannel.close()
+            this.receiveDataChannel.onmessage = null
+            this.receiveDataChannel.onerror = null
+            this.receiveDataChannel.onclose = null
+        }
+
+        this._setState('disconnected')
+    }
+
+
     /**
      * Connect to the game host.
      * @param gameHostId - The ID of the game host.
      */
     connect = async (gameHostId: number) => {
         if (this.host) {
-            this.host.close()
-            this.sendDataChannel?.close()
-            this.receiveDataChannel?.close()
+            this.disconnect()
         }
         const host = new RTCPeerConnection(RTC_CFG);
         this.host = host;
