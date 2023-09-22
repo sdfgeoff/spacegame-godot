@@ -29,6 +29,8 @@ allow_angle_wrap = true
 
 [node name="TiltMotor" parent="RailGun/YawMotor/MainPart" index="0"]
 script = ExtResource("3_uv7fu")
+max_angle = 3.0
+min_angle = -0.1
 
 [node name="BusConnection" type="Node" parent="."]
 script = ExtResource("5_op3fk")

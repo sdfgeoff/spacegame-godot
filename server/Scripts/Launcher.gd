@@ -32,6 +32,46 @@ var reload_state: float = 0
 
 var _time_since_status_report: float = 0
 
+var target_designation: String = ''
+
+var target: Node3D = null
+
+
+func _ready():
+	$BusConnection.subscriptions = [
+		Payload.Topic.SENSOR_OBJECTS
+	]
+	$BusConnection.connect("got_message", on_message)
+	
+	if target_node != null:
+		target = get_node_or_null(target_node)
+
+
+func on_message(message: Message):
+	if message.topic == Payload.Topic.SENSOR_OBJECTS:
+		var possible_targets = message.data.objects
+		if target_designation == '':
+			if target != null:
+				target.queue_free()
+				target = null
+
+		else:
+			if target == null:
+				target = Node3D.new()
+				add_child(target)
+				target.top_level = true
+			
+			var target_data = null
+			for p_target in possible_targets:
+				if p_target['designation'] == target_designation:
+					target_data = p_target
+			target.global_position.x = target_data.position[0]
+			target.global_position.y = target_data.position[1]
+			target.global_position.z = target_data.position[2]
+		
+	if message.topic == Payload.Topic.WEAPONS_LAUNCHERTARGET:
+		target_designation = message.data.target_designation
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -40,17 +80,13 @@ func _process(delta):
 		reload_state -= delta
 	_time_since_status_report += delta
 	
-	var target: Node3D = get_node_or_null(target_node)
-	
+		
 	if _time_since_status_report > 0.5:
-		var target_name = ""
-		if target != null:
-			target_name = target.name
 		$BusConnection.queue_message(
 			Payload.Topic.WEAPONS_LAUNCHERSTATE,
 			Payload.create_weapons_launcherstate(
 				launcher_type,
-				target_name,
+				target_designation,
 				allow_firing,
 				ammo
 			)

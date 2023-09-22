@@ -1,13 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://7g5ghxbt1cet"]
+[gd_scene load_steps=11 format=3 uid="uid://7g5ghxbt1cet"]
 
 [ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="1_r486i"]
 [ext_resource type="PackedScene" uid="uid://bt7u6n1rfy738" path="res://Components/ShipParts/Clock.tscn" id="2_uac2e"]
 [ext_resource type="PackedScene" uid="uid://bun7i1h0spvvd" path="res://Components/ShipParts/BusPrinter.tscn" id="3_8pet7"]
 [ext_resource type="PackedScene" uid="uid://dyhgrk2607y4v" path="res://Components/ShipParts/Minigun.tscn" id="4_dkqm2"]
 [ext_resource type="PackedScene" uid="uid://df2o3pv4n4ttd" path="res://Components/ShipParts/RailGun.tscn" id="5_5hb12"]
-[ext_resource type="PackedScene" uid="uid://5lxegjcyj4x4" path="res://Components/ShipParts/ConsoleConnector.tscn" id="6_yivvu"]
-[ext_resource type="Script" path="res://Components/Ships/GNCSimple.gd" id="7_ijweh"]
-[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="8_kxxiv"]
+[ext_resource type="PackedScene" uid="uid://c4yn7sdbuvbf0" path="res://Components/ShipParts/GNCSimple.tscn" id="6_6bg0v"]
+[ext_resource type="PackedScene" uid="uid://mnqo5k5gqajq" path="res://Components/ShipParts/Sensors.tscn" id="8_dttnp"]
 [ext_resource type="PackedScene" uid="uid://b26dv4cajre3j" path="res://Components/ShipParts/BusCamera.tscn" id="9_nhwev"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cg0e7"]
@@ -16,7 +15,7 @@ size = Vector3(6, 6, 6)
 [sub_resource type="BoxMesh" id="BoxMesh_heoj7"]
 size = Vector3(6, 6, 6)
 
-[node name="TestShip" type="RigidBody3D"]
+[node name="TestShip" type="RigidBody3D" groups=["sensable"]]
 
 [node name="BusPrinter" parent="." instance=ExtResource("3_8pet7")]
 process_mode = 4
@@ -33,19 +32,18 @@ mesh = SubResource("BoxMesh_heoj7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="RailGun" parent="." instance=ExtResource("5_5hb12")]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 3, 0, 0)
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 3, 3, 0)
 
 [node name="RailGun2" parent="." instance=ExtResource("5_5hb12")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3, 2.62268e-07, 0)
-
-[node name="ConsoleConnector" parent="." instance=ExtResource("6_yivvu")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3, 3, 0)
 
 [node name="Clock" parent="." instance=ExtResource("2_uac2e")]
 
-[node name="GNCSimple" type="Node" parent="."]
-script = ExtResource("7_ijweh")
-
-[node name="BusConnection" type="Node" parent="GNCSimple"]
-script = ExtResource("8_kxxiv")
+[node name="GNCSimple" parent="." instance=ExtResource("6_6bg0v")]
 
 [node name="BusCamera" parent="." instance=ExtResource("9_nhwev")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.07272, 8.86639)
+
+[node name="Sensors" parent="." instance=ExtResource("8_dttnp")]
+
+[editable path="BusCamera"]

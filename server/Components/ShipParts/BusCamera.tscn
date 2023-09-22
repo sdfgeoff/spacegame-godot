@@ -6,6 +6,8 @@
 [node name="BusCamera" type="Node3D"]
 script = ExtResource("1_dc7w7")
 
+[node name="Camera3D" type="Camera3D" parent="."]
+
 [node name="BusConnection" type="Node" parent="."]
 script = ExtResource("2_qsa25")
 

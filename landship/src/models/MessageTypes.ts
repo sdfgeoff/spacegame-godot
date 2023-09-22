@@ -49,6 +49,14 @@ export interface PongMessage {
 	};
 }
 
+export interface Sensor_ObjectsMessage {
+	topic: 'Sensor_Objects';
+	payload: {
+		objects: Array;
+		sensor_position: Array
+	};
+}
+
 export interface SubscriptionsMessage {
 	topic: 'Subscriptions';
 	payload: {
@@ -66,4 +74,11 @@ export interface Weapons_LauncherStateMessage {
 	};
 }
 
-export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | PingMessage | PongMessage | SubscriptionsMessage | Weapons_LauncherStateMessage
+export interface Weapons_LauncherTargetMessage {
+	topic: 'Weapons_LauncherTarget';
+	payload: {
+		target_designation: string
+	};
+}
+
+export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | PingMessage | PongMessage | Sensor_ObjectsMessage | SubscriptionsMessage | Weapons_LauncherStateMessage | Weapons_LauncherTargetMessage

@@ -8,7 +8,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	$Viewport/Camera3D.global_transform = global_transform
+	$Viewport/Camera3D.global_transform = $Camera3D.global_transform
+	$Viewport/Camera3D.fov = $Camera3D.fov
 	if (!active):
 		$Viewport.render_target_update_mode = $Viewport.UPDATE_DISABLED
 		return

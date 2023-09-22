@@ -89,8 +89,8 @@ const Joypad: React.FC<JoypadProps> = ({onPositionChange}) => {
 
     return (
         <svg ref={svgRef} viewBox="0 0 100 100" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseLeave={handleMouseUp} onMouseUp={handleMouseUp} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} style={{touchAction: 'none'}}>
-            <circle cx="50" cy="50" r="50" fill="none" stroke="black" strokeWidth="2" />
-            <circle ref={dotRef} r="10" fill="black" />
+            <circle cx="50" cy="50" r="50" fill="none" stroke="white" strokeWidth="2" />
+            <circle ref={dotRef} r="10" fill="white" />
         </svg>
     );
 };

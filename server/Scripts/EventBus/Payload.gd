@@ -7,8 +7,10 @@ const GNC_State = preload('res://Scripts/EventBus/Messages/GNC_State.gd')
 const GNC_Targets = preload('res://Scripts/EventBus/Messages/GNC_Targets.gd')
 const Ping = preload('res://Scripts/EventBus/Messages/Ping.gd')
 const Pong = preload('res://Scripts/EventBus/Messages/Pong.gd')
+const Sensor_Objects = preload('res://Scripts/EventBus/Messages/Sensor_Objects.gd')
 const Subscriptions = preload('res://Scripts/EventBus/Messages/Subscriptions.gd')
 const Weapons_LauncherState = preload('res://Scripts/EventBus/Messages/Weapons_LauncherState.gd')
+const Weapons_LauncherTarget = preload('res://Scripts/EventBus/Messages/Weapons_LauncherTarget.gd')
 
 enum Topic {
 	ALL,
@@ -16,8 +18,10 @@ enum Topic {
 	GNC_TARGETS,
 	PING,
 	PONG,
+	SENSOR_OBJECTS,
 	SUBSCRIPTIONS,
 	WEAPONS_LAUNCHERSTATE,
+	WEAPONS_LAUNCHERTARGET,
 }
 
 const TOPIC_TO_STRING = {
@@ -26,8 +30,10 @@ const TOPIC_TO_STRING = {
 	Topic.GNC_TARGETS: "GNC_Targets",
 	Topic.PING: "Ping",
 	Topic.PONG: "Pong",
+	Topic.SENSOR_OBJECTS: "Sensor_Objects",
 	Topic.SUBSCRIPTIONS: "Subscriptions",
 	Topic.WEAPONS_LAUNCHERSTATE: "Weapons_LauncherState",
+	Topic.WEAPONS_LAUNCHERTARGET: "Weapons_LauncherTarget",
 }
 
 const STRING_TO_TOPIC = {
@@ -36,8 +42,10 @@ const STRING_TO_TOPIC = {
 	"GNC_Targets": Topic.GNC_TARGETS,
 	"Ping": Topic.PING,
 	"Pong": Topic.PONG,
+	"Sensor_Objects": Topic.SENSOR_OBJECTS,
 	"Subscriptions": Topic.SUBSCRIPTIONS,
 	"Weapons_LauncherState": Topic.WEAPONS_LAUNCHERSTATE,
+	"Weapons_LauncherTarget": Topic.WEAPONS_LAUNCHERTARGET,
 }
 
 static func create_all():
@@ -77,6 +85,12 @@ static func create_pong(time_ping_sent: int, time_server_send: int):
 	message.time_server_send = time_server_send
 	return message
 
+static func create_sensor_objects(objects: Array, sensor_position: Array):
+	var message = Sensor_Objects.new()
+	message.objects = objects
+	message.sensor_position = sensor_position
+	return message
+
 static func create_subscriptions(to_topics: Array):
 	var message = Subscriptions.new()
 	message.to_topics = to_topics
@@ -90,12 +104,19 @@ static func create_weapons_launcherstate(type: String, current_target: String, a
 	message.ammo = ammo
 	return message
 
+static func create_weapons_launchertarget(target_designation: String):
+	var message = Weapons_LauncherTarget.new()
+	message.target_designation = target_designation
+	return message
+
 const TOPIC_TO_TYPE = {
 	Topic.ALL: All,
 	Topic.GNC_STATE: GNC_State,
 	Topic.GNC_TARGETS: GNC_Targets,
 	Topic.PING: Ping,
 	Topic.PONG: Pong,
+	Topic.SENSOR_OBJECTS: Sensor_Objects,
 	Topic.SUBSCRIPTIONS: Subscriptions,
 	Topic.WEAPONS_LAUNCHERSTATE: Weapons_LauncherState,
+	Topic.WEAPONS_LAUNCHERTARGET: Weapons_LauncherTarget,
 }
