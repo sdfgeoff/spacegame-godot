@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://df2o3pv4n4ttd"]
+[gd_scene load_steps=7 format=3 uid="uid://df2o3pv4n4ttd"]
 
 [ext_resource type="Script" path="res://Scripts/Launcher.gd" id="1_7ypn8"]
 [ext_resource type="PackedScene" uid="uid://rlmbif5vgkcn" path="res://Components/RawAssets/RailGun.blend" id="1_hs4ae"]
 [ext_resource type="PackedScene" uid="uid://bp4gh33eylux4" path="res://Effects/RailgunRoundBase.tscn" id="2_gpfy7"]
 [ext_resource type="Script" path="res://Scripts/FakeMotor.gd" id="3_uv7fu"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="5_op3fk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_45pf1"]
 radius = 1.0
@@ -11,6 +12,7 @@ radius = 1.0
 [node name="RailGun" type="CollisionShape3D"]
 shape = SubResource("SphereShape3D_45pf1")
 script = ExtResource("1_7ypn8")
+launcher_type = "railgun"
 x_axis = NodePath("RailGun/YawMotor/MainPart/TiltMotor")
 y_axis = NodePath("RailGun/YawMotor")
 node_sight = NodePath("RailGun/YawMotor/MainPart/TiltMotor/Sight")
@@ -27,5 +29,8 @@ allow_angle_wrap = true
 
 [node name="TiltMotor" parent="RailGun/YawMotor/MainPart" index="0"]
 script = ExtResource("3_uv7fu")
+
+[node name="BusConnection" type="Node" parent="."]
+script = ExtResource("5_op3fk")
 
 [editable path="RailGun"]

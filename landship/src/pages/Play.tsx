@@ -5,6 +5,7 @@ import Panel from '../components/Panel'
 import PanelTitled from '../components/PanelTitled'
 import Button from '../components/Button'
 import { Piloting } from './Piloting'
+import { Weapons } from './Weapons'
 
 
 export interface JoinProps {
@@ -19,7 +20,7 @@ export const Screens = [{
     'component': <Piloting/>,
 }, {
     'name': 'Weapons',
-    'component': <div></div>,
+    'component': <Weapons/>,
 }]
 
 type Screen = typeof Screens[number]

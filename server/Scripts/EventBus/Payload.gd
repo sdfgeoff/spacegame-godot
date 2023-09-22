@@ -8,6 +8,7 @@ const GNC_Targets = preload('res://Scripts/EventBus/Messages/GNC_Targets.gd')
 const Ping = preload('res://Scripts/EventBus/Messages/Ping.gd')
 const Pong = preload('res://Scripts/EventBus/Messages/Pong.gd')
 const Subscriptions = preload('res://Scripts/EventBus/Messages/Subscriptions.gd')
+const Weapons_LauncherState = preload('res://Scripts/EventBus/Messages/Weapons_LauncherState.gd')
 
 enum Topic {
 	ALL,
@@ -16,6 +17,7 @@ enum Topic {
 	PING,
 	PONG,
 	SUBSCRIPTIONS,
+	WEAPONS_LAUNCHERSTATE,
 }
 
 const TOPIC_TO_STRING = {
@@ -25,6 +27,7 @@ const TOPIC_TO_STRING = {
 	Topic.PING: "Ping",
 	Topic.PONG: "Pong",
 	Topic.SUBSCRIPTIONS: "Subscriptions",
+	Topic.WEAPONS_LAUNCHERSTATE: "Weapons_LauncherState",
 }
 
 const STRING_TO_TOPIC = {
@@ -34,6 +37,7 @@ const STRING_TO_TOPIC = {
 	"Ping": Topic.PING,
 	"Pong": Topic.PONG,
 	"Subscriptions": Topic.SUBSCRIPTIONS,
+	"Weapons_LauncherState": Topic.WEAPONS_LAUNCHERSTATE,
 }
 
 static func create_all():
@@ -78,6 +82,14 @@ static func create_subscriptions(to_topics: Array):
 	message.to_topics = to_topics
 	return message
 
+static func create_weapons_launcherstate(type: String, current_target: String, active: bool, ammo: int):
+	var message = Weapons_LauncherState.new()
+	message.type = type
+	message.current_target = current_target
+	message.active = active
+	message.ammo = ammo
+	return message
+
 const TOPIC_TO_TYPE = {
 	Topic.ALL: All,
 	Topic.GNC_STATE: GNC_State,
@@ -85,4 +97,5 @@ const TOPIC_TO_TYPE = {
 	Topic.PING: Ping,
 	Topic.PONG: Pong,
 	Topic.SUBSCRIPTIONS: Subscriptions,
+	Topic.WEAPONS_LAUNCHERSTATE: Weapons_LauncherState,
 }

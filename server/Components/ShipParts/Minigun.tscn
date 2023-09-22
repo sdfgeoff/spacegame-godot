@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyhgrk2607y4v"]
+[gd_scene load_steps=6 format=3 uid="uid://dyhgrk2607y4v"]
 
 [ext_resource type="Script" path="res://Scripts/Launcher.gd" id="1_0kkkv"]
 [ext_resource type="PackedScene" uid="uid://cwakmv6ha2l0n" path="res://Components/RawAssets/Minigun.blend" id="2_e7oyb"]
 [ext_resource type="Script" path="res://Scripts/FakeMotor.gd" id="3_lk0q8"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="4_4fcy6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_55ie4"]
 
 [node name="Minigun" type="CollisionShape3D"]
 shape = SubResource("SphereShape3D_55ie4")
 script = ExtResource("1_0kkkv")
+launcher_type = "minigun"
 x_axis = NodePath("Minigun/YawMotor/TurretBase/TiltMotor")
 y_axis = NodePath("Minigun/YawMotor")
 node_sight = NodePath("Minigun/YawMotor/TurretBase/TiltMotor/Sight_001")
@@ -28,5 +30,8 @@ allow_angle_wrap = true
 [node name="TiltMotor" parent="Minigun/YawMotor/TurretBase" index="0"]
 script = ExtResource("3_lk0q8")
 max_speed = 3.0
+
+[node name="BusConnection" type="Node" parent="."]
+script = ExtResource("4_4fcy6")
 
 [editable path="Minigun"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Effects/BulletBase.gd" id="1_150qd"]
 
-[node name="MinigunRoundBase" type="RayCast3D" groups=["tracers"]]
+[node name="RailgunRoundBase" type="RayCast3D" groups=["tracers"]]
 script = ExtResource("1_150qd")
 mass_kg = 0.5
 tracer_hue = 0.348

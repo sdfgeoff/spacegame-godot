@@ -1,5 +1,7 @@
 extends CollisionShape3D
 
+@export var launcher_type: String = ""
+
 # Node containing FakeMotor to use as X Axis
 @export var x_axis: NodePath = ""
 
@@ -24,51 +26,80 @@ extends CollisionShape3D
 @export var bullet_spread: float = 0.003
 @export var allow_firing: bool = true
 @export var suitable_angle_to_fire = 0.05;  # How locked on does it have to be to fire
-var active_barrel = 0
-var reload_state = 0
+var active_barrel: int = 0
+var reload_state: float = 0
+
+
+var _time_since_status_report: float = 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var target: Node3D = get_node_or_null(target_node)
-	if target == null:
-		return
-
-	var sight = get_node(node_sight)
-
-	var vect_to_local: Vector3 = (sight.global_transform.inverse() * target.global_position).normalized()
-
-	var error_tilt = -vect_to_local.y
-	var error_yaw = vect_to_local.x
-
-	var x_axis_node = get_node(x_axis)
-	x_axis_node.target_angle = wrapf(x_axis_node.current_angle - error_tilt, -PI, PI)
-
-	var y_axis_node = get_node(y_axis)
-	y_axis_node.target_angle = wrapf(y_axis_node.current_angle - error_yaw, -PI, PI)
-
+	
 	if reload_state > 0:
 		reload_state -= delta
+	_time_since_status_report += delta
+	
+	var target: Node3D = get_node_or_null(target_node)
+	
+	if _time_since_status_report > 0.5:
+		var target_name = ""
+		if target != null:
+			target_name = target.name
+		$BusConnection.queue_message(
+			Payload.Topic.WEAPONS_LAUNCHERSTATE,
+			Payload.create_weapons_launcherstate(
+				launcher_type,
+				target_name,
+				allow_firing,
+				ammo
+			)
+		)
+		_time_since_status_report -= 0.5
 
-	if allow_firing and abs(error_tilt) + abs(error_yaw) < suitable_angle_to_fire:
+	if target == null:
+		return
+	var angle_to_target = aim_at(target)
+
+	if allow_firing and angle_to_target < suitable_angle_to_fire:
 		if reload_state <= 0 and ammo > 0:
-			var time_offset = -reload_state  # How much before the frame the bullet fired
-			reload_state += seconds_between_shots * (1 + randf_range(-reload_variance_proportion, reload_variance_proportion))
-			ammo -= 1
-			var b = get_node(barrels[active_barrel])
+			fire(delta)
 			
-			if active_barrel < len(barrels) - 1:
-				active_barrel += 1
-			else:
-				active_barrel = 0
 
-			# Candidate for moving to some other function?
-			var new_shot: BulletBase = bullet.instantiate()
-			get_tree().get_root().add_child(new_shot)
-			new_shot.global_transform = b.global_transform.rotated(Vector3(
-				randf_range(-1, 1),
-				randf_range(-1, 1),
-				randf_range(-1, 1),
-			).normalized(), bullet_spread)
-			new_shot.velocity = muzzle_velocity
-			new_shot.setup(delta, time_offset)
+
+func aim_at(target: Node3D) -> float:
+	var sight: Camera3D = get_node(node_sight)
+	var vect_to_local: Vector3 = (sight.global_transform.inverse() * target.global_position).normalized()
+
+	var error_tilt := -vect_to_local.y
+	var error_yaw := vect_to_local.x
+	
+	var x_axis_node: FakeMotor = get_node(x_axis)
+	x_axis_node.target_angle = wrapf(x_axis_node.current_angle - error_tilt, -PI, PI)
+	var y_axis_node: FakeMotor = get_node(y_axis)
+	y_axis_node.target_angle = wrapf(y_axis_node.current_angle - error_yaw, -PI, PI)
+	return abs(error_tilt) + abs(error_yaw)
+
+
+
+func fire(delta):
+	var time_offset = -reload_state  # How much before the frame the bullet fired
+	reload_state += seconds_between_shots * (1 + randf_range(-reload_variance_proportion, reload_variance_proportion))
+	ammo -= 1
+	var b: Node3D = get_node(barrels[active_barrel])
+	
+	if active_barrel < len(barrels) - 1:
+		active_barrel += 1
+	else:
+		active_barrel = 0
+
+	# Candidate for moving to some other function?
+	var new_shot: BulletBase = bullet.instantiate()
+	get_tree().get_root().add_child(new_shot)
+	new_shot.global_transform = b.global_transform.rotated(Vector3(
+		randf_range(-1, 1),
+		randf_range(-1, 1),
+		randf_range(-1, 1),
+	).normalized(), bullet_spread)
+	new_shot.velocity = muzzle_velocity
+	new_shot.setup(delta, time_offset)

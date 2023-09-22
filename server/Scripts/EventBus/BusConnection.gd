@@ -26,7 +26,7 @@ func get_address():
 	return _address
 
 
-func _process(_delta):
+func poll():
 	for message in _inbox:
 		got_message.emit(message)
 	_inbox.clear()
@@ -36,3 +36,6 @@ func _process(_delta):
 		bus.device_exists(self)
 	else:
 		print("No Bus")
+
+func _process(_delta):
+	poll()

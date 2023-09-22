@@ -23,12 +23,8 @@ func ship_name():
 	return get_parent().name
 
 func _ready():
-	# Connect base signals to get notified of connection open, close, and errors.
 	tracker_client.connection_closed.connect(_closed)
 	tracker_client.connected_to_server.connect(_connected)
-	# This signal is emitted when not using the Multiplayer API every time
-	# a full packet is receihtopved.
-	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
 	tracker_client.message_received.connect(_on_data)
 
 	# Initiate connection to the given URL.

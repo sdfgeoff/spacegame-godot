@@ -56,4 +56,14 @@ export interface SubscriptionsMessage {
 	};
 }
 
-export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | PingMessage | PongMessage | SubscriptionsMessage
+export interface Weapons_LauncherStateMessage {
+	topic: 'Weapons_LauncherState';
+	payload: {
+		type: string;
+		current_target: string;
+		active: boolean;
+		ammo: number
+	};
+}
+
+export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | PingMessage | PongMessage | SubscriptionsMessage | Weapons_LauncherStateMessage
