@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://7k3vvfqqevgk"]
+
+[ext_resource type="Shader" uid="uid://bdj3bqv1hqe4g" path="res://Shaders/Tracer.tres" id="1_rnj2w"]
+[ext_resource type="Texture2D" uid="uid://capf234qnmhv1" path="res://Textures/Particles.png" id="2_8224i"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rnj2w")
+shader_parameter/uv1_scale = Vector3(0.25, 0.25, 0.25)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/emission_strength = 9.055
+shader_parameter/texture_albedo = ExtResource("2_8224i")

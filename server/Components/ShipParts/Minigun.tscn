@@ -15,7 +15,8 @@ node_sight = NodePath("Minigun/YawMotor/TurretBase/TiltMotor/Sight_001")
 barrels = Array[NodePath]([NodePath("Minigun/YawMotor/TurretBase/TiltMotor/FiringMechanism/Sight")])
 ammo = 10000
 seconds_between_shots = 0.05
-muzzle_velocity = 853.0
+reload_variance_proportion = 0.02
+muzzle_velocity = 800.0
 
 [node name="Minigun" parent="." instance=ExtResource("2_e7oyb")]
 

@@ -8,7 +8,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var speed = 5.0 * delta
+	var speed = 20.0 * delta
 	if Input.is_action_pressed("strafe_right"):
 		position.x += speed
 	if Input.is_action_pressed("strafe_left"):

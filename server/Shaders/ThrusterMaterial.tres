@@ -1,0 +1,47 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bx4w8djeh0uo7"]
+
+[ext_resource type="Texture2D" uid="uid://c831gqwa326bq" path="res://Textures/stars.png" id="1_wv5de"]
+
+[sub_resource type="Shader" id="Shader_2ekyi"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.1.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,vertex_lighting;
+uniform vec4 color : source_color = vec4(1.0, 0.2, 0.1, 1.0);
+uniform sampler2D noisetex;
+
+
+
+void vertex() {
+}
+
+void light() {
+}
+
+
+
+void fragment() {
+	float viewAngle = dot(VIEW, NORMAL);
+	float output_percent = color.a;
+	
+	float noise = texture(noisetex, UV * vec2(1,0) + vec2(0, TIME / 20.0)).b;
+	
+	
+	float intensity = (output_percent - UV.y) / output_percent;
+	intensity = clamp(intensity, 0.0, 1.0);
+	intensity = pow(intensity, 2.0); // SMoother falloff
+
+	intensity *= viewAngle; // Don't want to see the edges anywhere
+	
+	intensity = pow(intensity, 0.5 / noise);
+	ALBEDO = color.rgb;
+	EMISSION = color.rgb * intensity * 5.0 * output_percent;
+	ALPHA = intensity;
+}
+"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_2ekyi")
+shader_parameter/color = Color(0.396078, 1, 0.854902, 0.517647)
+shader_parameter/noisetex = ExtResource("1_wv5de")

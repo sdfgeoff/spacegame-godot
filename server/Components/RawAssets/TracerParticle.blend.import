@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://gdn0e8q2shml"
-path="res://.godot/imported/Engine.blend-66afa2e7f1af39b5acab3232467cae1e.scn"
+uid="uid://dto618svyl5vs"
+path="res://.godot/imported/TracerParticle.blend-d182bd96203b608bd9114b57ae0766f5.scn"
 
 [deps]
 
-source_file="res://Components/RawAssets/Engine.blend"
-dest_files=["res://.godot/imported/Engine.blend-66afa2e7f1af39b5acab3232467cae1e.scn"]
+source_file="res://Components/RawAssets/TracerParticle.blend"
+dest_files=["res://.godot/imported/TracerParticle.blend-d182bd96203b608bd9114b57ae0766f5.scn"]
 
 [params]
 
@@ -28,7 +28,20 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"meshes": {
+"TracerParticle-d182bd96203b608bd9114b57ae0766f5_Particle": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://Components/RawAssets/Tracer.tres"
+}
+}
+}
 gltf/embedded_image_handling=1
 blender/nodes/visible=0
 blender/nodes/punctual_lights=true

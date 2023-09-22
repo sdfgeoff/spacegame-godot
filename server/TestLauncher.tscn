@@ -1,14 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://b6wgq2ifs41ms"]
 
 [ext_resource type="Script" path="res://TestLauncherTarget.gd" id="1_2w66r"]
+[ext_resource type="Environment" uid="uid://dxu4i5aaen8d7" path="res://World.tres" id="1_eu312"]
 [ext_resource type="PackedScene" uid="uid://dyhgrk2607y4v" path="res://Components/ShipParts/Minigun.tscn" id="2_f1sl0"]
 [ext_resource type="PackedScene" uid="uid://df2o3pv4n4ttd" path="res://Components/ShipParts/RailGun.tscn" id="3_p4lty"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pggmk"]
 size = Vector2(20, 20)
-
-[sub_resource type="Environment" id="Environment_ajvhr"]
-ambient_light_color = Color(0.329412, 0.329412, 0.329412, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pj6ls"]
 
@@ -24,11 +22,11 @@ skeleton = NodePath("../StaticBody3D2/TargetNode")
 transform = Transform3D(1, 0, 0, 0, 0.85386, 0.520503, 0, -0.520503, 0.85386, 0, 7.61572, 12.7801)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 2, 0)
+transform = Transform3D(0.707107, 0, 0.707107, -0.183013, -0.965926, 0.183013, 0.683013, -0.258819, -0.683013, 0, 2, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ajvhr")
+environment = ExtResource("1_eu312")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

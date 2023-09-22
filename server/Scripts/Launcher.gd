@@ -17,6 +17,7 @@ extends CollisionShape3D
 
 @export var ammo: int = 100
 @export var seconds_between_shots: float = 1.0
+@export var reload_variance_proportion: float = 0.1
 @export var muzzle_velocity: float = 0.0
 @export var bullet: PackedScene = preload("res://Effects/MinigunRoundBase.tscn")
 
@@ -26,19 +27,20 @@ extends CollisionShape3D
 var active_barrel = 0
 var reload_state = 0
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var target: Node3D = get_node_or_null(target_node)
 	if target == null:
 		return
-		
+
 	var sight = get_node(node_sight)
 
 	var vect_to_local: Vector3 = (sight.global_transform.inverse() * target.global_position).normalized()
-	
-	var error_tilt = -vect_to_local.y #atan2(error.x, error.y)
-	var error_yaw = vect_to_local.x #-atan2(error.z, error.y)
-	
+
+	var error_tilt = -vect_to_local.y
+	var error_yaw = vect_to_local.x
+
 	var x_axis_node = get_node(x_axis)
 	x_axis_node.target_angle = wrapf(x_axis_node.current_angle - error_tilt, -PI, PI)
 
@@ -51,9 +53,14 @@ func _process(delta):
 	if allow_firing and abs(error_tilt) + abs(error_yaw) < suitable_angle_to_fire:
 		if reload_state <= 0 and ammo > 0:
 			var time_offset = -reload_state  # How much before the frame the bullet fired
-			reload_state += seconds_between_shots
+			reload_state += seconds_between_shots * (1 + randf_range(-reload_variance_proportion, reload_variance_proportion))
 			ammo -= 1
 			var b = get_node(barrels[active_barrel])
+			
+			if active_barrel < len(barrels) - 1:
+				active_barrel += 1
+			else:
+				active_barrel = 0
 
 			# Candidate for moving to some other function?
 			var new_shot: BulletBase = bullet.instantiate()
@@ -65,5 +72,3 @@ func _process(delta):
 			).normalized(), bullet_spread)
 			new_shot.velocity = muzzle_velocity
 			new_shot.setup(delta, time_offset)
-
-			

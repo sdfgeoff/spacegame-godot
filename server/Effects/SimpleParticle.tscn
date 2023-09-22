@@ -1,18 +1,20 @@
 [gd_scene load_steps=5 format=3 uid="uid://bljir3xpnluwl"]
 
 [ext_resource type="PackedScene" uid="uid://qmkx7d1mwkar" path="res://Components/RawAssets/SimpleParticle.blend" id="1_g1ekx"]
-[ext_resource type="Shader" uid="uid://bitk6rx5q88j4" path="res://Textures/ParticleShader.tres" id="2_lqlc3"]
+[ext_resource type="Shader" uid="uid://bitk6rx5q88j4" path="res://Textures/ParticleShader.tres" id="2_ewb45"]
 [ext_resource type="Texture2D" uid="uid://capf234qnmhv1" path="res://Textures/Particles.png" id="3_wslq8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2n0n2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_02msx"]
 render_priority = 0
-shader = ExtResource("2_lqlc3")
-shader_parameter/albedo = Color(1, 0.470588, 0.0588235, 0.933333)
+shader = ExtResource("2_ewb45")
+shader_parameter/albedo = Color(1, 0.541176, 0.129412, 1)
 shader_parameter/uv1_scale = Vector3(0.25, 0.25, 0.25)
 shader_parameter/uv1_offset = Vector3(0.25, 0, 0)
+shader_parameter/emission_strength = 5.0
 shader_parameter/texture_albedo = ExtResource("3_wslq8")
 
 [node name="SimpleParticle" instance=ExtResource("1_g1ekx")]
 
 [node name="Particle" parent="." index="0"]
-surface_material_override/0 = SubResource("ShaderMaterial_2n0n2")
+transform = Transform3D(0.999463, 0, -0.032754, 0, 1, 0, 0.032754, 0, 0.999463, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_02msx")

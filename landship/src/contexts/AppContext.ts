@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tracker } from '../network/Tracker';
 import { DataChannelConsoleInternal } from '../hooks/useDataChannelConsole';
+import { GameMode } from '../models/GameMode';
 
 export interface AppContextType {
     tracker: {
@@ -11,7 +12,8 @@ export interface AppContextType {
     timingStats: {
         pingDuration: number
         clockOffset: number
-    } | undefined
+    } | undefined,
+    gameMode: GameMode,
 }
 
 export const AppContext = React.createContext<AppContextType | null>(null);

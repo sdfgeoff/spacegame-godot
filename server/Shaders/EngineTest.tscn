@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnwt8wvtbomvp"]
+
+[ext_resource type="PackedScene" uid="uid://gdn0e8q2shml" path="res://Components/RawAssets/Engine.blend" id="1_ps53t"]
+[ext_resource type="Material" uid="uid://bx4w8djeh0uo7" path="res://Shaders/ThrusterMaterial.tres" id="2_hmu8m"]
+[ext_resource type="Environment" uid="uid://dxu4i5aaen8d7" path="res://World.tres" id="3_vnlgy"]
+
+[node name="Engine" instance=ExtResource("1_ps53t")]
+
+[node name="Flame" parent="Engine" index="0"]
+material_override = ExtResource("2_hmu8m")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = ExtResource("3_vnlgy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.793831, 0.608138, 0, -0.608138, 0.793831, -44.2242, 11.8389, 15.4539)
+light_energy = 20.0

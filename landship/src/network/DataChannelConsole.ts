@@ -68,7 +68,7 @@ export class DataChannelConsole {
      */
     send = (message: ToRouterMessage<Topic>) => {
         if (this.state !== 'connected') {
-            console.error('Attempting to send message while disconnected')
+            // console.error('Attempting to send message while disconnected')
             return
         }
         this.sendDataChannel?.send(JSON.stringify(message))

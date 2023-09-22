@@ -4,7 +4,7 @@ import { GameDataResponse } from '../network/TrackerMessages'
 import { FromRouterMessage, Topic } from '../models/Messages'
 import { useServerTime } from '../hooks/useServerTime'
 import { useAppContext } from '../contexts/AppContext'
-import JoyPad from '../components/Joypad'
+import JoyPad, { Position } from '../components/Joypad'
 
 
 export interface JoinProps {
@@ -40,7 +40,7 @@ export const Join: React.FC<JoinProps> = () => {
     //     })
     // }, [dataChannelConsole])
 
-    const onPositionChange = useCallback((position) => {
+    const onPositionChange = useCallback((position: Position) => {
         dataChannelConsole.send({
             message: {
             topic: "GNC_Targets",
