@@ -1,3 +1,4 @@
+class_name GNC_Targets
 extends RefCounted
 
 var linear_x: float

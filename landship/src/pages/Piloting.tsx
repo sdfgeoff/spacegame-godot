@@ -33,11 +33,6 @@ export const Piloting: React.FC = () => {
     }, [dataChannelConsole, targets])
 
 
-
-
-
-
-
     React.useEffect(() => {
         return subscribeTopic("GNC_State", (message) => {
             setLatestMessage(message)
@@ -47,13 +42,13 @@ export const Piloting: React.FC = () => {
     const pad1 = React.useCallback((pos: Position) => setTargets((old) => ({
         ...old,
         linear_x: pos.x,
-        linear_y: pos.y,
+        linear_y: -pos.y,
     })), [setTargets])
 
     const pad2 = React.useCallback((pos: Position) => setTargets((old) => ({
         ...old,
-        angular_x: pos.x,
-        angular_y: pos.y,
+        angular_x: -pos.y,
+        angular_y: -pos.x,
     })), [setTargets])
 
 

@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0wioa6et8eob"]
+[gd_scene load_steps=5 format=3 uid="uid://d0wioa6et8eob"]
 
 [ext_resource type="PackedScene" uid="uid://7g5ghxbt1cet" path="res://Components/Ships/TestShip.tscn" id="1_np6y4"]
 [ext_resource type="PackedScene" uid="uid://5lxegjcyj4x4" path="res://Components/ShipParts/ConsoleConnector.tscn" id="2_2lfwg"]
 [ext_resource type="Environment" uid="uid://dxu4i5aaen8d7" path="res://World.tres" id="2_f1g1a"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_mql6h"]
+inner_radius = 30.0
+outer_radius = 32.0
 
 [node name="Game" type="Node3D"]
 
@@ -29,6 +33,16 @@ environment = ExtResource("2_f1g1a")
 transform = Transform3D(0.969161, 0.0198976, -0.245625, 0.0546939, -0.989243, 0.135669, -0.240283, -0.144919, -0.959824, -1.22984, 5.92556, -0.507133)
 light_color = Color(1, 0.941176, 0.929412, 1)
 light_energy = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.12315, 0)
+mesh = SubResource("TorusMesh_mql6h")
+skeleton = NodePath("../PlayerShip")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.58776, 0)
+mesh = SubResource("TorusMesh_mql6h")
+skeleton = NodePath("../PlayerShip")
 
 [editable path="PlayerShip"]
 [editable path="PlayerShip/BusCamera"]

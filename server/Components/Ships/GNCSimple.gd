@@ -1,12 +1,12 @@
 extends Node
 
 
+var targets: GNC_Targets = null
+
+
 func _on_bus_message(message: Message):
 	if message.topic == Payload.Topic.GNC_TARGETS:
-		get_parent().linear_velocity.x = message.data.linear_x * 20
-		get_parent().linear_velocity.y = message.data.linear_y * 20
-		get_parent().angular_velocity.x = message.data.angular_x * 20
-		get_parent().angular_velocity.y = message.data.angular_y * 20
+		targets = message.data
 	
 func _ready():
 	$BusConnection.subscriptions = [Payload.Topic.GNC_TARGETS]
@@ -14,6 +14,29 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if targets == null:
+		return
+	
+	var lin_targets = Vector3(
+		targets.linear_x,
+		targets.linear_y,
+		targets.linear_z
+	)
+	
+	var ang_targets = Vector3(
+		targets.angular_x,
+		targets.angular_y,
+		targets.angular_z
+	)
+	
+	var par: RigidBody3D = get_parent()
+	var lin_targets_worldspace = par.global_transform.basis * lin_targets
+	var ang_targets_worldspace = par.global_transform.basis * ang_targets
+	par.linear_velocity = lin_targets_worldspace * 20.0
+	par.angular_velocity = ang_targets_worldspace * 1.0
+	
+	
+	
 	var ship = get_parent()
 	$BusConnection.queue_message(
 		Payload.Topic.GNC_STATE,
