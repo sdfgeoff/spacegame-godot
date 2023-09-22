@@ -11,6 +11,7 @@ var _signalling_remote_id: int
 
 signal messageFromConsole(data: String)
 signal established(addr: int)
+signal disconnect()
 
 func _init(signaling: WebSocketClient, signalling_remote_id: int):
 	_signaling = signaling
@@ -68,10 +69,17 @@ func _process(_delta):
 
 	if toServer != null:
 		toServer.poll()
-		if toServer.get_ready_state() == WebRTCDataChannel.STATE_OPEN:
+		var readyState = toServer.get_ready_state()
+		if readyState == WebRTCDataChannel.STATE_OPEN:
 			while toServer.get_available_packet_count() > 0:
 				messageFromConsole.emit(toServer.get_packet().get_string_from_utf8())
+		if readyState == WebRTCDataChannel.STATE_CLOSED:
+			emit_signal("disconnect")
+	
+	if toConsole.get_ready_state() == WebRTCDataChannel.STATE_CLOSED:
+		emit_signal("disconnect")
 
 func sendMessageToConsole(message):
-	toConsole.put_packet(message.to_utf8_buffer())
+	if toConsole.get_ready_state() == toConsole.ChannelState.STATE_OPEN:
+		toConsole.put_packet(message.to_utf8_buffer())
 	

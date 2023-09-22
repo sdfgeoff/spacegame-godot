@@ -11,7 +11,7 @@ export type PanelTitledProps = {
 
 export const PanelTitled: React.FC<PanelTitledProps> = ({ heading, variant, extraBorder, children, ...rest }) => {
     return (
-        <Panel variant={variant} extraBorder={extraBorder}>
+        <Panel variant={variant} extraBorder={extraBorder} {...rest}>
             {heading}
             <hr style={{
                 border: '',

@@ -34,7 +34,6 @@ export const useDataChannelConsoleInternal = (
     tracker: Tracker, 
     shipId: number | undefined
 ): DataChannelConsoleInternal => {
-
     const dataChannelConsole = useMemo(() => new DataChannelConsole(), [])
 
     const [connectionState, setConnectionState] = useState<DataChannelState>('connecting')

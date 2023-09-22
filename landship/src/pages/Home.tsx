@@ -12,7 +12,7 @@ const Home: React.FC<{ tracker: Tracker, joinGame: (gameData: GameDataResponse) 
 
     // Schedule a request for the game list every 5 seconds
     useEffect(() => {
-        const interval = setInterval(() => tracker.send({ key: 'ListRequest' }), 5000)
+        const interval = setInterval(() => tracker.send({ key: 'ListRequest' }), 1000)
         return () => clearInterval(interval)
     }, [tracker])
 
@@ -28,12 +28,13 @@ const Home: React.FC<{ tracker: Tracker, joinGame: (gameData: GameDataResponse) 
     }, [tracker])
 
     return (
-        <div className="d-flex justify-content-center align-content-center p-2">
-            <PanelTitled variant="primary" extraBorder='corner' className="p-2" heading={
+        <div className="d-flex justify-content-center align-content-center p-2 flex-grow-1">
+            <PanelTitled variant="primary" extraBorder='corner' heading={
                 <h1 className="p-1">Connect To Ship</h1>
             }>
-                <button onClick={() => tracker.send({ key: 'ListRequest' })}>Refresh</button>
-                <JoinGameTable gameList={gameList} joinGame={joinGame} />
+                <div className="p-1">
+                <JoinGameTable gameList={gameList} joinGame={joinGame}/>
+                </div>
             </PanelTitled>
         </div>
     )

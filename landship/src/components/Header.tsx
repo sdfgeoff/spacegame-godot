@@ -3,6 +3,7 @@
 import React from 'react';
 import { useAppContext } from '../contexts/AppContext';
 import { Panel } from './Panel';
+import Button from './Button';
 
 export const Header: React.FC<
     {
@@ -39,7 +40,7 @@ export const Header: React.FC<
                 {dataChannelState === 'error' && <Panel variant="danger" className="px-1">Ship: Error</Panel>}
             </small>
             <div className="flex-grow-1" />
-            <button onClick={returnToShipSelector}>Sign Off</button>
+            <Button variant='dark' onClick={returnToShipSelector}>Sign Off</Button>
         </Panel>
     )
 }

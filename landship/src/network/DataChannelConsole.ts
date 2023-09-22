@@ -97,8 +97,9 @@ export class DataChannelConsole {
      */
     connect = async (gameHostId: number) => {
         if (this.host) {
-            console.error('Attempting to create a second host')
-            return
+            this.host.close()
+            this.sendDataChannel?.close()
+            this.receiveDataChannel?.close()
         }
         const host = new RTCPeerConnection(RTC_CFG);
         this.host = host;

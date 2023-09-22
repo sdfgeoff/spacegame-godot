@@ -6,7 +6,7 @@ import { useTrackerInternal } from './hooks/useTracker';
 import { useDataChannelConsoleInternal } from './hooks/useDataChannelConsole';
 import { GameMode } from './models/GameMode';
 import { Header } from './components/Header';
-import { Join } from './pages/Join';
+import { Play } from './pages/Play';
 import { GameDataResponse } from './network/TrackerMessages';
 import { AppContext } from './contexts/AppContext';
 import { usePingShip, useTimingStatsInternal } from './hooks/useServerTime';
@@ -62,9 +62,9 @@ function App() {
         />
         <div className="fill d-flex flex-column">
           <Header returnToShipSelector={leaveGame} />
-          <div className="flex-grow-1">
+          <div className="flex-grow-1 d-flex">
             {mode.mode === 'home' && <Home tracker={trackerData.tracker} joinGame={joinGame} />}
-            {mode.mode === 'play' && <Join tracker={trackerData.tracker} gameData={mode.gameData} />}
+            {mode.mode === 'play' && <Play tracker={trackerData.tracker} gameData={mode.gameData} />}
           </div>
         </div>
 

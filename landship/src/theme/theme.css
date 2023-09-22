@@ -519,6 +519,9 @@ button:active {
 button:hover {
     outline: var(--highlight) solid 2px;
 }
+button:disabled {
+    opacity: 0.5;
+}
 
 button:disabled {
     opacity: 0.5;
@@ -528,6 +531,10 @@ p {
     margin: 0;
 }
 
-h1 {
+h1, h2 {
+    margin: 0;
+}
+
+hr {
     margin: 0;
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://7g5ghxbt1cet"]
+[gd_scene load_steps=12 format=3 uid="uid://7g5ghxbt1cet"]
 
 [ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="1_r486i"]
 [ext_resource type="PackedScene" uid="uid://bt7u6n1rfy738" path="res://Components/ShipParts/Clock.tscn" id="2_uac2e"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://5lxegjcyj4x4" path="res://Components/ShipParts/ConsoleConnector.tscn" id="6_yivvu"]
 [ext_resource type="Script" path="res://Components/Ships/GNCSimple.gd" id="7_ijweh"]
 [ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="8_kxxiv"]
+[ext_resource type="PackedScene" uid="uid://b26dv4cajre3j" path="res://Components/ShipParts/BusCamera.tscn" id="9_nhwev"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cg0e7"]
 size = Vector3(6, 6, 6)
@@ -43,3 +44,5 @@ script = ExtResource("7_ijweh")
 
 [node name="BusConnection" type="Node" parent="GNCSimple"]
 script = ExtResource("8_kxxiv")
+
+[node name="BusCamera" parent="." instance=ExtResource("9_nhwev")]

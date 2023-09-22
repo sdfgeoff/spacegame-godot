@@ -8,6 +8,11 @@ func _process(_delta):
 	var all_messages: Array[Message] = []
 	
 	for device in _devices:
+		if device == null:
+			# THis is a patch for when consoles disconnect. A better solution
+			# would be to avoid the _device registration and instead figure out
+			# available devices by listing all children in a group
+			continue
 		var messages = device.clear_outbox()
 		if device._address == -1:
 			device._address = min_id
@@ -20,6 +25,12 @@ func _process(_delta):
 
 	for message in all_messages:
 		for device in _devices:
+			if device == null:
+				# THis is a patch for when consoles disconnect. A better solution
+				# would be to avoid the _device registration and instead figure out
+				# available devices by listing all children in a group
+				continue
+			
 			var topic_matches = device.subscriptions.find(message.topic) != -1
 			var subscribed_to_all = device.subscriptions.find(Payload.Topic.ALL) != -1
 			var message_has_address = message.address_to != null
