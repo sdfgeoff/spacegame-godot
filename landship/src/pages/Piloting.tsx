@@ -53,17 +53,21 @@ export const Piloting: React.FC = () => {
     })), [setTargets])
 
 
-    return <div>
-        X: {latestMessage?.message.payload.pos_x}
+    return <div className='d-flex'>
+        {/* X: {latestMessage?.message.payload.pos_x} */}
+
         <div style={{
             width: '10em',
             height: '10em',
         }}>
             <JoyPad onPositionChange={pad1} />
-            <JoyPad onPositionChange={pad2} />
-            <TacticalDisplay/>
         </div>
-
+        <div style={{
+            width: '10em',
+            height: '10em',
+        }}>
+            <JoyPad onPositionChange={pad2} />
+        </div>
     </div>
 };
 
