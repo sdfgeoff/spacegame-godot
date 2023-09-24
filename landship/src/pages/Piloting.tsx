@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppContext } from '../contexts/AppContext';
 import { FromRouterMessage, ToRouterMessage } from '../models/Messages';
 import JoyPad, { Position } from '../components/Joypad';
+import TacticalDisplay from '../components/tactical_display/TacticalDisplay';
 
 export const Piloting: React.FC = () => {
     const {
@@ -60,6 +61,7 @@ export const Piloting: React.FC = () => {
         }}>
             <JoyPad onPositionChange={pad1} />
             <JoyPad onPositionChange={pad2} />
+            <TacticalDisplay/>
         </div>
 
     </div>
