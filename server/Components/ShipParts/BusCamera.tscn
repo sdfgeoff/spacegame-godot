@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://b26dv4cajre3j"]
 
-[ext_resource type="Script" path="res://Components/ShipParts/BusCamera.gd" id="1_dc7w7"]
+[ext_resource type="Script" path="res://Scripts/EventBus/BusCamera.gd" id="1_jljm5"]
 [ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_qsa25"]
 
 [node name="BusCamera" type="Node3D"]
-script = ExtResource("1_dc7w7")
+script = ExtResource("1_jljm5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 

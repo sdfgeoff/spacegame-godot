@@ -82,12 +82,13 @@ func _init():
 	for topic in topics:
 		var data = topics[topic]
 		output += "
-static func create_%s(%s):
+static func create_%s(%s) -> %s:
 	var message = %s.new()
 %s
 	return message\n" % [
 		data['topic'].to_lower(),
 		vars_to_args(data['vars']),
+		data['topic'],
 		data['topic'],
 		vars_to_fill('message', data['vars'])
 	]

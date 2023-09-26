@@ -34,6 +34,21 @@ export interface GNC_TargetsMessage {
 	};
 }
 
+export interface GNC_ThrusterCommandMessage {
+	topic: 'GNC_ThrusterCommand';
+	payload: {
+		target_thrust_newtons: number
+	};
+}
+
+export interface GNC_ThrusterStateMessage {
+	topic: 'GNC_ThrusterState';
+	payload: {
+		mount: Transform3D;
+		max_thrust_newtons: number
+	};
+}
+
 export interface PingMessage {
 	topic: 'Ping';
 	payload: {
@@ -81,4 +96,4 @@ export interface Weapons_LauncherTargetMessage {
 	};
 }
 
-export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | PingMessage | PongMessage | Sensor_ObjectsMessage | SubscriptionsMessage | Weapons_LauncherStateMessage | Weapons_LauncherTargetMessage
+export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | GNC_ThrusterCommandMessage | GNC_ThrusterStateMessage | PingMessage | PongMessage | Sensor_ObjectsMessage | SubscriptionsMessage | Weapons_LauncherStateMessage | Weapons_LauncherTargetMessage

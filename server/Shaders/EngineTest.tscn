@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnwt8wvtbomvp"]
+[gd_scene load_steps=4 format=3 uid="uid://cgs0ike2w4v51"]
 
 [ext_resource type="PackedScene" uid="uid://gdn0e8q2shml" path="res://Components/RawAssets/Engine.blend" id="1_ps53t"]
 [ext_resource type="Material" uid="uid://bx4w8djeh0uo7" path="res://Shaders/ThrusterMaterial.tres" id="2_hmu8m"]

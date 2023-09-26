@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://7g5ghxbt1cet"]
+[gd_scene load_steps=13 format=3 uid="uid://7g5ghxbt1cet"]
 
 [ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="1_r486i"]
 [ext_resource type="PackedScene" uid="uid://bt7u6n1rfy738" path="res://Components/ShipParts/Clock.tscn" id="2_uac2e"]
@@ -8,42 +8,77 @@
 [ext_resource type="PackedScene" uid="uid://c4yn7sdbuvbf0" path="res://Components/ShipParts/GNCSimple.tscn" id="6_6bg0v"]
 [ext_resource type="PackedScene" uid="uid://mnqo5k5gqajq" path="res://Components/ShipParts/Sensors.tscn" id="8_dttnp"]
 [ext_resource type="PackedScene" uid="uid://b26dv4cajre3j" path="res://Components/ShipParts/BusCamera.tscn" id="9_nhwev"]
+[ext_resource type="PackedScene" uid="uid://dcn1rri2dami2" path="res://Components/ShipParts/EngineLarge.tscn" id="9_x4d54"]
+[ext_resource type="PackedScene" uid="uid://bbivdomtsf0p7" path="res://Components/ShipParts/RCS4.tscn" id="10_kb8eq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cg0e7"]
-size = Vector3(6, 6, 6)
+size = Vector3(6, 6, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_heoj7"]
-size = Vector3(6, 6, 6)
+size = Vector3(6, 6, 10)
 
 [node name="TestShip" type="RigidBody3D" groups=["sensable"]]
+linear_damp = 2.0
+angular_damp = 2.0
+
+[node name="Hull" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cg0e7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hull"]
+mesh = SubResource("BoxMesh_heoj7")
 
 [node name="BusPrinter" parent="." instance=ExtResource("3_8pet7")]
 process_mode = 4
 
 [node name="EventBus" parent="." instance=ExtResource("1_r486i")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_cg0e7")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource("BoxMesh_heoj7")
-
 [node name="Minigun" parent="." instance=ExtResource("4_dkqm2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
+[node name="Minigun2" parent="." instance=ExtResource("4_dkqm2")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -3, 0)
+
 [node name="RailGun" parent="." instance=ExtResource("5_5hb12")]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 3, 3, 0)
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 3, 0, 0)
 
 [node name="RailGun2" parent="." instance=ExtResource("5_5hb12")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3, 3, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3, 0, 0)
 
 [node name="Clock" parent="." instance=ExtResource("2_uac2e")]
 
 [node name="GNCSimple" parent="." instance=ExtResource("6_6bg0v")]
 
 [node name="BusCamera" parent="." instance=ExtResource("9_nhwev")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.07272, 8.86639)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.07272, 10.8664)
 
 [node name="Sensors" parent="." instance=ExtResource("8_dttnp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="EngineLarge" parent="." instance=ExtResource("9_x4d54")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.74846e-07, 6)
+
+[node name="RCS4" parent="." instance=ExtResource("10_kb8eq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 4)
+
+[node name="RCS5" parent="." instance=ExtResource("10_kb8eq")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -3, 4)
+
+[node name="RCS6" parent="." instance=ExtResource("10_kb8eq")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3, -1.31134e-07, 4)
+
+[node name="RCS7" parent="." instance=ExtResource("10_kb8eq")]
+transform = Transform3D(1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0, 1, 3, 1.31134e-07, 4)
+
+[node name="RCS8" parent="." instance=ExtResource("10_kb8eq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -4)
+
+[node name="RCS9" parent="." instance=ExtResource("10_kb8eq")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -3, -4)
+
+[node name="RCS10" parent="." instance=ExtResource("10_kb8eq")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3, -1.31134e-07, -4)
+
+[node name="RCS11" parent="." instance=ExtResource("10_kb8eq")]
+transform = Transform3D(1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0, 1, 3, 1.31134e-07, -4)
 
 [editable path="BusCamera"]

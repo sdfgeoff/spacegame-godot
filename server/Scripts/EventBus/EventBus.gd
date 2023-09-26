@@ -4,7 +4,9 @@ extends Node
 var _devices: Array[BusConnection] = []
 var min_id = 0
 
-func _process(_delta):
+
+
+func route_messages():
 	var all_messages: Array[Message] = []
 	
 	for device in _devices:
@@ -39,6 +41,10 @@ func _process(_delta):
 				device._inbox.append(message)
 
 	_devices.clear()
+
+
+func _process(_delta):
+	route_messages()
 	
 	
 

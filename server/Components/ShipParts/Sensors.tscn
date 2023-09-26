@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://mnqo5k5gqajq"]
 
-[ext_resource type="Script" path="res://Components/ShipParts/Sensors.gd" id="1_jqaes"]
+[ext_resource type="Script" path="res://Scripts/EventBus/Sensors.gd" id="1_jqaes"]
 [ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_unnj8"]
 
 [node name="Sensors" type="Node3D"]

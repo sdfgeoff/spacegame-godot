@@ -1,0 +1,37 @@
+[gd_resource type="Shader" format=3 uid="uid://chm1ua8v3imeg"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,vertex_lighting;
+uniform sampler2D noisetex;
+
+instance uniform vec4 color : source_color = vec4(1.0, 0.5, 0.1, 1.0);
+instance uniform float output_percent: hint_range(0.0, 1.0) = 1.0;
+
+
+void vertex() {
+}
+
+void light() {
+}
+
+
+
+void fragment() {
+	float viewAngle = dot(VIEW, NORMAL);
+
+	float noise = texture(noisetex, UV * vec2(1,0) + vec2(0, TIME / 20.0)).b;
+	
+	
+	float intensity = (output_percent - UV.y) / output_percent;
+	intensity = clamp(intensity, 0.0, 1.0);
+	intensity = pow(intensity, 2.0); // SMoother falloff
+
+	intensity *= viewAngle; // Don't want to see the edges anywhere
+	
+	intensity = pow(intensity, 0.5 / noise);
+	ALBEDO = color.rgb;
+	EMISSION = color.rgb * intensity * 5.0 * output_percent;
+	ALPHA = intensity;
+}
+"

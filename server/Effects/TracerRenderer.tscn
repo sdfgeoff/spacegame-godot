@@ -10,7 +10,7 @@ use_custom_data = true
 instance_count = 1
 visible_instance_count = 1
 mesh = ExtResource("2_wj0e0")
-buffer = PackedFloat32Array(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 10, 1, 0.348, 1)
+buffer = PackedFloat32Array(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 10, 1, 0.5, 1)
 
 [node name="MinigunRound" type="MultiMeshInstance3D"]
 material_override = ExtResource("1_y0ltv")
