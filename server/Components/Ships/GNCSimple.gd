@@ -40,11 +40,15 @@ func _process(delta):
 	var ang_velocity_shipspace = to_shipspace * ship.angular_velocity
 	#var lin_targets_worldspace = ship.global_transform.basis * lin_targets
 	#var ang_targets_worldspace = ship.global_transform.basis * ang_targets
-	#par.linear_velocity = lin_targets_worldspace * 20.0
-	#par.angular_velocity = ang_targets_worldspace * 1.0
 
-	var target_force = lin_targets #  - lin_velocity_shipspace) * 0.01
-	var target_torque = ang_targets # - ang_velocity_shipspace) * 0.01
+
+	#ship.linear_velocity = lin_targets_worldspace * 1.0
+	#ship.angular_velocity = ang_targets_worldspace * 1.0
+
+	# return
+	
+	var target_force = lin_targets#  - lin_velocity_shipspace) * 0.01
+	var target_torque = ang_targets# - ang_velocity_shipspace) * 0.01
 	
 	for thruster_address in thrusters:
 		var thruster: GNC_ThrusterState = thrusters[thruster_address].data

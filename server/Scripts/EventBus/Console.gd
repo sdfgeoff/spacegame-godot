@@ -4,6 +4,7 @@ var LOG = Log.new('console')
 
 var console_connection: ConsoleConnection
 
+
 func setup(cons_connection: ConsoleConnection):
 	console_connection = cons_connection
 	add_child(cons_connection)
