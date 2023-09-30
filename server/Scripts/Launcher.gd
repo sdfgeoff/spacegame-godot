@@ -39,7 +39,8 @@ var target: Node3D = null
 
 func _ready():
 	$BusConnection.subscriptions = [
-		Payload.Topic.SENSOR_OBJECTS
+		Payload.Topic.SENSOR_OBJECTS,
+		Payload.Topic.WEAPONS_LAUNCHERTARGET
 	]
 	$BusConnection.connect("got_message", on_message)
 	

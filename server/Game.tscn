@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0wioa6et8eob"]
+[gd_scene load_steps=10 format=3 uid="uid://d0wioa6et8eob"]
 
 [ext_resource type="PackedScene" uid="uid://7g5ghxbt1cet" path="res://Components/Ships/TestShip.tscn" id="1_np6y4"]
 [ext_resource type="PackedScene" uid="uid://5lxegjcyj4x4" path="res://Components/ShipParts/ConsoleConnector.tscn" id="2_2lfwg"]
@@ -7,6 +7,90 @@
 [sub_resource type="TorusMesh" id="TorusMesh_mql6h"]
 inner_radius = 30.0
 outer_radius = 32.0
+
+[sub_resource type="Animation" id="Animation_23d2h"]
+resource_name = "TestTarget"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -18.5864, -0.25, 0, 0.25, 0, 3.5303, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.8, 2.9, 4.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(19.107, -0.25, 0, 0.25, 0, 19.107, -0.25, 0, 0.25, 0, 19.107, -0.25, 0, 0.25, 0, 19.107, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.8, 2.9, 4.3)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 13.7465, -0.25, 0, 0.25, 0, 27.1376, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.8, 2.9, 4.3)
+}
+
+[sub_resource type="Animation" id="Animation_nwiv8"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(19.107, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8su8n"]
+_data = {
+"RESET": SubResource("Animation_nwiv8"),
+"TestTarget": SubResource("Animation_23d2h")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_on3wa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vqejd"]
 
 [node name="Game" type="Node3D"]
 
@@ -32,12 +116,28 @@ transform = Transform3D(0.969161, 0.0198976, -0.245625, 0.0546939, -0.989243, 0.
 light_color = Color(1, 0.941176, 0.929412, 1)
 light_energy = 2.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["sensable"]]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.12315, 0)
 mesh = SubResource("TorusMesh_mql6h")
 skeleton = NodePath("../PlayerShip")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." groups=["sensable"]]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.58776, 0)
 mesh = SubResource("TorusMesh_mql6h")
 skeleton = NodePath("../PlayerShip")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../StaticBody3D")
+autoplay = "TestTarget"
+libraries = {
+"": SubResource("AnimationLibrary_8su8n")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["sensable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.107, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_on3wa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_vqejd")

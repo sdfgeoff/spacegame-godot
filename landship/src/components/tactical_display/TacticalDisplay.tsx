@@ -28,7 +28,7 @@ export const TacticalDisplay = ({displayItems, selected, setSelected, ...props}:
 
 
   return (
-    <Canvas {...props} camera={{position:[0,0,-30], fov: 90, near:0.1, far:100.0}}>
+    <Canvas {...props} camera={{position:[0,0,-45], fov: 30, near:1.0, far:1000.0}}>
       <color attach="background" args={[0,0,0]} />
       <OrbitControls enablePan={false}/>
       {displayItems.map((item) => {

@@ -5,6 +5,7 @@ export interface Materials {
     active: THREE.MeshBasicMaterial,
     inactive: THREE.MeshBasicMaterial,
     worldPlane: THREE.ShaderMaterial,
+    worldCylinder: THREE.ShaderMaterial,
 }
 
 
@@ -60,9 +61,57 @@ export const createMaterials = (): Materials => {
             }
         `,
         transparent: true,
-        depthWrite: true,
+        depthWrite: false,
         depthTest: true,
         side: THREE.DoubleSide,
     })
-    return { hovered, active, inactive, worldPlane }
+    const worldCylinder = new THREE.ShaderMaterial({
+        vertexShader: `
+            varying vec2 vUv;
+            varying vec3 vPosition;
+            varying float scale;
+            varying vec3 vNormal;
+
+            void main() {
+                vUv = uv;
+                vPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+                scale = modelMatrix[1][1];
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+                // Normal in camera space
+                vNormal = normalize(normalMatrix * normal).rgb;
+            }
+        `,
+        fragmentShader: `
+            varying vec2 vUv;
+            varying vec3 vPosition;
+            varying float scale;
+            varying vec3 vNormal;
+
+            
+
+            float coordToLine(float coord, float widthFactor) {
+                float LINE_WIDTH = widthFactor * scale;
+                float base = abs(0.5 - mod(coord, 1.0)) * 2.0;
+                return clamp((base - 1.0 + LINE_WIDTH) / LINE_WIDTH, 0.0, 1.0);
+            }
+
+            void main() {
+                
+                vec3 viewNormal = normalize(vec3(0.0, 0.0, 1.0));
+                float facing = dot(viewNormal, vNormal);
+                float edge = 1.0 - abs(vPosition.y / scale * 100.0);
+                float outBright = 0.0;
+                outBright += edge;
+                outBright *= pow(abs(facing), 2.0);
+
+                gl_FragColor = vec4(vec3(1.0), outBright);
+            }
+        `,
+        transparent: true,
+        depthWrite: false,
+        depthTest: true,
+        side: THREE.DoubleSide,
+    })
+
+    return { hovered, active, inactive, worldPlane, worldCylinder }
 }
