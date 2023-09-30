@@ -31,16 +31,16 @@ type Story = StoryObj<typeof meta>;
 const ITEMS: DisplayItem[] = [
   {
     position: [0,0,0],
-    id: '1'
+    designation: '1'
   },
   {
     position: [1,1,1],
-    id: '2'
+    designation: '2'
   }
   ,
   {
-    position: [1,-1,1],
-    id: '3'
+    position: [-1,-1,1],
+    designation: '3'
   }
 ]
 

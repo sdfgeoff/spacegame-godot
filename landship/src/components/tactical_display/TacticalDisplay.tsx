@@ -1,28 +1,17 @@
-import { Canvas, useThree, MeshProps } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import React from 'react'
-import * as THREE from 'three';
+import { WorldPlane } from './WorldPlane';
 
 import { createMaterials } from './Materials';
 import { Pip } from './Pip';
+import { OrbitControls } from '@react-three/drei'
 
 
 export interface DisplayItem {
   position: [number, number, number],
-  id: string,
+  designation: string,
 }
 
-
-const CameraControls = (props: MeshProps) => {
-  useThree(({ camera }) => {
-    camera.rotation.set(THREE.MathUtils.degToRad(180), 0, 0);
-  });
-
-  return <mesh
-    {...props}
-    scale={1}
-    >
-  </mesh>
-}
 
 
 
@@ -39,19 +28,20 @@ export const TacticalDisplay = ({displayItems, selected, setSelected, ...props}:
 
 
   return (
-    <Canvas {...props} camera={{position:[0,0,-10], fov: 120, near:0.1, far:100.0}}>
-      {/* <CameraControls/> */}
-
+    <Canvas {...props} camera={{position:[0,0,-30], fov: 90, near:0.1, far:100.0}}>
+      <color attach="background" args={[0,0,0]} />
+      <OrbitControls enablePan={false}/>
       {displayItems.map((item) => {
         return <Pip 
           materials={materials}
-          key={item.id} 
+          key={item.designation} 
           position={item.position}
-          id={item.id}
-          selected={selected?.id === item.id}
+          id={item.designation}
+          selected={selected?.designation === item.designation}
           onSelect={() => setSelected(item)}
         />
       })}
+      <WorldPlane materials={materials}/>
     </Canvas>
   )
 }

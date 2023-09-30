@@ -24,13 +24,8 @@ export const Weapons: React.FC = () => {
     const [sensedObjects, setSensedObjects] = React.useState<FromRouterMessage<"Sensor_Objects"> | undefined>()
 
     const [selectedDesignation, setSelectedDesignation] = React.useState<string | undefined>()
-    const displayItems = React.useMemo(() => sensedObjects?.message.payload.objects.map((object: SensedObject) => ({
-        position: object.position,
-        id: object.designation,
-    })) ?? [], [sensedObjects])
 
     const selectedObject: SensedObject | undefined = React.useMemo(() => sensedObjects?.message.payload.objects.find((o: SensedObject) => o.designation === selectedDesignation), [sensedObjects, selectedDesignation])
-    const selectedItem = React.useMemo(() => displayItems.find((o: DisplayItem) => o.id === selectedDesignation), [displayItems, selectedDesignation])
 
     React.useEffect(() => {
         return subscribeTopic("Weapons_LauncherState", (message) => {
@@ -97,11 +92,11 @@ export const Weapons: React.FC = () => {
         }}>
             <TacticalDisplay
 
-                displayItems={displayItems}
+                displayItems={sensedObjects?.message.payload.objects ?? []}
                 setSelected={(item) => {
-                    setSelectedDesignation(item.id)
+                    setSelectedDesignation(item.designation)
                 }}
-                selected={selectedItem}
+                selected={selectedObject}
 
             />
         </div>
