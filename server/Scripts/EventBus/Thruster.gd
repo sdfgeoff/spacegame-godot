@@ -67,10 +67,12 @@ func _process(delta: float):
 		var flame := flame_nodes[id]
 		var target := targets[id]
 		var percent = clampf(target.target_thrust_newtons / max_thrust, 0, 1)
-		var relativeTransform := transform * flame.transform
 		
+		# print(flame.global_transform.origin)
 		root_body.apply_force(
-			relativeTransform.basis.y * percent * -max_thrust,
-			relativeTransform.origin,
+			flame.global_transform.basis.y * percent * -max_thrust,
+			flame.global_transform.origin - root_body.global_transform.origin
+			#root_body.global_transform.origin,
+			# root_body.global_transform.origin,
 		)
 		flame.set_instance_shader_parameter('output_percent', percent)

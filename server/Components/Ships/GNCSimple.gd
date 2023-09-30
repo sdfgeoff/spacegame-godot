@@ -24,30 +24,28 @@ func _process(delta):
 		targets.linear_x,
 		targets.linear_y,
 		targets.linear_z
-	) * 10.0
+	) * 50.0
 	
 	var ang_targets = Vector3(
 		targets.angular_x,
 		targets.angular_y,
 		targets.angular_z
-	) * 1.0
+	) * 2.0
 	
 	var ship: RigidBody3D = get_parent()
 	
 	var to_shipspace = ship.global_transform.basis.inverse()
 	var lin_velocity_shipspace = to_shipspace * ship.linear_velocity
 	var ang_velocity_shipspace = to_shipspace * ship.angular_velocity
-	#var lin_targets_worldspace = ship.global_transform.basis * lin_targets
-	#var ang_targets_worldspace = ship.global_transform.basis * ang_targets
-
-
-	#ship.linear_velocity = lin_targets_worldspace * 1.0
-	#ship.angular_velocity = ang_targets_worldspace * 1.0
-
+	
+	# var lin_targets_worldspace = ship.global_transform.basis * lin_targets
+	# var ang_targets_worldspace = ship.global_transform.basis * ang_targets
+	# ship.linear_velocity = lin_targets_worldspace * 1.0
+	# ship.angular_velocity = ang_targets_worldspace * 1.0
 	# return
 	
-	var target_force = lin_targets#  - lin_velocity_shipspace) * 0.01
-	var target_torque = ang_targets# - ang_velocity_shipspace) * 0.01
+	var target_force = (lin_targets - lin_velocity_shipspace) * 0.005
+	var target_torque = (ang_targets - ang_velocity_shipspace) * 0.5
 	
 	for thruster_address in thrusters:
 		var thruster: GNC_ThrusterState = thrusters[thruster_address].data
@@ -56,7 +54,7 @@ func _process(delta):
 		var engine_local_position := thruster.mount.origin
 		
 		var engine_lin_component := engine_local_vector.dot(target_force);
-		var engine_torque_output := engine_local_vector.cross(engine_local_position).normalized();
+		var engine_torque_output := engine_local_position.cross(engine_local_vector).normalized();
 		var engine_ang_component := engine_torque_output.dot(target_torque);
 
 		var engine_output := engine_lin_component + engine_ang_component;
