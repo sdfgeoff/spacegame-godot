@@ -3,7 +3,7 @@ extends Node
 
 
 var _devices: Array[BusConnection] = []
-var min_id: int = 0
+var min_id: int = 1  # This stops 0 == undefined == null sorts of issues
 
 
 var devices_by_address = {}
@@ -51,14 +51,19 @@ func build_acceleration_structures():
 
 func route_messages(all_messages: Array[Message]):
 	for message in all_messages:
+		
+		if message.address_to:
+			var dev = devices_by_address.get(message.address_to)
+			if dev:
+				dev._inbox.append(message)
+			continue
+		
 		for device in devices_by_subscription.get(message.topic, []):
 			device._inbox.append(message)
 		for device in devices_by_subscription.get(Payload.Topic.ALL, []):
 			device._inbox.append(message)
 		
-		var dev = devices_by_address.get(message.address_to)
-		if dev:
-			dev._inbox.append(message)
+		
 
 
 func _init():

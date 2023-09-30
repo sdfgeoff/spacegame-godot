@@ -22,14 +22,20 @@ func serialize():
 		}
 	})
 
+
+static func _to_int(num_or_null):
+	if num_or_null == null:
+		return null
+	return int(num_or_null)
+
 static func deserialize(d: String) -> Message:
 	var as_dict = JSON.parse_string(d)
 	var t = Payload.STRING_TO_TOPIC[as_dict["message"]['topic']]
 	return Message.new(
 		t,
 		Message._dict_to_obj(t, as_dict["message"]["payload"]),
-		as_dict.get("address_to"),
-		as_dict.get("address_from")
+		_to_int(as_dict.get("address_to")),
+		_to_int(as_dict.get("address_from"))
 	)
 	
 
