@@ -11,6 +11,10 @@ interface SensedObject {
 }
 
 
+const computeRange = (position: [number, number, number]) => {
+    return Math.sqrt(position[0] * position[0] + position[1] * position[1] + position[2] * position[2])
+}
+
 
 export const Weapons: React.FC = () => {
     const {
@@ -62,7 +66,6 @@ export const Weapons: React.FC = () => {
         })
     }, [dataChannelConsole])
 
-
     return <div>
         Weapons:
         {availableWeapons.map((weapon) => (
@@ -71,20 +74,23 @@ export const Weapons: React.FC = () => {
                 {weapon.message.payload.active ? 'active' : 'inactive'}{' '}
                 {weapon.message.payload.current_target === '' ? 'no target' : weapon.message.payload.current_target}{' '}
                 {weapon.message.payload.ammo}
-                <button onClick={
+
+                {weapon.message.payload.current_target === '' ? <button onClick={
                     () => setTarget(weapon.address_from, selectedObject?.designation ?? '')
                 }>
                     Set Target
                 </button>
-                <button onClick={
-                    () => setTarget(weapon.address_from, '')
-                }>
-                    Clear Target
-                </button>
+                    : (
+                        <button onClick={
+                            () => setTarget(weapon.address_from, '')
+                        }>
+                            Clear Target
+                        </button>
+                    )}
             </div>
         ))}
-        Targets:
-        {selectedObject && <div>{selectedObject.position[0]}, {selectedObject.position[1]}, {selectedObject.position[2]}</div>}
+
+        {selectedObject && <><div>Selected: {selectedObject.designation}</div><div>Range: {Math.round(computeRange(selectedObject.position))}m</div></>}
 
         <div style={{
             width: '30em',

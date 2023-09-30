@@ -102,6 +102,7 @@ export const createMaterials = (): Materials => {
                 float edge = 1.0 - abs(vPosition.y / scale * 100.0);
                 float outBright = 0.0;
                 outBright += edge;
+                outBright *= facing > 0.0 ? 0.5 : 0.2;
                 outBright *= pow(abs(facing), 2.0);
 
                 gl_FragColor = vec4(vec3(1.0), outBright);
