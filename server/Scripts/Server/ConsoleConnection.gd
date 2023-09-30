@@ -28,6 +28,8 @@ func _init(signaling: WebSocketClient, signalling_remote_id: int):
 	peer.session_description_created.connect(_on_session)
 	peer.data_channel_received.connect(_on_datacannel_recieved)
 	
+	add_to_group("post_frame")
+	
 func _on_datacannel_recieved(r_channel: WebRTCDataChannel):
 	toServer = r_channel
 	established.emit(_signalling_remote_id)
@@ -59,8 +61,8 @@ func _on_session(type, sdp):
 	}))
 	peer.set_local_description(type, sdp)
 
-func _process(_delta):
-	# Always poll the connection frequently
+
+func iterate():
 	peer.poll()
 	toConsole.poll()
 	
@@ -75,6 +77,12 @@ func _process(_delta):
 				messageFromConsole.emit(toServer.get_packet().get_string_from_utf8())
 		elif readyState == WebRTCDataChannel.STATE_CLOSED:
 			emit_signal("disconnect")
+
+
+func _post_frame_2():
+	# Always poll the connection frequently
+	iterate()
+	
 
 
 func sendMessageToConsole(message):

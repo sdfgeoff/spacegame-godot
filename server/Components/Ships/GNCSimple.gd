@@ -20,7 +20,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
 	var lin_targets = Vector3(
 		targets.linear_x,
 		targets.linear_y,

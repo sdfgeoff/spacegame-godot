@@ -89,8 +89,9 @@ func _process(delta):
 	if current_time > BROADCAST_DELAY_MSEC + _last_broadcast_time:
 		_advertise_ship()
 
+	# Step any pending clients. 
 	for client in clients:
-		clients[client]._process(delta)
+		clients[client].iterate()
 
 func _on_console_established(addr: int):
 	LOG.info("console_ready", {"id": addr})

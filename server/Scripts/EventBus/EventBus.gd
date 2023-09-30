@@ -61,14 +61,20 @@ func route_messages(all_messages: Array[Message]):
 			dev._inbox.append(message)
 
 
+func _init():
+	add_to_group("post_frame")
 
-
-func _process(_delta):
+func _post_frame_1():
 	build_acceleration_structures()
+	var all_messages = collect_messages()
+	route_messages(all_messages)
+
+func _post_frame_3():
 	var all_messages = collect_messages()
 	route_messages(all_messages)
 	_devices.clear()
 	
+
 
 func device_exists(device: BusConnection):
 	_devices.append(device)
