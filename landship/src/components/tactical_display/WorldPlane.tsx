@@ -30,7 +30,7 @@ export const WorldPlane = ({materials}: {materials: Materials}) => {
         scale={1}
         material={materials.worldCylinder}
         >
-        <cylinderGeometry args={[0.45, 0.45, 1.0, 32]} />
+        <cylinderGeometry args={[0.48, 0.48, 1.0, 64]} />
     </mesh>
     </>
   }

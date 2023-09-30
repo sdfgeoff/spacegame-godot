@@ -44,6 +44,8 @@ export const createMaterials = (): Materials => {
             }
 
             void main() {
+                vec2 uv = (vUv.xy - vec2(0.5, 0.5)) * 2.0;
+
                 float lines1 = coordToLine(vPosition.x, 0.01) + coordToLine(vPosition.z, 0.01);
                 float lines10 = coordToLine(vPosition.x / 10.0, 0.001) + coordToLine(vPosition.z / 10.0, 0.001);
                 float radius = 1.0 - length((vUv.xy - vec2(0.5, 0.5)) * 2.0);
@@ -56,8 +58,10 @@ export const createMaterials = (): Materials => {
                 outBright += radius * 0.25;
                 outBright += (lines1 * 0.5 + lines10) * radius * 0.25;
                 outBright *= pow(abs(facing), 0.5);
+                
+                vec4 col = uv.x > 0.0 && abs(uv.y) < 0.01 ? vec4(0.5, 0.5, 1.0, outBright * 2.0) : vec4(vec3(1), outBright);
 
-                gl_FragColor = vec4(vec3(1.0), outBright);
+                gl_FragColor = col;
             }
         `,
         transparent: true,

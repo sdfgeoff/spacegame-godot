@@ -66,7 +66,8 @@ export const Weapons: React.FC = () => {
         })
     }, [dataChannelConsole])
 
-    return <div>
+    return <div className="d-flex h-100">
+        <div>
         Weapons:
         {availableWeapons.map((weapon) => (
             <div key={weapon.address_from} className="d-flex">
@@ -91,10 +92,9 @@ export const Weapons: React.FC = () => {
         ))}
 
         {selectedObject && <><div>Selected: {selectedObject.designation}</div><div>Range: {Math.round(computeRange(selectedObject.position))}m</div></>}
-
+        </div>
         <div style={{
-            width: '30em',
-            height: '30em',
+            aspectRatio: '1/1',
         }}>
             <TacticalDisplay
 
