@@ -132,7 +132,8 @@ func fire(delta):
 	# Candidate for moving to some other function?
 	var new_shot: BulletBase = bullet.instantiate()
 	get_tree().get_root().add_child(new_shot)
-	new_shot.global_transform = b.global_transform.rotated(Vector3(
+	new_shot.global_transform = b.global_transform
+	new_shot.rotate_object_local(Vector3(
 		randf_range(-1, 1),
 		randf_range(-1, 1),
 		randf_range(-1, 1),

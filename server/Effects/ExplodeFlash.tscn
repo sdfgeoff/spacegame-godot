@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfqkwi44q4fgo"]
+
+[ext_resource type="Shader" path="res://Effects/ExplodeFlash.gdshader" id="1_2wnth"]
+[ext_resource type="Script" path="res://Effects/DeleteAfter.gd" id="2_maes0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u8fw7"]
+render_priority = 0
+shader = ExtResource("1_2wnth")
+
+[sub_resource type="SphereMesh" id="SphereMesh_bsb2x"]
+material = SubResource("ShaderMaterial_u8fw7")
+radius = 0.25
+height = 0.5
+radial_segments = 5
+rings = 5
+
+[node name="ExplodeFlash" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_bsb2x")
+script = ExtResource("2_maes0")

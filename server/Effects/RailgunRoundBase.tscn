@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bp4gh33eylux4"]
+[gd_scene load_steps=3 format=3 uid="uid://bp4gh33eylux4"]
 
 [ext_resource type="Script" path="res://Effects/BulletBase.gd" id="1_150qd"]
+[ext_resource type="PackedScene" uid="uid://dqsmprqnpi5gs" path="res://Effects/Explode1.tscn" id="2_ndwgn"]
 
 [node name="RailgunRoundBase" type="RayCast3D" groups=["tracers"]]
 script = ExtResource("1_150qd")
 mass_kg = 0.5
+tracer_size = 0.3
 tracer_hue = 0.348
+explosion = ExtResource("2_ndwgn")

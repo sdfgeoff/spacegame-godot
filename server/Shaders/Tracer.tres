@@ -9,11 +9,14 @@ uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enab
 
 uniform vec3 uv1_scale = vec3(0.25);
 uniform vec3 uv1_offset;
-uniform float emission_strength = 10.0;
+uniform float emission_strength = 100.0;
 
 
 varying vec3 scale;
 varying vec4 trace_col;
+
+// At long ranges the \"outer\" darker glow can obscure teh inner glow, this \"boosts\" the brightness at long ranges
+varying float distance_from_camera_boost; 
 
 void light() {}
 
@@ -30,17 +33,17 @@ void vertex() {
 		vec3(0.3) + vec3(0.5) * cos(2.0 * PI * (vec3(1.0) * trace_hue+vec3(0.0, 0.333, 0.667))),
 		1.0
 	);
+	
+	distance_from_camera_boost = length(MODELVIEW_MATRIX[3]) * 0.01;
 }
 
 
 void fragment() {
-		
-		
 	float viewAngle = pow(dot(NORMAL, VIEW), COLOR.g) ;
 	viewAngle *= viewAngle;
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	float intensity = albedo_tex.r;
+	float intensity = albedo_tex.r * (1.0 + distance_from_camera_boost);
 	
 	float alpha = intensity * viewAngle;
 	

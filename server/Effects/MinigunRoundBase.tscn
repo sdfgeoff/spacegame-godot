@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://drasdvr0s15mm"]
+[gd_scene load_steps=3 format=3 uid="uid://drasdvr0s15mm"]
 
 [ext_resource type="Script" path="res://Effects/BulletBase.gd" id="1_mlhe1"]
+[ext_resource type="PackedScene" uid="uid://cfqkwi44q4fgo" path="res://Effects/ExplodeFlash.tscn" id="2_gsei5"]
 
 [node name="MinigunRoundBase" type="RayCast3D" groups=["tracers"]]
 script = ExtResource("1_mlhe1")
 mass_kg = 0.5
-tracer_size = 0.2
+tracer_size = 0.1
 tracer_hue = 0.99
+explosion = ExtResource("2_gsei5")

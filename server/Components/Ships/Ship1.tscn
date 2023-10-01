@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://dvxobuns28na6"]
+
+[ext_resource type="PackedScene" uid="uid://dvg3skwjq02ih" path="res://Components/Ships/Ship1.blend" id="1_2poai"]
+[ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="2_vlkl0"]
+[ext_resource type="PackedScene" uid="uid://dyhgrk2607y4v" path="res://Components/ShipParts/Minigun.tscn" id="3_sq6kg"]
+[ext_resource type="PackedScene" uid="uid://df2o3pv4n4ttd" path="res://Components/ShipParts/RailGun.tscn" id="4_7hb1l"]
+[ext_resource type="PackedScene" uid="uid://bt7u6n1rfy738" path="res://Components/ShipParts/Clock.tscn" id="5_mqxc5"]
+[ext_resource type="PackedScene" uid="uid://c4yn7sdbuvbf0" path="res://Components/ShipParts/GNCSimple.tscn" id="6_jlqkh"]
+[ext_resource type="PackedScene" uid="uid://b26dv4cajre3j" path="res://Components/ShipParts/BusCamera.tscn" id="7_omu53"]
+[ext_resource type="PackedScene" uid="uid://mnqo5k5gqajq" path="res://Components/ShipParts/Sensors.tscn" id="8_d8ob3"]
+[ext_resource type="PackedScene" uid="uid://dcn1rri2dami2" path="res://Components/ShipParts/EngineLarge.tscn" id="9_r3gqm"]
+[ext_resource type="PackedScene" uid="uid://bbivdomtsf0p7" path="res://Components/ShipParts/RCS4.tscn" id="10_qrnvq"]
+
+[node name="Ship1" instance=ExtResource("1_2poai")]
+
+[node name="Ship1" parent="." index="0" groups=["sensable"]]
+
+[node name="EventBus" parent="Ship1" index="2" instance=ExtResource("2_vlkl0")]
+
+[node name="Minigun" parent="Ship1" index="3" instance=ExtResource("3_sq6kg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.75521, 0)
+
+[node name="Minigun2" parent="Ship1" index="4" instance=ExtResource("3_sq6kg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.26185, 4.59449, 2.57831)
+
+[node name="Minigun4" parent="Ship1" index="5" instance=ExtResource("3_sq6kg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.262, 4.594, 2.578)
+
+[node name="Minigun3" parent="Ship1" index="6" instance=ExtResource("3_sq6kg")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, -3.33969, 0)
+
+[node name="RailGun" parent="Ship1" index="7" instance=ExtResource("4_7hb1l")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 7.5, 0, 0)
+
+[node name="RailGun2" parent="Ship1" index="8" instance=ExtResource("4_7hb1l")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -7.5, 0, 0)
+
+[node name="RailGun3" parent="Ship1" index="9" instance=ExtResource("4_7hb1l")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 9, 0.769323, 8.45753)
+
+[node name="RailGun4" parent="Ship1" index="10" instance=ExtResource("4_7hb1l")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -9, 0.769323, 8.45753)
+
+[node name="Clock" parent="Ship1" index="11" instance=ExtResource("5_mqxc5")]
+
+[node name="GNCSimple" parent="Ship1" index="12" instance=ExtResource("6_jlqkh")]
+
+[node name="BusCamera" parent="Ship1" index="13" instance=ExtResource("7_omu53")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.75656, 29.5541)
+
+[node name="Sensors" parent="Ship1" index="14" instance=ExtResource("8_d8ob3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="EngineLarge" parent="Ship1" index="15" instance=ExtResource("9_r3gqm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3, 1.74846e-07, 20.0436)
+
+[node name="EngineLarge2" parent="Ship1" index="16" instance=ExtResource("9_r3gqm")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3, 1.74846e-07, 20.0436)
+
+[node name="RCS4" parent="Ship1" index="17" instance=ExtResource("10_qrnvq")]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, -7, 3.19185, 12.81)
+
+[node name="RCS5" parent="Ship1" index="18" instance=ExtResource("10_qrnvq")]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 7, 3.192, 12.81)
+
+[node name="RCS6" parent="Ship1" index="19" instance=ExtResource("10_qrnvq")]
+transform = Transform3D(-0.866025, -0.5, 0, 0.5, -0.866025, 0, 0, 0, 1, -7, -0.729468, 12.81)
+
+[node name="RCS7" parent="Ship1" index="20" instance=ExtResource("10_qrnvq")]
+transform = Transform3D(-0.866025, 0.5, 0, -0.5, -0.866025, 0, 0, 0, 1, 7, -0.729, 12.81)
+
+[node name="RCS8" parent="Ship1" index="21" instance=ExtResource("10_qrnvq")]
+transform = Transform3D(1.19209e-07, 1, 0, -1, 1.19209e-07, 0, 0, 0, 1, 5.11518, 0.271, -6.33337)
+
+[node name="RCS10" parent="Ship1" index="22" instance=ExtResource("10_qrnvq")]
+transform = Transform3D(1, -1.62921e-07, 0, 1.62921e-07, 1, 0, 0, 0, 1, 0, 3.401, -6.333)
+
+[node name="RCS11" parent="Ship1" index="23" instance=ExtResource("10_qrnvq")]
+transform = Transform3D(-1, 2.50343e-07, 0, -2.50343e-07, -1, 0, 0, 0, 1, 0, -2.40275, -6.333)
+
+[node name="RCS9" parent="Ship1" index="24" instance=ExtResource("10_qrnvq")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -5.115, 0.271, -6.333)
+
+[editable path="Ship1/BusCamera"]

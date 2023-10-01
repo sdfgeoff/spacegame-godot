@@ -1,12 +1,22 @@
--> The ability to fly the ship in localspace
--> A pilot view thingo
--> A way to start the game (eg menu)
--> A way to die/fail a level
--> A way to win a level
--> An end-game screen
+MVP TODO:
+	-> A pilot view thingo
+	-> A way to start the game (eg menu)
+	-> A way to die/fail a level
+	-> A way to win a level
+	-> An end-game screen
 
 
 Not quite MVP:
-	-> Large buttons on teh tactical display
-	-> Names on teh tactical display
+	-> Larger buttons on teh tactical display
+	-> Names on the tactical display
 	-> Names that aren't 8 hex characters long
+
+Future Consoles:
+	-> navigator
+	-> captains map
+	-> sensors
+	-> engineering
+	-> viewport
+
+DONE:
+	-> The ability to fly the ship in localspace

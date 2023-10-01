@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://7g5ghxbt1cet"]
+[gd_scene load_steps=12 format=3 uid="uid://7g5ghxbt1cet"]
 
 [ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="1_r486i"]
 [ext_resource type="PackedScene" uid="uid://bt7u6n1rfy738" path="res://Components/ShipParts/Clock.tscn" id="2_uac2e"]
-[ext_resource type="PackedScene" uid="uid://bun7i1h0spvvd" path="res://Components/ShipParts/BusPrinter.tscn" id="3_8pet7"]
 [ext_resource type="PackedScene" uid="uid://dyhgrk2607y4v" path="res://Components/ShipParts/Minigun.tscn" id="4_dkqm2"]
 [ext_resource type="PackedScene" uid="uid://df2o3pv4n4ttd" path="res://Components/ShipParts/RailGun.tscn" id="5_5hb12"]
 [ext_resource type="PackedScene" uid="uid://c4yn7sdbuvbf0" path="res://Components/ShipParts/GNCSimple.tscn" id="6_6bg0v"]
@@ -24,9 +23,6 @@ shape = SubResource("BoxShape3D_cg0e7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Hull"]
 mesh = SubResource("BoxMesh_heoj7")
-
-[node name="BusPrinter" parent="." instance=ExtResource("3_8pet7")]
-process_mode = 4
 
 [node name="EventBus" parent="." instance=ExtResource("1_r486i")]
 

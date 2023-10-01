@@ -5,6 +5,7 @@ var velocity: float = 0
 @export var mass_kg: float = 0
 @export var tracer_size: float = 1.0
 @export var tracer_hue: float = 1.0
+@export var explosion: PackedScene = null
 
 var old_position: Vector3
 

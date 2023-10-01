@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn5nq8equ60ak"]
+
+[ext_resource type="Material" uid="uid://dnue0nv6y2nbh" path="res://Shaders/GenericPanelMaterial.tres" id="1_gqxp5"]
+[ext_resource type="PackedScene" uid="uid://dilbjk1fn80nk" path="res://Components/Ships/TestShip.blend" id="2_uxoyq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xuub8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5axo8"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("BoxMesh_xuub8")
+surface_material_override/0 = ExtResource("1_gqxp5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+mesh = SubResource("SphereMesh_5axo8")
+surface_material_override/0 = ExtResource("1_gqxp5")
+
+[node name="TestShip" parent="." instance=ExtResource("2_uxoyq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.158482, 0, -0.334365)
