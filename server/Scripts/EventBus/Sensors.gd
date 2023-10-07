@@ -13,7 +13,7 @@ var known_objects = {}
 
 
 
-func _process(delta):
+func _process(_delta):
 	var current_time = Time.get_ticks_msec()
 	
 	var to_delete = []

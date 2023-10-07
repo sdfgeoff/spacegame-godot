@@ -82,7 +82,7 @@ func _advertise_ship():
 	}))
 	
 
-func _process(delta):
+func _process(_delta):
 	tracker_client.poll()
 	
 	var current_time = Time.get_ticks_msec()

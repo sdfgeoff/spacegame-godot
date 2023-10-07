@@ -19,7 +19,7 @@ func _ready():
 	$BusConnection.connect("got_message", _on_bus_message)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var lin_targets = Vector3(
 		targets.linear_x,
 		targets.linear_y,
@@ -30,7 +30,7 @@ func _process(delta):
 		targets.angular_x,
 		targets.angular_y,
 		targets.angular_z
-	) * 2.0
+	) * 5.0
 	
 	var ship: RigidBody3D = get_parent()
 	
@@ -45,8 +45,8 @@ func _process(delta):
 	# return
 	
 	var target_force = (lin_targets - lin_velocity_shipspace) * 0.005
-	var target_torque = (ang_targets - ang_velocity_shipspace) * 0.5
-	
+	var target_torque = (ang_targets - ang_velocity_shipspace) * 1.0
+
 	for thruster_address in thrusters:
 		var thruster: GNC_ThrusterState = thrusters[thruster_address].data
 		

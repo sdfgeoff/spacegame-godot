@@ -13,6 +13,18 @@ flames = Array[NodePath]([NodePath("RCS/Flame1"), NodePath("RCS/Flame2"), NodePa
 
 [node name="RCS" parent="." instance=ExtResource("1_5yqyc")]
 
+[node name="Flame1" parent="RCS" index="1"]
+instance_shader_parameters/color = Color(1, 0.725, 0.5, 1)
+
+[node name="Flame2" parent="RCS" index="2"]
+instance_shader_parameters/color = Color(1, 0.725, 0.5, 1)
+
+[node name="Flame3" parent="RCS" index="3"]
+instance_shader_parameters/color = Color(1, 0.725, 0.5, 1)
+
+[node name="Flame4" parent="RCS" index="4"]
+instance_shader_parameters/color = Color(1, 0.725, 0.5, 1)
+
 [node name="BusConnection" type="Node" parent="."]
 script = ExtResource("2_ucldl")
 
