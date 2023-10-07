@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0wioa6et8eob"]
+[gd_scene load_steps=12 format=3 uid="uid://d0wioa6et8eob"]
 
 [ext_resource type="PackedScene" uid="uid://7g5ghxbt1cet" path="res://Components/Ships/TestShip.tscn" id="1_np6y4"]
 [ext_resource type="PackedScene" uid="uid://5lxegjcyj4x4" path="res://Components/ShipParts/ConsoleConnector.tscn" id="2_2lfwg"]
 [ext_resource type="Environment" uid="uid://dxu4i5aaen8d7" path="res://World.tres" id="2_f1g1a"]
+[ext_resource type="Script" path="res://StarsSkyShader.gd" id="4_chcoy"]
 [ext_resource type="PackedScene" uid="uid://dvxobuns28na6" path="res://Components/Ships/Ship1.tscn" id="4_q0i6t"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_mql6h"]
@@ -102,7 +103,7 @@ _data = {
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.705526, 0, -0.708685, 0, 1, 0, 0.708685, 0, 0.705526, -151.328, 0, 166.077)
 current = true
-fov = 21.0
+fov = 41.4
 
 [node name="TestShip2" parent="." instance=ExtResource("1_np6y4")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -11, 0, 0)
@@ -111,6 +112,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -11, 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_f1g1a")
+script = ExtResource("4_chcoy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.969161, 0.0198976, -0.245625, 0.0546939, -0.989243, 0.135669, -0.240283, -0.144919, -0.959824, -1.22984, 5.92556, -0.507133)
@@ -145,6 +147,9 @@ mesh = SubResource("BoxMesh_vqejd")
 
 [node name="Ship1" parent="." instance=ExtResource("4_q0i6t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0)
+
+[node name="Camera3D" parent="Ship1/Ship1/BusCamera" index="0"]
+current = true
 
 [node name="ConsoleConnector3" parent="Ship1/Ship1" index="19" instance=ExtResource("2_2lfwg")]
 

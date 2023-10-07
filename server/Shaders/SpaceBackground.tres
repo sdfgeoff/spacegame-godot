@@ -1,63 +1,12 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b6qsy3dmocs4f"]
 
-[ext_resource type="Texture2D" uid="uid://c831gqwa326bq" path="res://Textures/stars.png" id="1_ro10k"]
-
-[sub_resource type="Shader" id="Shader_cel6a"]
-code = "
-// NOTE: Shader automatically converted from Godot Engine 4.1.1.stable's ProceduralSkyMaterial.
-
-shader_type sky;
-render_mode use_debanding;
-
-uniform sampler2D noiseTex;
-uniform vec3 stars_color : source_color = vec3(1.0, 0.5, 0.2);
-uniform vec3 clouds_color : source_color = vec3(1.0, 0.5, 0.2);
-
-const float texScale = 2.0;
-
-
-void sky() {
-	vec3 direction = EYEDIR;
-	
-	vec3 steps = step(0.0, direction) * 0.5;
-	
-	vec4 tex1 = texture(noiseTex, texScale * direction.xy +  steps.z);
-	vec4 tex2 = texture(noiseTex, texScale * direction.yz + 0.333 + steps.x);
-	vec4 tex3 = texture(noiseTex, texScale * direction.xz + 0.666 + steps.y);
-	vec4 tex = mix(tex1, tex2, 1.0 - abs(direction.z));
-	tex = mix(tex, tex3, abs(direction.y));
-
-	float clouds = tex.b * 0.7 + 0.3;
-	clouds = mix(clouds, 0.0, -direction.x * 0.5 + 0.5);
-	float horizon = (1.0 - abs(direction.y));
-	float star_density = clouds;
-	clouds = clouds * horizon;
-	clouds = pow(clouds, 3.0) * 0.2;
-	vec3 cloudsCol = clouds * vec3(clouds_color);
-	
-	vec2 stars = vec2(tex.r, tex.g);
-	stars *= mix(2.0, star_density, 0.9) * mix(1.0, horizon, 0.2);
-	stars = pow(stars, vec2(4.0));
-	stars *= 10.0;
-	vec3 starsCol = stars.g * stars_color + stars.r * clouds_color;
-	
-	float sunOuterSize = 0.005;
-	float sunInnerSize = 0.2;
-	float sun = (dot(LIGHT0_DIRECTION, EYEDIR)  - 1.0 + sunOuterSize) / sunOuterSize;
-	sun = clamp(sun / sunInnerSize, 0.0, 1.0);
-	sun = pow(sun, 4.0);
-	
-	vec3 c2 = LIGHT0_COLOR * LIGHT0_COLOR * LIGHT0_ENERGY;
-	
-	vec3 sunCol = sun * c2;
-	
-	COLOR = starsCol + cloudsCol + sunCol;
-}
-
-"
+[ext_resource type="Shader" uid="uid://b0fxosaerti2v" path="res://Shaders/SpaceBackgroundShader.tres" id="1_ohjwa"]
+[ext_resource type="Texture2D" uid="uid://b21butoieq1g7" path="res://Textures/Skybox1.png" id="2_4f0pn"]
 
 [resource]
-shader = SubResource("Shader_cel6a")
+shader = ExtResource("1_ohjwa")
 shader_parameter/stars_color = Color(0.8, 0.952941, 1, 1)
 shader_parameter/clouds_color = Color(0.839216, 0.862745, 1, 1)
-shader_parameter/noiseTex = ExtResource("1_ro10k")
+shader_parameter/SCREEN_RESOLUTION = Vector2(2, 2)
+shader_parameter/FOV = 0.925025
+shader_parameter/noiseTex = ExtResource("2_4f0pn")
