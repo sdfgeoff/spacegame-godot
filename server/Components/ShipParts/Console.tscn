@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6836nojqh6ts"]
 
-[ext_resource type="Script" path="res://Scripts/EventBus/Console.gd" id="1_pbelb"]
-[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_h2gcc"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/Console.gd" id="1_pbelb"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/BusConnection.gd" id="2_h2gcc"]
 
 [node name="Console" type="Node"]
 script = ExtResource("1_pbelb")

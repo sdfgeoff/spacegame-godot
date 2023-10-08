@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c4yn7sdbuvbf0"]
 
 [ext_resource type="Script" path="res://Components/Ships/GNCSimple.gd" id="1_g757f"]
-[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_v4hmt"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/BusConnection.gd" id="2_v4hmt"]
 
 [node name="GNCSimple" type="Node"]
 script = ExtResource("1_g757f")

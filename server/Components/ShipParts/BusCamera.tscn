@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b26dv4cajre3j"]
 
-[ext_resource type="Script" path="res://Scripts/EventBus/BusCamera.gd" id="1_jljm5"]
-[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_qsa25"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/BusCamera.gd" id="1_jljm5"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/BusConnection.gd" id="2_qsa25"]
 
 [node name="BusCamera" type="Node3D"]
 script = ExtResource("1_jljm5")

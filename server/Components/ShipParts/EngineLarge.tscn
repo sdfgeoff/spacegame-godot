@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcn1rri2dami2"]
 
 [ext_resource type="PackedScene" uid="uid://gdn0e8q2shml" path="res://Components/RawAssets/Engine.blend" id="1_fieea"]
-[ext_resource type="Script" path="res://Scripts/EventBus/Thruster.gd" id="1_hv0hr"]
-[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="3_am5mr"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/Thruster.gd" id="1_hv0hr"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/BusConnection.gd" id="3_am5mr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ibrg7"]
 

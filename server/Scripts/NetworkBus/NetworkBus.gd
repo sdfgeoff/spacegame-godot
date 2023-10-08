@@ -1,4 +1,4 @@
-class_name EventBus
+class_name NetworkBus
 extends Node
 
 

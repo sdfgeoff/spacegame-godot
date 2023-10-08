@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dvxobuns28na6"]
 
 [ext_resource type="PackedScene" uid="uid://dvg3skwjq02ih" path="res://Components/Ships/Ship1.blend" id="1_2poai"]
-[ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="2_vlkl0"]
+[ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/NetworkBus.tscn" id="2_vlkl0"]
 [ext_resource type="PackedScene" uid="uid://dyhgrk2607y4v" path="res://Components/ShipParts/Minigun.tscn" id="3_sq6kg"]
 [ext_resource type="PackedScene" uid="uid://df2o3pv4n4ttd" path="res://Components/ShipParts/RailGun.tscn" id="4_7hb1l"]
 [ext_resource type="PackedScene" uid="uid://bt7u6n1rfy738" path="res://Components/ShipParts/Clock.tscn" id="5_mqxc5"]
@@ -15,7 +15,7 @@
 
 [node name="Ship1" parent="." index="0" groups=["sensable"]]
 
-[node name="EventBus" parent="Ship1" index="2" instance=ExtResource("2_vlkl0")]
+[node name="NetworkBus" parent="Ship1" index="2" instance=ExtResource("2_vlkl0")]
 
 [node name="Minigun" parent="Ship1" index="3" instance=ExtResource("3_sq6kg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.75521, 0)

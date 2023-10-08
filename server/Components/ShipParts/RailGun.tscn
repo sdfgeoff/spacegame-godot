@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://rlmbif5vgkcn" path="res://Components/RawAssets/RailGun.blend" id="1_hs4ae"]
 [ext_resource type="PackedScene" uid="uid://bp4gh33eylux4" path="res://Effects/RailgunRoundBase.tscn" id="2_gpfy7"]
 [ext_resource type="Script" path="res://Scripts/FakeMotor.gd" id="3_uv7fu"]
-[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="5_op3fk"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/BusConnection.gd" id="5_op3fk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_45pf1"]
 radius = 1.0

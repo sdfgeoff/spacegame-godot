@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7jrey5hpb4ky"]
 
-[ext_resource type="Script" path="res://Scripts/EventBus/EventBus.gd" id="1_swrjo"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/NetworkBus.gd" id="1_swrjo"]
 
-[node name="EventBus" type="Node"]
+[node name="NetworkBus" type="Node"]
 script = ExtResource("1_swrjo")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bt7u6n1rfy738"]
 
-[ext_resource type="Script" path="res://Scripts/EventBus/Clock.gd" id="1_hbf1l"]
-[ext_resource type="Script" path="res://Scripts/EventBus/BusConnection.gd" id="2_dxjak"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/Clock.gd" id="1_hbf1l"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/BusConnection.gd" id="2_dxjak"]
 
 [node name="Clock" type="Node"]
 script = ExtResource("1_hbf1l")

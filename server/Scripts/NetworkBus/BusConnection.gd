@@ -32,7 +32,7 @@ func poll():
 		got_message.emit(message)
 	_inbox.clear()
 		
-	var bus = get_parent().get_parent().get_node_or_null("EventBus")
+	var bus = get_parent().get_parent().get_node_or_null("NetworkBus")
 	if bus != null:
 		bus.device_exists(self)
 	else:
