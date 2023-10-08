@@ -65,9 +65,14 @@ func on_message(message: Message):
 			for p_target in possible_targets:
 				if p_target['designation'] == target_designation:
 					target_data = p_target
-			target.global_position.x = target_data.position[0]
-			target.global_position.y = target_data.position[1]
-			target.global_position.z = target_data.position[2]
+			if target_data != null:
+				target.global_position.x = target_data.position[0]
+				target.global_position.y = target_data.position[1]
+				target.global_position.z = target_data.position[2]
+				allow_firing = true
+			else:
+				allow_firing = false
+				
 		
 	if message.topic == Payload.Topic.WEAPONS_LAUNCHERTARGET:
 		target_designation = message.data.target_designation
