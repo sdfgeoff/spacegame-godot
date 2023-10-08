@@ -1,4 +1,7 @@
 class_name GNC_Targets
+"""
+Instructs the spacecraft to move, and at what speed and in what direction.
+"""
 extends RefCounted
 
 var linear_x: float

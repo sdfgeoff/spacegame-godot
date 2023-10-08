@@ -1,0 +1,6 @@
+[book]
+authors = ["Geoffrey Irons"]
+language = "en"
+multilingual = false
+src = "src"
+title = "SpaceGame Documentation"
