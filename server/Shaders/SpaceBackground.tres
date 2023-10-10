@@ -7,6 +7,7 @@
 shader = ExtResource("1_ohjwa")
 shader_parameter/stars_color = Color(0.8, 0.952941, 1, 1)
 shader_parameter/clouds_color = Color(0.839216, 0.862745, 1, 1)
+shader_parameter/skybox_transform = Vector3(0, 0, 0)
 shader_parameter/SCREEN_RESOLUTION = Vector2(2, 2)
-shader_parameter/FOV = 0.925025
+shader_parameter/FOV = 1.309
 shader_parameter/noiseTex = ExtResource("2_4f0pn")
