@@ -4,7 +4,7 @@ import { FromRouterMessage, ToRouterMessage } from '../models/Messages';
 import JoyPad, { Position } from '../components/Joypad';
 import TacticalDisplay from '../components/tactical_display/TacticalDisplay';
 import { GlobalHotKeys } from 'react-hotkeys';
-import { keyMap } from '../hotkeys';
+import { keyMap, useKeyMap } from '../hotkeys';
 
 export const Piloting: React.FC = () => {
     const {
@@ -56,61 +56,60 @@ export const Piloting: React.FC = () => {
 
 
     const keyHandlers = React.useMemo(() => ({
-        'RCS_FORWARD': () => setTargets((old) => ({
+        'RCS_FORWARD': (state: number) => setTargets((old) => ({
             ...old,
-            linear_z: 1,
+            linear_z: 1 * state,
         })),
-        'RCS_BACKWARD': () => setTargets((old) => ({
+        'RCS_BACKWARD': (state: number) => setTargets((old) => ({
             ...old,
-            linear_z: -1,
+            linear_z: -1 * state,
         })),
-        'RCS_LEFT': () => setTargets((old) => ({
+        'RCS_LEFT': (state: number) => setTargets((old) => ({
             ...old,
-            linear_x: -1,
+            linear_x: -1 * state,
         })),
-        'RCS_RIGHT': () => setTargets((old) => ({
+        'RCS_RIGHT': (state: number) => setTargets((old) => ({
             ...old,
-            linear_x: 1,
+            linear_x: 1 * state,
         })),
-        'RCS_UP': () => setTargets((old) => ({
+        'RCS_UP': (state: number) => setTargets((old) => ({
             ...old,
-            linear_y: 1,
+            linear_y: 1 * state,
         })),
-        'RCS_DOWN': () => setTargets((old) => ({
+        'RCS_DOWN': (state: number) => setTargets((old) => ({
             ...old,
-            linear_y: -1,
+            linear_y: -1 * state,
         })),
-        'RCS_ROLL_LEFT': () => setTargets((old) => ({
+        'RCS_ROLL_LEFT': (state: number) => setTargets((old) => ({
             ...old,
-            angular_z: 1,
+            angular_z: 1 * state,
         })),
-        'RCS_ROLL_RIGHT': () => setTargets((old) => ({
+        'RCS_ROLL_RIGHT': (state: number) => setTargets((old) => ({
             ...old,
-            angular_z: -1,
+            angular_z: -1 * state,
         })),
-        'RCS_YAW_LEFT': () => setTargets((old) => ({
+        'RCS_YAW_LEFT': (state: number) => setTargets((old) => ({
             ...old,
-            angular_y: 1,
+            angular_y: 1 * state,
         })),
-        'RCS_YAW_RIGHT': () => setTargets((old) => ({
+        'RCS_YAW_RIGHT': (state: number) => setTargets((old) => ({
             ...old,
-            angular_y: -1,
+            angular_y: -1 * state,
         })),
-        'RCS_PITCH_UP': () => setTargets((old) => ({
+        'RCS_PITCH_UP': (state: number) => setTargets((old) => ({
             ...old,
-            angular_x: 1,
+            angular_x: 1 * state,
         })),
-        'RCS_PITCH_DOWN': () => setTargets((old) => ({
+        'RCS_PITCH_DOWN': (state: number) => setTargets((old) => ({
             ...old,
-            angular_x: -1,
+            angular_x: -1 * state,
         })),
     }), [setTargets])
 
+    useKeyMap(keyHandlers)
+
+
     return <div className='d-flex'>
-        <GlobalHotKeys
-            keyMap={keyMap}
-            handlers={keyHandlers}
-        />
         <div style={{
             width: '10em',
             height: '10em',

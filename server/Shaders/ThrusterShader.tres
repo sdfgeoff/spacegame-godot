@@ -20,7 +20,7 @@ void light() {
 void fragment() {
 	float viewAngle = dot(VIEW, NORMAL);
 
-	float noise = texture(noisetex, UV * vec2(1,0) + vec2(0, TIME / 20.0)).b;
+	float noise = texture(noisetex, UV * vec2(1,0) + vec2(0, TIME / 1.0)).b;
 	
 	
 	float intensity = (output_percent - UV.y) / output_percent;
