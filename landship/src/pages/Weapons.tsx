@@ -53,7 +53,6 @@ export const Weapons: React.FC = () => {
         })
     }, [subscribeTopic, setSensedObjects])
 
-
     const setTarget = React.useCallback((weaponId: number, target: string) => {
         dataChannelConsole.send({
             message: {
@@ -103,6 +102,7 @@ export const Weapons: React.FC = () => {
                     setSelectedDesignation(item.designation)
                 }}
                 selected={selectedObject}
+                sensorPosition={sensedObjects?.message.payload.sensor_position ?? [0, 0, 0]}
 
             />
         </div>

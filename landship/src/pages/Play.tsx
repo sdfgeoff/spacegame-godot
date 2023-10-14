@@ -6,6 +6,8 @@ import PanelTitled from '../components/PanelTitled'
 import Button from '../components/Button'
 import { Piloting } from './Piloting'
 import { Weapons } from './Weapons'
+import { GlobalHotKeys } from 'react-hotkeys'
+import { keyMap } from '../hotkeys'
 
 
 export interface JoinProps {
@@ -32,8 +34,21 @@ export const Play: React.FC<JoinProps> = () => {
  
     const [screen, setScreen] = useState<Screen | undefined>()
 
+
+    const hotKeyHandlers = {
+        'CONSOLE_PILOTING': () => {
+            setScreen(Screens[0])
+        },
+        'CONSOLE_WEAPONS': () => {
+            setScreen(Screens[1])
+        }
+    }
+
+
+
     return (
         <div className="d-flex flex-row p-1 gap-1 flex-grow-1">
+            <GlobalHotKeys keyMap={keyMap} handlers={hotKeyHandlers}/>
             <PanelTitled variant="dark" heading={
                 <h2 className="p-1">Ship Systems</h2>
             }>

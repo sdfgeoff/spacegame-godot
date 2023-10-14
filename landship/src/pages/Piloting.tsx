@@ -3,6 +3,8 @@ import { useAppContext } from '../contexts/AppContext';
 import { FromRouterMessage, ToRouterMessage } from '../models/Messages';
 import JoyPad, { Position } from '../components/Joypad';
 import TacticalDisplay from '../components/tactical_display/TacticalDisplay';
+import { GlobalHotKeys } from 'react-hotkeys';
+import { keyMap } from '../hotkeys';
 
 export const Piloting: React.FC = () => {
     const {
@@ -53,9 +55,62 @@ export const Piloting: React.FC = () => {
     })), [setTargets])
 
 
-    return <div className='d-flex'>
-        {/* X: {latestMessage?.message.payload.pos_x} */}
+    const keyHandlers = React.useMemo(() => ({
+        'RCS_FORWARD': () => setTargets((old) => ({
+            ...old,
+            linear_z: 1,
+        })),
+        'RCS_BACKWARD': () => setTargets((old) => ({
+            ...old,
+            linear_z: -1,
+        })),
+        'RCS_LEFT': () => setTargets((old) => ({
+            ...old,
+            linear_x: -1,
+        })),
+        'RCS_RIGHT': () => setTargets((old) => ({
+            ...old,
+            linear_x: 1,
+        })),
+        'RCS_UP': () => setTargets((old) => ({
+            ...old,
+            linear_y: 1,
+        })),
+        'RCS_DOWN': () => setTargets((old) => ({
+            ...old,
+            linear_y: -1,
+        })),
+        'RCS_ROLL_LEFT': () => setTargets((old) => ({
+            ...old,
+            angular_z: 1,
+        })),
+        'RCS_ROLL_RIGHT': () => setTargets((old) => ({
+            ...old,
+            angular_z: -1,
+        })),
+        'RCS_YAW_LEFT': () => setTargets((old) => ({
+            ...old,
+            angular_y: 1,
+        })),
+        'RCS_YAW_RIGHT': () => setTargets((old) => ({
+            ...old,
+            angular_y: -1,
+        })),
+        'RCS_PITCH_UP': () => setTargets((old) => ({
+            ...old,
+            angular_x: 1,
+        })),
+        'RCS_PITCH_DOWN': () => setTargets((old) => ({
+            ...old,
+            angular_x: -1,
+        })),
+    }), [setTargets])
 
+    return <div className='d-flex'>
+        <GlobalHotKeys
+            keyMap={keyMap}
+            handlers={keyHandlers}
+        />
         <div style={{
             width: '10em',
             height: '10em',
