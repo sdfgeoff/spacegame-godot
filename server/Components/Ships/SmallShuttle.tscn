@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://bydrs0npk8apr"]
+
+[ext_resource type="PackedScene" uid="uid://b1qmv3kbbvknn" path="res://Components/Ships/SmallShuttle.blend" id="1_3gt7g"]
+[ext_resource type="PackedScene" uid="uid://dcn1rri2dami2" path="res://Components/ShipParts/EngineLarge.tscn" id="2_vtsf0"]
+[ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="3_kndwu"]
+
+[node name="SmallShuttle" type="Node3D"]
+
+[node name="SmallShuttle2" parent="." instance=ExtResource("1_3gt7g")]
+
+[node name="BlackHull" parent="SmallShuttle2/Hull" index="0"]
+instance_shader_parameters/bias = -0.19
+instance_shader_parameters/primary = Color(0.0470588, 0.0470588, 0.0470588, 0.541176)
+instance_shader_parameters/primary_scale = Vector3(0.3, 0.3, 1)
+
+[node name="WhiteHull" parent="SmallShuttle2/Hull" index="1"]
+instance_shader_parameters/bias = -0.11
+instance_shader_parameters/primary = Color(1, 1, 1, 0.721569)
+instance_shader_parameters/primary_scale = Vector3(0.09, 0.995, 0.27)
+
+[node name="Hull" parent="SmallShuttle2/Hull" index="2"]
+visible = false
+
+[node name="SmallShuttle@Hull@EngineLarge" parent="SmallShuttle2/Hull" index="3" instance=ExtResource("2_vtsf0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -40.2597)
+
+[node name="SmallShuttle@Hull@EngineLarge2" parent="SmallShuttle2/Hull" index="4" instance=ExtResource("2_vtsf0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -3.80432, -40.2597)
+
+[node name="SmallShuttle@Hull@EngineLarge3" parent="SmallShuttle2/Hull" index="5" instance=ExtResource("2_vtsf0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.87938, -0.80596, -40.2597)
+
+[node name="SmallShuttle@Hull@EngineLarge4" parent="SmallShuttle2/Hull" index="6" instance=ExtResource("2_vtsf0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.87938, -3.80432, -40.2597)
+
+[node name="SmallShuttle@Hull@EngineLarge5" parent="SmallShuttle2/Hull" index="7" instance=ExtResource("2_vtsf0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.879, -0.80596, -40.2597)
+
+[node name="SmallShuttle@Hull@EngineLarge6" parent="SmallShuttle2/Hull" index="8" instance=ExtResource("2_vtsf0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -2.879, -3.80432, -40.2597)
+
+[node name="NetworkBus" parent="SmallShuttle2/Hull" index="10" instance=ExtResource("3_kndwu")]
+
+[editable path="SmallShuttle2"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0wioa6et8eob"]
+[gd_scene load_steps=15 format=3 uid="uid://d0wioa6et8eob"]
 
 [ext_resource type="PackedScene" uid="uid://7g5ghxbt1cet" path="res://Components/Ships/TestShip.tscn" id="1_np6y4"]
 [ext_resource type="PackedScene" uid="uid://dfccmo6388xr6" path="res://Components/Scenery/Station.blend" id="1_nvhek"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dvxobuns28na6" path="res://Components/Ships/Ship1.tscn" id="4_q0i6t"]
 [ext_resource type="Script" path="res://Destructable.gd" id="5_8ocqr"]
 [ext_resource type="PackedScene" uid="uid://dqsmprqnpi5gs" path="res://Effects/Explode1.tscn" id="6_yl52y"]
+[ext_resource type="PackedScene" uid="uid://bydrs0npk8apr" path="res://Components/Ships/SmallShuttle.tscn" id="9_drqab"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_on3wa"]
 
@@ -106,7 +107,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 393.341, 0, 55)
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.723726, 0.0490031, -0.688345, 0, 0.997476, 0.07101, 0.690087, 0.0513918, -0.721899, -443.971, 92.3176, -447.286)
 current = true
-fov = 14.7
+fov = 49.3
 
 [node name="TestShip2" parent="." instance=ExtResource("1_np6y4")]
 transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 276.341, 19, 68.3815)
@@ -114,10 +115,11 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 276.341,
 [node name="ConsoleConnector2" parent="TestShip2" instance=ExtResource("2_2lfwg")]
 
 [node name="PlayerShip" parent="." instance=ExtResource("4_q0i6t")]
-transform = Transform3D(0.419286, -0.774537, -0.473596, -0.605851, -0.627228, 0.489418, -0.676125, 0.0817222, -0.732241, -140.192, -13.6984, -926.775)
+transform = Transform3D(-0.495348, -0.728243, 0.473595, 0.539424, -0.685195, -0.489418, 0.680921, 0.0130366, 0.732241, -140.192, -13.6984, -926.775)
 
 [node name="Camera3D" parent="PlayerShip/Ship1/BusCamera" index="0"]
 current = true
+near = 1.0
 
 [node name="ConsoleConnector3" parent="PlayerShip/Ship1" index="19" instance=ExtResource("2_2lfwg")]
 
@@ -150,6 +152,12 @@ autoplay = "TestTarget"
 libraries = {
 "": SubResource("AnimationLibrary_8su8n")
 }
+
+[node name="SmallShuttle" parent="." instance=ExtResource("9_drqab")]
+transform = Transform3D(0.284756, -0.845139, -0.452387, -0.717822, -0.500771, 0.483695, -0.635332, 0.186998, -0.749257, 42.9856, 4.1503, 120.368)
+
+[node name="SmallShuttle2" parent="." instance=ExtResource("9_drqab")]
+transform = Transform3D(0.284756, -0.845139, -0.452387, -0.717822, -0.500771, 0.483695, -0.635332, 0.186998, -0.749257, 77.0416, -81.6993, 44.3837)
 
 [editable path="PlayerShip"]
 [editable path="PlayerShip/Ship1/BusCamera"]

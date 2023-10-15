@@ -2,7 +2,7 @@ shader_type spatial;
 
 instance uniform vec4 primary: source_color = vec4(0.4, 0.2, 0.0, 1.0);
 instance uniform float bias = 0.0;
-instance uniform vec3 primary_scale = vec3(1);
+instance uniform vec3 primary_scale = vec3(0.2);
 
 varying vec3 vPosition;
 
@@ -75,40 +75,6 @@ float bricks(vec2 uv, float mortar_size, float width, float height) {
 }
 
 
-
-vec3 sampleTex(
-        vec3 pos,
-        
-        vec3 tile_size,
-        vec3 primary_size,
-        
-        vec3 tile1_color,
-        vec3 tile2_color,
-        vec3 primary_color,
-        vec3 grooves_color
-) {
-    
-	vec4 data = voroni(pos * primary_size);
-    float primary_panels = clamp(mix(-20.0, 20.0, data.x + bias), -1.0, 1.0);
-    
-    float joiners = abs(primary_panels - 0.5);    
-    if (primary_panels < 0.0) {
-        return primary_color;
-    }
-    if (joiners < 0.2) {
-        return grooves_color;
-    }
-    
-    float texramp = bricks(pos.xy, 0.0, (0.5 + data.y) * tile_size.x, (0.5 + data.y) * tile_size.y);
-    
-    return mix(
-            grooves_color,
-            mix(tile1_color, tile2_color, texramp),
-            step(0.1, texramp)
-        );
-}
-
-
 void vertex() {
 	vPosition = VERTEX;
 }
@@ -124,18 +90,36 @@ void fragment() {
 	coords *= 0.5;
 	
 	vec3 col = vec3(0.0);
+	
+	vec3 pos = coords;
+	vec3 tile_size = vec3(1.0);
+	vec3 primary_size = primary_scale;
+	vec3 tile1_color = vec3(0.1, 0.1, 0.1);
+	vec3 tile2_color = vec3(0.4, 0.4, 0.4);
+	vec3 grooves_color = vec3(0.0, 0.0, 0.0);
+	
 
-    col += sampleTex(
-        coords, 
-        vec3(1.0),
-        primary_scale,
-        vec3(0.1, 0.1, 0.1),
-        vec3(0.4, 0.4, 0.4),
-        primary.rgb,
-        vec3(0.0, 0.0, 0.0)
-    );
-    
-	METALLIC = 0.9;
-	ROUGHNESS = col.g;
-    ALBEDO = col;
+	vec4 data = voroni(pos * primary_size);
+	float primary_panels = clamp(mix(-20.0, 20.0, data.x + bias), -1.0, 1.0);
+
+	float joiners = abs(primary_panels - 0.5);    
+    if (primary_panels < 0.0) {
+		ALBEDO = primary.rgb;
+		ROUGHNESS = primary.a;
+		METALLIC = 1.0 - primary.a;
+	} else if (joiners < 0.2) {
+		ALBEDO = grooves_color;
+		ROUGHNESS = 0.2;
+		METALLIC = 0.7;
+	} else {
+		float texramp = bricks(pos.xy, 0.0, (0.5 + data.y) * tile_size.x, (0.5 + data.y) * tile_size.y);
+		vec3 col = mix(tile1_color, tile2_color, texramp);
+		ALBEDO = vec3(0.3);
+		ROUGHNESS = col.r;
+		METALLIC = 0.95;
+	}
+	
+	
+	
+
 }

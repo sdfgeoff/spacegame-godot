@@ -145,3 +145,12 @@ func fire(delta):
 	).normalized(), bullet_spread)
 	new_shot.velocity = muzzle_velocity
 	new_shot.setup(delta, time_offset)
+	
+	# Recoil
+	var root_body: RigidBody3D = get_parent()
+	var momentum_change = new_shot.velocity * new_shot.mass_kg / 1000
+	root_body.apply_impulse(
+		b.global_transform.basis.y * -momentum_change,
+		b.global_transform.origin - root_body.global_transform.origin
+	)
+	

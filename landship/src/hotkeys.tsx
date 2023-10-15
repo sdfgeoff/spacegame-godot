@@ -42,10 +42,7 @@ const Actions: (keyof typeof keyMap)[] = [
   "CONSOLE_WEAPONS",
 ]
 
-type KeyHandler = (state: number) => void
-type AllHandlers = {[key in keyof typeof keyMap]: KeyHandler}
-
-export const useKeyMap = (handlers: Partial<AllHandlers>) => {
+export const useKeyMap = (): KeyMapState => {
   const [keyMapState, setKeyMapState] = useState<KeyMapState>({
     RCS_FORWARD: false,
     RCS_BACKWARD: false,
@@ -96,17 +93,7 @@ export const useKeyMap = (handlers: Partial<AllHandlers>) => {
     };
   }, [keyDownHandler, keyUpHandler]);
 
-  React.useEffect(() => {
-    Actions.forEach((action) => {
-      const handler = handlers[action]
-      if (!handler) {
-        return
-      }
-      handler(keyMapState[action] ? 1 : 0)
-    })
-  }, [keyMapState, handlers])
-
-  console.log(keyMapState)
+  return keyMapState;
 }
 
 
