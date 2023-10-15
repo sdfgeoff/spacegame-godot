@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dhxuhbd4ammok"]
 
-[ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/NetworkBus.tscn" id="1_jge81"]
+[ext_resource type="PackedScene" uid="uid://b7jrey5hpb4ky" path="res://Components/ShipParts/EventBus.tscn" id="1_jge81"]
 [ext_resource type="Script" path="res://Scripts/NetworkBus/BusConnection.gd" id="2_455wp"]
 [ext_resource type="PackedScene" uid="uid://bun7i1h0spvvd" path="res://Components/ShipParts/BusPrinter.tscn" id="3_xevse"]
 [ext_resource type="PackedScene" uid="uid://cgvq6r2xa8cgy" path="res://Scripts/NetworkBus/PingEmitter.tscn" id="4_e72er"]

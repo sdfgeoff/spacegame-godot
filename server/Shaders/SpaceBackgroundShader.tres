@@ -7,7 +7,7 @@ code = "
 shader_type sky;
 render_mode use_debanding;
 
-uniform sampler2D noiseTex;
+uniform sampler2D skyboxTexture;
 uniform vec3 stars_color : source_color = vec3(1.0, 0.5, 0.2);
 uniform vec3 clouds_color : source_color = vec3(1.0, 0.5, 0.2);
 
@@ -51,11 +51,11 @@ vec2 to_cells(vec3 rayDirection) {
 	} else if (absnorm.x / absnorm.y < 1.0 && absnorm.z / absnorm.y < 1.0) {
 		if (norm.y > 0.0) {
 			// Front
-			face = vec2(3.0, 0.0);
+			face = vec2(1.0, 0.0);
 			uv = norm.xz / absnorm.y * vec2(-1.0, 1.0);
 		} else {
-			// Back
-			face = vec2(9.0, 0.0);
+			// Back0.
+			face = vec2(-1.0, 0.0);
 			uv = norm.xz / absnorm.y;
 		}
 	} else {
@@ -65,7 +65,7 @@ vec2 to_cells(vec3 rayDirection) {
 			uv = (norm.yz / absnorm.x);
 		} else {
 			// Right
-			face = vec2(6.0, 0.0);
+			face = vec2(-1.0, -1.0);
 			uv = (norm.yz / absnorm.x) * vec2(-1.0, 1.0);
 		}
 	}
@@ -74,14 +74,14 @@ vec2 to_cells(vec3 rayDirection) {
     // I kinda stubled over this one experimentally, no idea if it has a name, but
     // it works quite well at making the cells closer to equal area.
     // It's probably got a name.
-    float d_edge = 2.0 - max(abs(uv.x), abs(uv.y));
-    uv *= sqrt(d_edge);
+    //float d_edge = 2.0 - max(abs(uv.x), abs(uv.y));
+    //uv *= sqrt(d_edge);
     
-    return (uv * 0.5 / 3.0 + 0.5) * vec2(3.0/4.0, 1.0) + face * 3.0/4.0/9.0; 
+    return (uv * 0.495 * (1.0/3.0) + 0.5) + face / 3.0;
 }
 
 vec4 sampleSkybox(vec2 cellId) {
-	return textureLod(noiseTex, cellId, 0.0);
+	return textureLod(skyboxTexture, cellId, 0.0);
 }
 
 
@@ -89,7 +89,7 @@ vec3 stars(vec2 uv, float lens, float seed, float numCells) {
     vec2 rawCells = uv * numCells;
     vec2 cellId = floor(rawCells);
     
-    float starDensity = pow(sampleSkybox(cellId / numCells).r, 2.0);
+    float starDensity = pow(1.0 - sampleSkybox(cellId / numCells).a, 2.0);
 
 	vec2 innerCoords = fract(rawCells);
 
@@ -123,8 +123,9 @@ void sky() {
 	vec3 steps = step(0.0, direction) * 0.5;
 	vec2 cells = to_cells(direction);
 	vec4 skybox = sampleSkybox(cells);
+	skybox.rgb = pow(skybox.rgb, vec3(2.2)); // Gamma correct
 	
-	float clouds = pow(skybox.r, 2.0) * 0.2;
+	float clouds = (1.0 - skybox.a) * 0.2;
 	vec3 cloudsCol = clouds * vec3(clouds_color);
 
 	vec3 starsCol = vec3(0.0);
@@ -144,7 +145,7 @@ void sky() {
 	
 	vec3 sunCol = sun * c2;
 	
-	COLOR = starsCol + cloudsCol + sunCol;
+	COLOR = starsCol + cloudsCol + sunCol + skybox.rgb * 2.0;
 }
 
 "
