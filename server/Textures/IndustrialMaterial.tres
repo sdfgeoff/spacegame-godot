@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b4213l46njn54"]
+
+[ext_resource type="Texture2D" uid="uid://o3jxh5urbvx4" path="res://Textures/industrial.png" id="1_jmok5"]
+
+[sub_resource type="Shader" id="Shader_qofp7"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.1.2.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+
+
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = COLOR.rgb * albedo_tex.rgb;
+	METALLIC = albedo_tex.r * 0.8 + 0.1;
+	ROUGHNESS = albedo_tex.r * 0.8 + 0.1;
+	SPECULAR = albedo_tex.r * 0.8 + 0.1;
+}
+"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_qofp7")
+shader_parameter/texture_albedo = ExtResource("1_jmok5")

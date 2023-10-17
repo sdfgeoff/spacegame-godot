@@ -8,6 +8,8 @@
 
 [node name="SmallShuttle2" parent="." instance=ExtResource("1_3gt7g")]
 
+[node name="Hull" parent="SmallShuttle2" index="0" groups=["sensable"]]
+
 [node name="BlackHull" parent="SmallShuttle2/Hull" index="0"]
 instance_shader_parameters/bias = -0.19
 instance_shader_parameters/primary = Color(0.0470588, 0.0470588, 0.0470588, 0.541176)

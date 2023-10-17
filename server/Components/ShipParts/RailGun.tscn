@@ -19,8 +19,10 @@ node_sight = NodePath("RailGun/YawMotor/MainPart/TiltMotor/Sight")
 barrels = Array[NodePath]([NodePath("RailGun/YawMotor/MainPart/TiltMotor/PItchLeft/BarrelLeft/SpawnerLeft"), NodePath("RailGun/YawMotor/MainPart/TiltMotor/PItchRight/BarrelRight/SpawnerRight")])
 ammo = 1000
 seconds_between_shots = 0.5
-muzzle_velocity = 2401.0
+muzzle_velocity = 6000.0
 bullet = ExtResource("2_gpfy7")
+bullet_spread = 0.001
+suitable_angle_to_fire = 0.005
 
 [node name="RailGun" parent="." instance=ExtResource("1_hs4ae")]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0wioa6et8eob"]
+[gd_scene load_steps=16 format=3 uid="uid://d0wioa6et8eob"]
 
 [ext_resource type="PackedScene" uid="uid://7g5ghxbt1cet" path="res://Components/Ships/TestShip.tscn" id="1_np6y4"]
 [ext_resource type="PackedScene" uid="uid://dfccmo6388xr6" path="res://Components/Scenery/Station.blend" id="1_nvhek"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Destructable.gd" id="5_8ocqr"]
 [ext_resource type="PackedScene" uid="uid://dqsmprqnpi5gs" path="res://Effects/Explode1.tscn" id="6_yl52y"]
 [ext_resource type="PackedScene" uid="uid://bydrs0npk8apr" path="res://Components/Ships/SmallShuttle.tscn" id="9_drqab"]
+[ext_resource type="Material" uid="uid://b4213l46njn54" path="res://Textures/IndustrialMaterial.tres" id="9_n7unh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_on3wa"]
 
@@ -146,6 +147,7 @@ shape = SubResource("BoxShape3D_on3wa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_vqejd")
+surface_material_override/0 = ExtResource("9_n7unh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D"]
 autoplay = "TestTarget"

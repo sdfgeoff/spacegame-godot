@@ -60,12 +60,12 @@ export const Piloting: React.FC = () => {
     React.useEffect(() => (
         setTargets((old) => ({
             ...old,
-            linear_x: keys.RCS_RIGHT ? 1 : keys.RCS_LEFT ? -1 : 0,
+            linear_x: keys.RCS_LEFT ? 1 : keys.RCS_RIGHT ? -1 : 0,
             linear_y: keys.RCS_UP ? 1 : keys.RCS_DOWN ? -1 : 0,
             linear_z: keys.RCS_FORWARD ? 1 : keys.RCS_BACKWARD ? -1 : 0,
-            angular_x: keys.RCS_PITCH_UP ? 1 : keys.RCS_PITCH_DOWN ? -1 : 0,
+            angular_x: keys.RCS_PITCH_DOWN ? 1 : keys.RCS_PITCH_UP ? -1 : 0,
             angular_y: keys.RCS_YAW_LEFT ? 1 : keys.RCS_YAW_RIGHT ? -1 : 0,
-            angular_z: keys.RCS_ROLL_LEFT ? 1 : keys.RCS_ROLL_RIGHT ? -1 : 0,
+            angular_z: keys.RCS_ROLL_RIGHT ? 1 : keys.RCS_ROLL_LEFT ? -1 : 0,
         })
         
     )), [keys, setTargets])

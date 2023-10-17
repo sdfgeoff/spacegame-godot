@@ -66,6 +66,12 @@ func _process(delta: float):
 				var explosion: Node3D = bullet.explosion.instantiate()
 				add_child(explosion)
 				explosion.global_position = hitPoint
+			if hit_obj.has_method("apply_impulse"):
+				var momentum_change = bullet.velocity * bullet.mass_kg / 1000
+				hit_obj.apply_impulse(
+					bullet.global_transform.basis.y * momentum_change,
+					bullet.global_transform.origin - hit_obj.global_transform.origin
+				)
 				
 		var distTravelled := (nextPos - bullet.global_position).length()
 		bullet.global_position = nextPos
