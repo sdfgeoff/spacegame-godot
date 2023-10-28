@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkjgtcra1nshk"]
+
+[ext_resource type="Shader" path="res://Planet.gdshader" id="1_3yua4"]
+[ext_resource type="Environment" uid="uid://dxu4i5aaen8d7" path="res://World.tres" id="2_i3lkv"]
+
+[sub_resource type="Gradient" id="Gradient_of44m"]
+offsets = PackedFloat32Array(0.115789, 0.217544, 0.389474)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.815686, 0.905882, 0.960784, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0iyx3"]
+gradient = SubResource("Gradient_of44m")
+
+[sub_resource type="Gradient" id="Gradient_qgrkp"]
+offsets = PackedFloat32Array(0, 0.305263, 0.34386, 0.378947, 0.435088, 0.642105, 0.761404, 0.929825)
+colors = PackedColorArray(0.0371225, 0.0168034, 0.316406, 1, 0.135201, 0.119294, 0.351084, 1, 0.357511, 0.351607, 0.429688, 1, 0.574219, 0.530666, 0.485739, 1, 0.230829, 0.375, 0.200788, 1, 0.508946, 0.41834, 0.267863, 1, 0.318422, 0.426873, 0.277394, 1, 0.943756, 0.93325, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v5cxk"]
+gradient = SubResource("Gradient_qgrkp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fakfk"]
+render_priority = 0
+shader = ExtResource("1_3yua4")
+shader_parameter/SEED = 2.0
+shader_parameter/NUM_NOISE_OCTAVES = 6
+shader_parameter/DISTORTS = 1
+shader_parameter/DISTORT_STRENGTH = 0.7
+shader_parameter/SCALE = 3.0
+shader_parameter/CLOUD_SCALE = 2.0
+shader_parameter/ATMOSPHERE_HEIGHT = 0.02
+shader_parameter/ATMOSPHERE_COLOR = Color(0.54, 0.84, 0.89, 0.2)
+shader_parameter/land_pallette = SubResource("GradientTexture1D_v5cxk")
+shader_parameter/cloud_pallette = SubResource("GradientTexture1D_0iyx3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_kwc57"]
+material = SubResource("ShaderMaterial_fakfk")
+radius = 10.0
+height = 20.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 23)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.00360918, -0.717466, -0.158391)
+mesh = SubResource("SphereMesh_kwc57")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_i3lkv")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14.5936, 0.282534, -1.07637)
+fov = 7.1

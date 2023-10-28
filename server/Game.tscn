@@ -119,7 +119,6 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 276.341,
 transform = Transform3D(-0.495348, -0.728243, 0.473595, 0.539424, -0.685195, -0.489418, 0.680921, 0.0130366, 0.732241, -140.192, -13.6984, -926.775)
 
 [node name="Camera3D" parent="PlayerShip/Ship1/BusCamera" index="0"]
-current = true
 near = 1.0
 
 [node name="ConsoleConnector3" parent="PlayerShip/Ship1" index="19" instance=ExtResource("2_2lfwg")]
