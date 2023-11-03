@@ -4,7 +4,7 @@ extends Node
 var LOG = Log.new("console_tracker")
 
 # The port we will listen to
-const PORT = 42425
+var PORT: int = ProjectSettings.get_setting("network/tracker/port", null)
 # Our WebSocketServer instance
 var _server = WebSocketServer.new()
 

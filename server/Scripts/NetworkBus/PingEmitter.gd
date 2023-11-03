@@ -9,4 +9,4 @@ func _process(delta):
 	time += delta
 	if time > seconds_between:
 		time -= seconds_between
-		$Connection.queue_message(Message.Topic.PING, message)
+		$Connection.queue_message(Payload.Topic.PING, message)

@@ -75,7 +75,7 @@ const Joypad: React.FC<JoypadProps> = ({onPositionChange}) => {
         }
     };
 
-    const handleTouchEnd: React.TouchEventHandler<SVGSVGElement> = (event) => {
+    const handleTouchEnd: React.TouchEventHandler<SVGSVGElement> = () => {
         setDragging(false);
         setPosition({ x: 0, y: 0 });
     };

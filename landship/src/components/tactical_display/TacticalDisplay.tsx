@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
+// import { OrbitControls as OrbitControls3 } from 'three/examples/jsm/controls/OrbitControls'
 import React from 'react'
 import { WorldPlane } from './WorldPlane';
-import { OrbitControls as OrbitControls3 } from 'three/examples/jsm/controls/OrbitControls'
 import * as THREE from 'three'
 
 import { createMaterials } from './Materials';
@@ -43,7 +43,7 @@ export const TacticalDisplay = ({displayItems, selected, setSelected, sensorPosi
     })
   }, [displayItems, sensorPosition])
 
-  const [orbitRef, setOrbitRef] = React.useState<OrbitControls3 | null>(null)
+  const [orbitRef, setOrbitRef] = React.useState<any /*OrbitControls3*/ | null>(null)
 
   const [scale, setScale] = React.useState<number>(1.0)
 

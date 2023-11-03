@@ -17,7 +17,7 @@ export interface pipProps {
  * This can represent (Eg) a ship, a torpedo, a mine, etc.
  * @returns 
  */
-export const Pip = ({ materials, position, id, selected, onSelect }: pipProps) => {
+export const Pip = ({ materials, position, selected, onSelect }: pipProps) => {
     const [hovered, setHover] = React.useState(false)
     const pip = React.useRef<THREE.Mesh>(null)
     const leg = React.useRef<THREE.Mesh>(null)

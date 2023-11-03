@@ -1,10 +1,8 @@
 import React from 'react';
 import { useAppContext } from '../contexts/AppContext';
-import { FromRouterMessage, ToRouterMessage } from '../models/Messages';
+import { FromRouterMessage } from '../models/Messages';
 import JoyPad, { Position } from '../components/Joypad';
-import TacticalDisplay from '../components/tactical_display/TacticalDisplay';
-import { GlobalHotKeys } from 'react-hotkeys';
-import { keyMap, useKeyMap } from '../hotkeys';
+import { useKeyMap } from '../hotkeys';
 
 
 export const Piloting: React.FC = () => {
@@ -15,7 +13,7 @@ export const Piloting: React.FC = () => {
         }
     } = useAppContext()
 
-    const [latestMessage, setLatestMessage] = React.useState<FromRouterMessage<"GNC_State"> | undefined>()
+    const [_latestMessage, setLatestMessage] = React.useState<FromRouterMessage<"GNC_State"> | undefined>()
 
     const [targets, setTargets] = React.useState({
         linear_x: 0,

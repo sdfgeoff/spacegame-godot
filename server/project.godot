@@ -71,6 +71,11 @@ strafe_down={
 ]
 }
 
+[network]
+
+tracker/port=42425
+webserver/port=8080
+
 [physics]
 
 3d/default_gravity=0.0

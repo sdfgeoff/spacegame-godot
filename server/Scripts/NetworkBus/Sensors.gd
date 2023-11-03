@@ -12,6 +12,10 @@ extends Node3D
 var known_objects = {}
 
 
+var meshes = {
+	
+}
+
 
 func _process(_delta):
 	var current_time = Time.get_ticks_msec()
@@ -27,18 +31,26 @@ func _process(_delta):
 	
 	var nodes = get_tree().get_nodes_in_group('sensable')
 	
-	for node in nodes:
-		if node == get_parent():
-			continue
+	for n in nodes:
+		var node: MeshInstance3D = n
 		var id = node.get_instance_id()
+		var mesh = node.mesh
+		var mesh_id = mesh.get_rid()
+		
+		# If it's the first time we've seen this, assign it a name and ensure it has
+		# a visual representation
 		if !known_objects.has(id):
 			# TODO: Change the designation to something readable
 			known_objects[id] = {
 				'designation': '%X' % id
 			}
+			if !meshes.has(mesh_id):
+				print("Generating mesh for ", mesh_id)
+				meshes[mesh_id] = mesh.surface_get_arrays(0)
 
 		known_objects[id]['position'] = [node.global_position.x, node.global_position.y, node.global_position.z]
 		known_objects[id]['time_last_seen'] = current_time
+		known_objects[id]['mesh'] = mesh_id
 
 	$BusConnection.queue_message(
 		Payload.Topic.SENSOR_OBJECTS,

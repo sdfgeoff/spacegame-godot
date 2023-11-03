@@ -1,2 +1,4 @@
 *.blend1
 *.pyc
+bin
+server/web_bundle.zip

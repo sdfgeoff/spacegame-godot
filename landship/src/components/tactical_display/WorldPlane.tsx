@@ -1,6 +1,4 @@
-import { useFrame } from "@react-three/fiber"
 import React from "react"
-import { getViewport } from "./utils"
 import * as THREE from "three"
 import { Materials } from "./Materials"
 

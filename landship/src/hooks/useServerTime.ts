@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import { DataChannelConsole } from "../network/DataChannelConsole";
 import { useAppContext } from "../contexts/AppContext";
 import { DataChannelConsoleInternal } from "./useDataChannelConsole";

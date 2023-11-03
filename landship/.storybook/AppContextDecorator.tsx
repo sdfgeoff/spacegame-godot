@@ -5,7 +5,7 @@ import { DataChannelConsole } from '../src/network/DataChannelConsole';
 import { AppContext } from '../src/contexts/AppContext';
 
 
-export const AppContextDecorator = (Stor, { parameters: { authOptions }}) => {
+export const AppContextDecorator = (Stor: any) => {
     const tracker = React.useMemo(() => new Tracker('ws://localhost'), []);
     const console = React.useMemo(() => new DataChannelConsole(), []);
     return <AppContext.Provider value={{
@@ -17,7 +17,7 @@ export const AppContextDecorator = (Stor, { parameters: { authOptions }}) => {
           dataChannelConsole: console,
           dataChannelState: 'disconnected',
           topicSubscriptions: [],
-          subscribeTopic: (t, h) => {return () => {}},
+          subscribeTopic: (_t, _h) => {return () => {}},
         },
         timingStats: {
             pingDuration: 23,

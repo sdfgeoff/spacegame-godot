@@ -9,7 +9,7 @@ var LOG = Log.new("console_tracker")
 const CONSOLE_SCENE = preload("res://Components/ShipParts/Console.tscn")
 
 # The URL we will connect to
-const websocket_url = "ws://0.0.0.0:%d" % ConsoleTracker.PORT
+var websocket_url = "ws://0.0.0.0:%d" % ConsoleTracker.PORT
 
 var _last_broadcast_time = 0
 const BROADCAST_DELAY_MSEC = 5000

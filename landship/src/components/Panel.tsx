@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColorVariant, MajorColor, colorToCSS } from '../theme/themeConstants';
+import { ColorVariant, colorToCSS } from '../theme/themeConstants';
 
 export const PanelVariants = [
     'light',

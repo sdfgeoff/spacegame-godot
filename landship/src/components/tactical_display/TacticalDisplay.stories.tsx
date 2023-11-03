@@ -45,7 +45,7 @@ const ITEMS: DisplayItem[] = [
 ]
 
 const Template = (args: TacticalDisplayProps) => {
-  const [{ setSelected, selected }, updateArgs] = useArgs();
+  const [{ selected }, updateArgs] = useArgs();
   const handleSetSelected = (e: DisplayItem) => updateArgs({ selected: e });
   return <TacticalDisplay {...args} setSelected={handleSetSelected} selected={selected} />;
 }
@@ -53,13 +53,14 @@ const Template = (args: TacticalDisplayProps) => {
 export const EmptyDisplay: Story = {
   render: Template,
   args: {
-    style:{
-        width: '30em',
-        height: '30em'
-    },
+    // style:{
+    //     width: '30em',
+    //     height: '30em'
+    // },
     displayItems: ITEMS,
     setSelected: (item: any) => console.log(item),
-    selected: ITEMS[0]
+    selected: ITEMS[0],
+    sensorPosition: [0,0,0]
   },
 };
 

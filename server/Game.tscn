@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0wioa6et8eob"]
+[gd_scene load_steps=8 format=3 uid="uid://d0wioa6et8eob"]
 
 [ext_resource type="PackedScene" uid="uid://7g5ghxbt1cet" path="res://Components/Ships/TestShip.tscn" id="1_np6y4"]
 [ext_resource type="PackedScene" uid="uid://dfccmo6388xr6" path="res://Components/Scenery/Station.blend" id="1_nvhek"]
@@ -6,94 +6,7 @@
 [ext_resource type="Environment" uid="uid://dxu4i5aaen8d7" path="res://World.tres" id="2_f1g1a"]
 [ext_resource type="Script" path="res://StarsSkyShader.gd" id="4_chcoy"]
 [ext_resource type="PackedScene" uid="uid://dvxobuns28na6" path="res://Components/Ships/Ship1.tscn" id="4_q0i6t"]
-[ext_resource type="Script" path="res://Destructable.gd" id="5_8ocqr"]
-[ext_resource type="PackedScene" uid="uid://dqsmprqnpi5gs" path="res://Effects/Explode1.tscn" id="6_yl52y"]
 [ext_resource type="PackedScene" uid="uid://bydrs0npk8apr" path="res://Components/Ships/SmallShuttle.tscn" id="9_drqab"]
-[ext_resource type="Material" uid="uid://b4213l46njn54" path="res://Textures/IndustrialMaterial.tres" id="9_n7unh"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_on3wa"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_vqejd"]
-
-[sub_resource type="Animation" id="Animation_nwiv8"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(19.107, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:position:z")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_23d2h"]
-resource_name = "TestTarget"
-length = 10.0
-loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -18.5864, -0.25, 0, 0.25, 0, 3.5303, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1.8, 2.9, 4.3)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0, 0),
-"points": PackedFloat32Array(19.107, -0.25, 0, 0.25, 0, 19.107, -0.25, 0, 0.25, 0, 19.107, -0.25, 0, 0.25, 0, 19.107, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1.8, 2.9, 4.3)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:position:z")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 13.7465, -0.25, 0, 0.25, 0, 27.1376, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1.8, 2.9, 4.3)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_8su8n"]
-_data = {
-"RESET": SubResource("Animation_nwiv8"),
-"TestTarget": SubResource("Animation_23d2h")
-}
 
 [node name="Game" type="Node3D"]
 
@@ -119,6 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 276.341,
 transform = Transform3D(-0.495348, -0.728243, 0.473595, 0.539424, -0.685195, -0.489418, 0.680921, 0.0130366, 0.732241, -140.192, -13.6984, -926.775)
 
 [node name="Camera3D" parent="PlayerShip/Ship1/BusCamera" index="0"]
+current = true
 near = 1.0
 
 [node name="ConsoleConnector3" parent="PlayerShip/Ship1" index="19" instance=ExtResource("2_2lfwg")]
@@ -135,24 +49,6 @@ shadow_enabled = true
 directional_shadow_mode = 1
 directional_shadow_split_1 = 0.149
 directional_shadow_max_distance = 1000.0
-
-[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["sensable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.107, 0)
-script = ExtResource("5_8ocqr")
-explosion_scene = ExtResource("6_yl52y")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_on3wa")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("BoxMesh_vqejd")
-surface_material_override/0 = ExtResource("9_n7unh")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D"]
-autoplay = "TestTarget"
-libraries = {
-"": SubResource("AnimationLibrary_8su8n")
-}
 
 [node name="SmallShuttle" parent="." instance=ExtResource("9_drqab")]
 transform = Transform3D(0.284756, -0.845139, -0.452387, -0.717822, -0.500771, 0.483695, -0.635332, 0.186998, -0.749257, 42.9856, 4.1503, 120.368)

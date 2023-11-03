@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppContext } from '../contexts/AppContext';
 import { FromRouterMessage } from '../models/Messages';
-import TacticalDisplay, { DisplayItem } from '../components/tactical_display/TacticalDisplay';
+import TacticalDisplay from '../components/tactical_display/TacticalDisplay';
 
 
 interface SensedObject {

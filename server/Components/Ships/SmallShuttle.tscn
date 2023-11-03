@@ -8,8 +8,6 @@
 
 [node name="SmallShuttle2" parent="." instance=ExtResource("1_3gt7g")]
 
-[node name="Hull" parent="SmallShuttle2" index="0" groups=["sensable"]]
-
 [node name="BlackHull" parent="SmallShuttle2/Hull" index="0"]
 instance_shader_parameters/bias = -0.19
 instance_shader_parameters/primary = Color(0.0470588, 0.0470588, 0.0470588, 0.541176)
@@ -20,7 +18,7 @@ instance_shader_parameters/bias = -0.11
 instance_shader_parameters/primary = Color(1, 1, 1, 0.721569)
 instance_shader_parameters/primary_scale = Vector3(0.09, 0.995, 0.27)
 
-[node name="Hull" parent="SmallShuttle2/Hull" index="2"]
+[node name="Hull" parent="SmallShuttle2/Hull" index="2" groups=["sensable"]]
 visible = false
 
 [node name="SmallShuttle@Hull@EngineLarge" parent="SmallShuttle2/Hull" index="3" instance=ExtResource("2_vtsf0")]
