@@ -10,6 +10,24 @@ export interface JoypadProps {
     onPositionChange?: (position: Position) => void
 }
 
+const NOMINAL_SIZE = 100;
+const LINEWIDTH = 2;
+const HANDLE_RADIUS = 10;
+const PADDING = HANDLE_RADIUS;
+
+const HALF_SIZE = NOMINAL_SIZE / 2;
+const CANVAS_HALF_SIZE = HALF_SIZE + PADDING;
+
+const PADDING_SCALE_FACTOR = CANVAS_HALF_SIZE / HALF_SIZE;
+
+
+const eventCoordsToPercent = (x: number, y: number, rect: DOMRect) => {
+    return {
+        x: ((x - rect.left) / rect.width * 2.0 - 1) * PADDING_SCALE_FACTOR,
+        y: ((y - rect.top) / rect.height * 2.0 - 1) * PADDING_SCALE_FACTOR
+    };
+}
+
 const Joypad: React.FC<JoypadProps> = ({onPositionChange}) => {
     const [position, setPosition] = React.useState({ x: 0, y: 0 }); // Ranges from -1 to 1
     const [dragging, setDragging] = React.useState(false);
@@ -45,9 +63,7 @@ const Joypad: React.FC<JoypadProps> = ({onPositionChange}) => {
     const handleMouseMove: React.MouseEventHandler<SVGSVGElement> = (event) => {
         if (dragging && svgRef.current) {
             const rect = svgRef.current.getBoundingClientRect();
-            const x = (event.clientX - rect.left) / rect.width * 2 - 1;
-            const y = (event.clientY - rect.top) / rect.height * 2 - 1;
-            setPositionConstrained({ x, y });
+            setPositionConstrained(eventCoordsToPercent(event.clientX, event.clientY, rect));
         }
     };
 
@@ -60,18 +76,14 @@ const Joypad: React.FC<JoypadProps> = ({onPositionChange}) => {
         setDragging(true);
         const rect = svgRef.current?.getBoundingClientRect();
         if (rect) {
-            const x = (event.touches[0].clientX - rect.left) / rect.width * 2 - 1;
-            const y = (event.touches[0].clientY - rect.top) / rect.height * 2 - 1;
-            setPositionConstrained({ x, y });
+            setPositionConstrained(eventCoordsToPercent(event.touches[0].clientX, event.touches[0].clientY, rect));
         }
     };
 
     const handleTouchMove: React.TouchEventHandler<SVGSVGElement> = (event) => {
         if (dragging && svgRef.current) {
             const rect = svgRef.current.getBoundingClientRect();
-            const x = (event.touches[0].clientX - rect.left) / rect.width * 2 - 1;
-            const y = (event.touches[0].clientY - rect.top) / rect.height * 2 - 1;
-            setPositionConstrained({ x, y });
+            setPositionConstrained(eventCoordsToPercent(event.touches[0].clientX, event.touches[0].clientY, rect));
         }
     };
 
@@ -82,15 +94,15 @@ const Joypad: React.FC<JoypadProps> = ({onPositionChange}) => {
 
     React.useEffect(() => {
         if (dotRef.current) {
-            dotRef.current.setAttribute('cx', (position.x * 50 + 50).toString());
-            dotRef.current.setAttribute('cy', (position.y * 50 + 50).toString());
+            dotRef.current.setAttribute('cx', (position.x * HALF_SIZE).toString());
+            dotRef.current.setAttribute('cy', (position.y * HALF_SIZE).toString());
         }
     }, [position]);
 
     return (
-        <svg ref={svgRef} viewBox="0 0 100 100" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseLeave={handleMouseUp} onMouseUp={handleMouseUp} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} style={{touchAction: 'none'}}>
-            <circle cx="50" cy="50" r="50" fill="none" stroke="white" strokeWidth="2" />
-            <circle ref={dotRef} r="10" fill="white" />
+        <svg ref={svgRef} viewBox={`${-CANVAS_HALF_SIZE } ${-CANVAS_HALF_SIZE} ${CANVAS_HALF_SIZE * 2} ${CANVAS_HALF_SIZE * 2}`} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseLeave={handleMouseUp} onMouseUp={handleMouseUp} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd} style={{touchAction: 'none'}}>
+            <circle cx="0" cy="0" r={HALF_SIZE - LINEWIDTH/2} fill="none" stroke="blue" strokeWidth={LINEWIDTH} />
+            <circle ref={dotRef} r={HANDLE_RADIUS} fill="blue" />
         </svg>
     );
 };
