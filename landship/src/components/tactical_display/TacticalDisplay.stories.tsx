@@ -1,26 +1,28 @@
-import type {  StoryObj } from '@storybook/react';
-import { useArgs } from '@storybook/client-api'
-import TacticalDisplay, { DisplayItem, TacticalDisplayProps } from './TacticalDisplay';
-
+import type { StoryObj } from "@storybook/react";
+import { useArgs } from "@storybook/client-api";
+import TacticalDisplay, {
+  DisplayItem,
+  TacticalDisplayProps,
+} from "./TacticalDisplay";
 
 const meta = {
-  title: 'Components/TacticalDisplay',
+  title: "Components/TacticalDisplay",
   component: TacticalDisplay,
   parameters: {},
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
     style: {
-        type: 'object'
+      type: "object",
     },
     displayItems: {
-        type: 'array'
+      type: "array",
     },
     setSeleted: {
-        type: 'function'
+      type: "function",
     },
     selected: {
-        type: 'object'
-    }
+      type: "object",
+    },
   },
 };
 
@@ -30,25 +32,30 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 const ITEMS: DisplayItem[] = [
   {
-    position: [0,0,0],
-    designation: '1'
+    position: [0, 0, 0],
+    designation: "1",
   },
   {
-    position: [1,1,1],
-    designation: '2'
-  }
-  ,
+    position: [1, 1, 1],
+    designation: "2",
+  },
   {
-    position: [-1,-1,1],
-    designation: '3'
-  }
-]
+    position: [-1, -1, 1],
+    designation: "3",
+  },
+];
 
 const Template = (args: TacticalDisplayProps) => {
   const [{ selected }, updateArgs] = useArgs();
   const handleSetSelected = (e: DisplayItem) => updateArgs({ selected: e });
-  return <TacticalDisplay {...args} setSelected={handleSetSelected} selected={selected} />;
-}
+  return (
+    <TacticalDisplay
+      {...args}
+      setSelected={handleSetSelected}
+      selected={selected}
+    />
+  );
+};
 
 export const EmptyDisplay: Story = {
   render: Template,
@@ -60,7 +67,6 @@ export const EmptyDisplay: Story = {
     displayItems: ITEMS,
     setSelected: (item: any) => console.log(item),
     selected: ITEMS[0],
-    sensorPosition: [0,0,0]
+    sensorPosition: [0, 0, 0],
   },
 };
-

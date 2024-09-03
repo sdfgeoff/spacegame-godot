@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 
-
 export const keyMap = {
   RCS_FORWARD: ["w"],
   RCS_BACKWARD: ["s"],
@@ -21,7 +20,7 @@ export const keyMap = {
   CONSOLE_WEAPONS: ["2"],
 };
 
-type KeyMapState = {[key in keyof typeof keyMap]: boolean}
+type KeyMapState = { [key in keyof typeof keyMap]: boolean };
 
 const Actions: (keyof typeof keyMap)[] = [
   "RCS_FORWARD",
@@ -40,7 +39,7 @@ const Actions: (keyof typeof keyMap)[] = [
 
   "CONSOLE_PILOTING",
   "CONSOLE_WEAPONS",
-]
+];
 
 export const useKeyMap = (): KeyMapState => {
   const [keyMapState, setKeyMapState] = useState<KeyMapState>({
@@ -71,7 +70,7 @@ export const useKeyMap = (): KeyMapState => {
         }));
       }
     });
-  }, [])
+  }, []);
 
   const keyUpHandler = React.useCallback((event: KeyboardEvent) => {
     Actions.forEach((action) => {
@@ -82,7 +81,7 @@ export const useKeyMap = (): KeyMapState => {
         }));
       }
     });
-  }, [])
+  }, []);
 
   React.useEffect(() => {
     window.addEventListener("keydown", keyDownHandler);
@@ -94,7 +93,4 @@ export const useKeyMap = (): KeyMapState => {
   }, [keyDownHandler, keyUpHandler]);
 
   return keyMapState;
-}
-
-
-
+};

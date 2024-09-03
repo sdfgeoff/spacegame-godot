@@ -1,15 +1,15 @@
-import type { StoryObj } from '@storybook/react';
+import type { StoryObj } from "@storybook/react";
 
-import { JoinGameTable } from './JoinGameTable';
+import { JoinGameTable } from "./JoinGameTable";
 
 const meta = {
-  title: 'Menus/JoinGameTable',
+  title: "Menus/JoinGameTable",
   component: JoinGameTable,
   parameters: {},
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    backgroundColor: { control: 'color' },
+    backgroundColor: { control: "color" },
   },
 };
 
@@ -24,19 +24,20 @@ export const EmptyTable: Story = {
 };
 
 export const SomeItems: Story = {
-    args: {
-      gameList: [{
+  args: {
+    gameList: [
+      {
         id: 1,
         game: {
-            name: 'Test Game',
-        }
+          name: "Test Game",
+        },
       },
       {
         id: 2,
         game: {
-            name: 'Test Game2',
-        }
-      }],
-    },
-  };
-
+          name: "Test Game2",
+        },
+      },
+    ],
+  },
+};

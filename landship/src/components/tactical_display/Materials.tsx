@@ -1,20 +1,19 @@
-import * as THREE from 'three'
+import * as THREE from "three";
 
 export interface Materials {
-    hovered: THREE.MeshBasicMaterial,
-    active: THREE.MeshBasicMaterial,
-    inactive: THREE.MeshBasicMaterial,
-    worldPlane: THREE.ShaderMaterial,
-    worldCylinder: THREE.ShaderMaterial,
+  hovered: THREE.MeshBasicMaterial;
+  active: THREE.MeshBasicMaterial;
+  inactive: THREE.MeshBasicMaterial;
+  worldPlane: THREE.ShaderMaterial;
+  worldCylinder: THREE.ShaderMaterial;
 }
 
-
 export const createMaterials = (): Materials => {
-    const hovered = new THREE.MeshBasicMaterial({ color: 'white' })
-    const active = new THREE.MeshBasicMaterial({ color: 'hotpink' })
-    const inactive = new THREE.MeshBasicMaterial({ color: 'red' })
-    const worldPlane = new THREE.ShaderMaterial({
-        vertexShader: `
+  const hovered = new THREE.MeshBasicMaterial({ color: "white" });
+  const active = new THREE.MeshBasicMaterial({ color: "hotpink" });
+  const inactive = new THREE.MeshBasicMaterial({ color: "red" });
+  const worldPlane = new THREE.ShaderMaterial({
+    vertexShader: `
             varying vec2 vUv;
             varying vec3 vPosition;
             varying float scale;
@@ -29,7 +28,7 @@ export const createMaterials = (): Materials => {
                 vNormal = normalize(normalMatrix * normal).rgb;
             }
         `,
-        fragmentShader: `
+    fragmentShader: `
             varying vec2 vUv;
             varying vec3 vPosition;
             varying float scale;
@@ -64,13 +63,13 @@ export const createMaterials = (): Materials => {
                 gl_FragColor = col;
             }
         `,
-        transparent: true,
-        depthWrite: false,
-        depthTest: true,
-        side: THREE.DoubleSide,
-    })
-    const worldCylinder = new THREE.ShaderMaterial({
-        vertexShader: `
+    transparent: true,
+    depthWrite: false,
+    depthTest: true,
+    side: THREE.DoubleSide,
+  });
+  const worldCylinder = new THREE.ShaderMaterial({
+    vertexShader: `
             varying vec2 vUv;
             varying vec3 vPosition;
             varying float scale;
@@ -85,7 +84,7 @@ export const createMaterials = (): Materials => {
                 vNormal = normalize(normalMatrix * normal).rgb;
             }
         `,
-        fragmentShader: `
+    fragmentShader: `
             varying vec2 vUv;
             varying vec3 vPosition;
             varying float scale;
@@ -112,11 +111,11 @@ export const createMaterials = (): Materials => {
                 gl_FragColor = vec4(vec3(1.0), outBright);
             }
         `,
-        transparent: true,
-        depthWrite: false,
-        depthTest: true,
-        side: THREE.DoubleSide,
-    })
+    transparent: true,
+    depthWrite: false,
+    depthTest: true,
+    side: THREE.DoubleSide,
+  });
 
-    return { hovered, active, inactive, worldPlane, worldCylinder }
-}
+  return { hovered, active, inactive, worldPlane, worldCylinder };
+};
