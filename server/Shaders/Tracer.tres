@@ -16,7 +16,7 @@ varying vec3 scale;
 varying vec4 trace_col;
 
 // At long ranges the \"outer\" darker glow can obscure teh inner glow, this \"boosts\" the brightness at long ranges
-varying float distance_from_camera_boost; 
+varying float distance_from_camera_boost;
 
 void light() {}
 
@@ -28,12 +28,12 @@ void vertex() {
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
 	VERTEX.y = VERTEX.y - (trace_length - 1.0) * COLOR.r;
 	VERTEX.xz = VERTEX.xz * trace_width;
-	
+
 	trace_col = vec4(
 		vec3(0.3) + vec3(0.5) * cos(2.0 * PI * (vec3(1.0) * trace_hue+vec3(0.0, 0.333, 0.667))),
 		1.0
 	);
-	
+
 	distance_from_camera_boost = length(MODELVIEW_MATRIX[3]) * 0.01;
 }
 
@@ -44,11 +44,11 @@ void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	float intensity = albedo_tex.r * (1.0 + distance_from_camera_boost);
-	
+
 	float alpha = intensity * viewAngle;
-	
+
 	vec4 color = trace_col;
-	
+
 	ALBEDO = color.rgb; //albedo.rgb;
 	EMISSION = color.rgb * intensity * emission_strength;
 	ALPHA *= intensity * color.a * alpha;

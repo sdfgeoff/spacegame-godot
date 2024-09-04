@@ -37,7 +37,7 @@ vec4 voroni(vec3 position) {
     for (float i=-1.0; i<=1.0; i+=1.0) {
         for (float j=-1.0; j<=1.0; j+=1.0) {
             for (float k=-1.0; k<=1.0; k+=1.0) {
-                
+
                 vec3 this_cell_id = floor(position) + 0.5 + vec3(i, j, k);
                 vec3 this_cell_offset = hash33(this_cell_id);
                 vec3 this_cell_point = this_cell_id + this_cell_offset;
@@ -82,27 +82,27 @@ void vertex() {
 
 void fragment() {
     // Normalized pixel coordinates (from 0 to 1)
-	
+
 	vec3 coords = vPosition;
 	//coords.xy = UV;
 	//coords.z = 0.0;
 	coords.x = abs(coords.x);
 	coords *= 0.5;
-	
+
 	vec3 col = vec3(0.0);
-	
+
 	vec3 pos = coords;
 	vec3 tile_size = vec3(1.0);
 	vec3 primary_size = primary_scale;
 	vec3 tile1_color = vec3(0.1, 0.1, 0.1);
 	vec3 tile2_color = vec3(0.4, 0.4, 0.4);
 	vec3 grooves_color = vec3(0.0, 0.0, 0.0);
-	
+
 
 	vec4 data = voroni(pos * primary_size);
 	float primary_panels = clamp(mix(-20.0, 20.0, data.x + bias), -1.0, 1.0);
 
-	float joiners = abs(primary_panels - 0.5);    
+	float joiners = abs(primary_panels - 0.5);
     if (primary_panels < 0.0) {
 		ALBEDO = primary.rgb;
 		ROUGHNESS = primary.a;
@@ -118,8 +118,8 @@ void fragment() {
 		ROUGHNESS = col.r;
 		METALLIC = 0.95;
 	}
-	
-	
-	
+
+
+
 
 }

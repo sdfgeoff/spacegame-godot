@@ -24,9 +24,9 @@ void fragment() {
 	vec4 color = vec4(0.0);
 	vec4 raw_sprite = texture(TEXTURE, UV);
 	color = neon(1.0 - raw_sprite.r, ship_color, 1.0);
-	
+
 	vec4 engine_color = ship_engine * ship_color;
 	color += neon(1.0 - raw_sprite.b, engine_color, 1.0) * ship_engine;
-	
+
 	COLOR = color;
 }

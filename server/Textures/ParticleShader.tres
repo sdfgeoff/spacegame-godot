@@ -30,9 +30,9 @@ void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	float intensity = dot(albedo_tex.rgb, vCol.rgb);
-	
+
 	float alpha = intensity * viewAngle;
-	
+
 	ALBEDO = albedo.rgb;
 	EMISSION = albedo.rgb * intensity * emission_strength;
 	ALPHA *= intensity * albedo.a * alpha;

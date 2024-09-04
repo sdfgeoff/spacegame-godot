@@ -29,10 +29,10 @@ void light() {
 	vec3 atmosphere_scattered = remap(wrap, 0.5 - ATMOSPHERE_HEIGHT, 1.0, 0.0, 1.0) * (ATMOSPHERE_COLOR.rgb);
 	vec3 atmosphere = (atmosphere_scattered + atmosphere_transmission) * 0.5;
 	float direct = clamp(remap(wrap, 0.5, 1.0, 0.0, 1.0), 0., 1.);
-	
+
 	vec3 base = LIGHT_COLOR / PI * ATTENUATION;
-	
-	
+
+
 	// Surface
 	DIFFUSE_LIGHT += mix(
 		atmosphere * base,
@@ -55,7 +55,7 @@ vec4 noise3(vec3 x) {
 	const vec3 step = vec3(110, 241, 171);
 	vec3 i = floor(x);
 	vec3 f = fract(x);
-	
+
 	vec3 u = f * f * (3.0 - 2.0 * f); // Trilinear
 	return mix(
 		mix(
@@ -110,7 +110,7 @@ void fragment() {
 	}
 	land = mix(land, sample_pallette(land_pallette, noise.x), noise.z);
 	vec4 clouds = sample_pallette(cloud_pallette, fbm(3.0 + localPosition * CLOUD_SCALE + noise.x).x);
-	
+
 	float atmosphere = dot(NORMAL, VIEW);
 
 	ALBEDO = mix(land.rgb, clouds.rgb, clouds.a);
