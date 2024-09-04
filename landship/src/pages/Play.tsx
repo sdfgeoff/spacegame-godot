@@ -2,34 +2,23 @@ import React, { useState } from "react";
 import { Tracker } from "../network/Tracker";
 import { GameDataResponse } from "../network/TrackerMessages";
 import Panel from "../components/Panel";
-import PanelTitled from "../components/PanelTitled";
-import Button from "../components/Button";
-import { Piloting } from "./Piloting";
-import { Weapons } from "./Weapons";
 import { GlobalHotKeys } from "react-hotkeys";
 import { keyMap } from "../hotkeys";
+import { Screens, ScreenType } from "../Screens";
+import PanelTitled from "../components/PanelTitled";
 
 export interface JoinProps {
   tracker: Tracker;
   gameData: GameDataResponse;
+  screen: ScreenType | undefined;
+  setScreen: React.Dispatch<React.SetStateAction<ScreenType | undefined>>;
 }
 
-export const Screens = [
-  {
-    name: "Piloting",
-    component: <Piloting />,
-  },
-  {
-    name: "Weapons",
-    component: <Weapons />,
-  },
-];
 
-type Screen = (typeof Screens)[number];
-
-export const Play: React.FC<JoinProps> = () => {
-  const [screen, setScreen] = useState<Screen | undefined>();
-
+export const Play: React.FC<JoinProps> = ({
+  screen,
+  setScreen
+}) => {
   const hotKeyHandlers = {
     CONSOLE_PILOTING: () => {
       setScreen(Screens[0]);
@@ -42,36 +31,14 @@ export const Play: React.FC<JoinProps> = () => {
   return (
     <div className="d-flex flex-row p-1 gap-1 flex-grow-1">
       <GlobalHotKeys keyMap={keyMap} handlers={hotKeyHandlers} />
-      <PanelTitled
-        variant="dark"
-        heading={<h2 className="p-1">Ship Systems</h2>}
-      >
-        <div className="d-flex flex-column">
-          {Screens.map((s) => {
-            return (
-              <Button
-                variant="secondary"
-                key={s.name}
-                className="p-1"
-                onClick={() => {
-                  if (screen === s) {
-                    setScreen(undefined);
-                  } else {
-                    setScreen(s);
-                  }
-                }}
-                active={screen === s}
-              >
-                <div className="flex-grow-1">{s.name}</div>
-              </Button>
-            );
-          })}
+      {screen ? (
+          <>{screen.component()}</>
+      ) : (
+        <div className="flex-grow-1 d-flex justify-content-center align-items-center">
+          <PanelTitled heading={<h2 className="p-1">No Console Selected</h2>} variant="warning" extraBorder="corner">
+            <div className="p-1">Select a console at the top of the screen</div>
+            </PanelTitled>
         </div>
-      </PanelTitled>
-      {screen && (
-        <Panel variant="dark" className="flex-grow-1">
-          {screen.component}
-        </Panel>
       )}
     </div>
   );

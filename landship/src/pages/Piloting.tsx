@@ -3,6 +3,7 @@ import { useAppContext } from "../contexts/AppContext";
 import { FromRouterMessage } from "../models/Messages";
 import JoyPad, { Position } from "../components/Joypad";
 import { useKeyMap } from "../hotkeys";
+import Panel from "../components/Panel";
 
 export const Piloting: React.FC = () => {
   const {
@@ -74,6 +75,8 @@ export const Piloting: React.FC = () => {
   );
 
   return (
+    <Panel variant="dark" className="flex-grow-1">
+
     <div className="d-flex">
       <div
         style={{
@@ -92,6 +95,7 @@ export const Piloting: React.FC = () => {
         <JoyPad onPositionChange={pad2} />
       </div>
     </div>
+    </Panel>
   );
 };
 

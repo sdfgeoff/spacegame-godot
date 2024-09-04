@@ -2,6 +2,7 @@ import React from "react";
 import { useAppContext } from "../contexts/AppContext";
 import { FromRouterMessage } from "../models/Messages";
 import TacticalDisplay from "../components/tactical_display/TacticalDisplay";
+import Panel from "../components/Panel";
 
 interface SensedObject {
   designation: string;
@@ -82,7 +83,8 @@ export const Weapons: React.FC = () => {
 
   return (
     <div className="d-flex h-100">
-      <div>
+              <Panel variant="dark" className="flex-grow-1">
+
         Weapons:
         {availableWeapons.map((weapon) => (
           <div key={weapon.address_from} className="d-flex">
@@ -118,7 +120,9 @@ export const Weapons: React.FC = () => {
             </div>
           </>
         )}
-      </div>
+    
+      </Panel>
+      <Panel variant="dark" className="flex-grow-1">
       <div
         style={{
           aspectRatio: "1/1",
@@ -135,6 +139,7 @@ export const Weapons: React.FC = () => {
           }
         />
       </div>
+      </Panel>
     </div>
   );
 };

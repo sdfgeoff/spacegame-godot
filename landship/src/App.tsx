@@ -15,6 +15,7 @@ const TRACKER_URL = "ws://" + window.location.hostname + ":" + 42425;
 
 function App() {
   const [mode, setMode] = useState<GameMode>({ mode: "home" });
+  const [screen, setScreen] = useState<ScreenType | undefined>();
 
   const trackerData = useTrackerInternal(TRACKER_URL);
   const dataChannelData = useDataChannelConsoleInternal(
@@ -76,13 +77,13 @@ function App() {
             }}
           />
           <div className="fill d-flex flex-column">
-            <Header returnToShipSelector={leaveGame} />
+            <Header returnToShipSelector={leaveGame} screen={screen} setScreen={setScreen} />
             <div className="flex-grow-1 d-flex">
               {mode.mode === "home" && (
                 <Home tracker={trackerData.tracker} joinGame={joinGame} />
               )}
               {mode.mode === "play" && (
-                <Play tracker={trackerData.tracker} gameData={mode.gameData} />
+                <Play tracker={trackerData.tracker} gameData={mode.gameData} screen={screen} setScreen={setScreen} />
               )}
             </div>
           </div>

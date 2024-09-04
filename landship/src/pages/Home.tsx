@@ -28,7 +28,8 @@ const Home: React.FC<{
       if (data.key !== "ListResponse") {
         return;
       }
-      setGameList(data.games);
+      // sort the list in at least some stable order
+      setGameList(data.games.sort((a, b) => a.id - b.id));
     };
     return tracker.subscribe(handler);
   }, [tracker]);
