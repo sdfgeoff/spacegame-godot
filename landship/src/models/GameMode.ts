@@ -1,9 +1,9 @@
-import { GameDataResponse } from "../network/TrackerMessages";
+import { ShipDataResponse } from "../network/TrackerMessages";
 
 export type GameMode =
   | {
       mode: "play";
-      gameData: GameDataResponse;
+      shipData: ShipDataResponse;
     }
   | {
       mode: "home";

@@ -7,9 +7,10 @@ import { useDataChannelConsoleInternal } from "./hooks/useDataChannelConsole";
 import { GameMode } from "./models/GameMode";
 import { Header } from "./components/Header";
 import { Play } from "./pages/Play";
-import { GameDataResponse } from "./network/TrackerMessages";
+import { ShipDataResponse } from "./network/TrackerMessages";
 import { AppContext } from "./contexts/AppContext";
 import { usePingShip, useTimingStatsInternal } from "./hooks/useServerTime";
+import { ScreenType } from "./Screens";
 
 const TRACKER_URL = "ws://" + window.location.hostname + ":" + 42425;
 
@@ -20,22 +21,22 @@ function App() {
   const trackerData = useTrackerInternal(TRACKER_URL);
   const dataChannelData = useDataChannelConsoleInternal(
     trackerData.tracker,
-    mode.mode === "play" ? mode.gameData.id : undefined,
+    mode.mode === "play" ? mode.shipData.id : undefined,
   );
   const timingStats = useTimingStatsInternal(dataChannelData);
   usePingShip(dataChannelData.dataChannelConsole);
 
-  const joinGame = useCallback(
-    (gameData: GameDataResponse) => {
+  const joinShip = useCallback(
+    (shipData: ShipDataResponse) => {
       setMode({
         mode: "play",
-        gameData: gameData,
+        shipData: shipData,
       });
     },
     [setMode],
   );
 
-  const leaveGame = useCallback(() => {
+  const leaveShip = useCallback(() => {
     setMode({
       mode: "home",
     });
@@ -77,13 +78,13 @@ function App() {
             }}
           />
           <div className="fill d-flex flex-column">
-            <Header returnToShipSelector={leaveGame} screen={screen} setScreen={setScreen} />
+            <Header returnToShipSelector={leaveShip} screen={screen} setScreen={setScreen} />
             <div className="flex-grow-1 d-flex">
               {mode.mode === "home" && (
-                <Home tracker={trackerData.tracker} joinGame={joinGame} />
+                <Home tracker={trackerData.tracker} joinShip={joinShip} />
               )}
               {mode.mode === "play" && (
-                <Play tracker={trackerData.tracker} gameData={mode.gameData} screen={screen} setScreen={setScreen} />
+                <Play tracker={trackerData.tracker} shipData={mode.shipData} screen={screen} setScreen={setScreen} />
               )}
             </div>
           </div>

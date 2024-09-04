@@ -66,13 +66,14 @@ func _on_data(id, message):
 			# List Request, return the currently available games
 			_server.send(id, JSON.stringify({
 				"key": "ListResponse",
-				"games": AVAILABLE_SHIPS,
+				"ships": AVAILABLE_SHIPS,
 			}))
 		"HostingUpdate":
 			var newGameData = {
 				"id": id,
-				"game": {
-					"name": data["game"]["name"],
+				"ship": {
+					"name": data["ship"]["name"],
+					"type": data["ship"]["type"],
 				}
 			}
 			_remove_ship_hosted_by_id(id)

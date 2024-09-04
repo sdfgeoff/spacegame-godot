@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Tracker } from "../network/Tracker";
 import { JoinGameTable } from "../components/JoinGameTable";
 import {
-  GameDataResponse,
+  ShipDataResponse,
   MessageFromServer,
 } from "../network/TrackerMessages";
 import PanelTitled from "../components/PanelTitled";
 
 const Home: React.FC<{
   tracker: Tracker;
-  joinGame: (gameData: GameDataResponse) => void;
-}> = ({ tracker, joinGame }) => {
-  const [gameList, setGameList] = useState<GameDataResponse[]>([]);
+  joinShip: (gameData: ShipDataResponse) => void;
+}> = ({ tracker, joinShip }) => {
+  const [shipList, setShipList] = useState<ShipDataResponse[]>([]);
 
   // Schedule a request for the game list every 5 seconds
   useEffect(() => {
@@ -29,7 +29,7 @@ const Home: React.FC<{
         return;
       }
       // sort the list in at least some stable order
-      setGameList(data.games.sort((a, b) => a.id - b.id));
+      setShipList(data.ships.sort((a, b) => a.id - b.id));
     };
     return tracker.subscribe(handler);
   }, [tracker]);
@@ -42,7 +42,7 @@ const Home: React.FC<{
         heading={<h1 className="p-1">Connect To Ship</h1>}
       >
         <div className="p-1">
-          <JoinGameTable gameList={gameList} joinGame={joinGame} />
+          <JoinGameTable shipList={shipList} joinShip={joinShip} />
         </div>
       </PanelTitled>
     </div>

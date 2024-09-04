@@ -1,5 +1,6 @@
-export interface GameData {
+export interface ShipData {
   name: string;
+  type: string;
 }
 
 export interface ListRequest {
@@ -14,17 +15,17 @@ export interface MessageRequest {
 
 export interface HostingUpdate {
   key: "HostingUpdate";
-  game: GameData;
+  ship: ShipData;
 }
 
-export interface GameDataResponse {
+export interface ShipDataResponse {
   id: number;
-  game: GameData;
+  ship: ShipData;
 }
 
 export interface ListResponse {
   key: "ListResponse";
-  games: GameDataResponse[];
+  ships: ShipDataResponse[];
 }
 
 export interface MessageResponse {

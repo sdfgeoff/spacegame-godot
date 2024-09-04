@@ -21,6 +21,9 @@ var clients = {}
 
 func ship_name():
 	return get_parent().name
+	
+func ship_type():
+	return get_parent().name
 
 func _ready():
 	tracker_client.connection_closed.connect(_closed)
@@ -76,8 +79,9 @@ func _advertise_ship():
 	_last_broadcast_time = Time.get_ticks_msec()
 	tracker_client.send(JSON.stringify({
 		"key": "HostingUpdate",
-		"game": {
-			"name": ship_name()
+		"ship": {
+			"name": ship_name(),
+			"type": ship_type(),
 		}
 	}))
 	

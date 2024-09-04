@@ -23,7 +23,7 @@ export const Header: React.FC<{
       <Panel variant="dark" className="px-1">
         <h1>
           {gameMode.mode === "home" && "Ship Selector"}
-          {gameMode.mode === "play" && gameMode.gameData.game.name}
+          {gameMode.mode === "play" && gameMode.shipData.ship.name}
         </h1>
       </Panel>
 

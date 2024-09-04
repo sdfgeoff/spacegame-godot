@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tracker } from "../network/Tracker";
-import { GameDataResponse } from "../network/TrackerMessages";
+import { ShipDataResponse } from "../network/TrackerMessages";
 import Panel from "../components/Panel";
 import { GlobalHotKeys } from "react-hotkeys";
 import { keyMap } from "../hotkeys";
@@ -9,7 +9,7 @@ import PanelTitled from "../components/PanelTitled";
 
 export interface JoinProps {
   tracker: Tracker;
-  gameData: GameDataResponse;
+  shipData: ShipDataResponse;
   screen: ScreenType | undefined;
   setScreen: React.Dispatch<React.SetStateAction<ScreenType | undefined>>;
 }

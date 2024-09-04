@@ -19,13 +19,13 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const EmptyTable: Story = {
   args: {
-    gameList: [],
+    shipList: [],
   },
 };
 
 export const SomeItems: Story = {
   args: {
-    gameList: [
+    shipList: [
       {
         id: 1,
         game: {
