@@ -129,7 +129,7 @@ func _process(delta):
 
 	if !allow_firing:
 		return
-		
+
 	state = "firing"
 	fire(delta)
 

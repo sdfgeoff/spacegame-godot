@@ -34,8 +34,6 @@ var ang_x: float
 var ang_y: float
 var ang_z: float
 
-
-
 ```
 
 # GNC_Targets
@@ -167,22 +165,36 @@ var to_topics: Array
 
 ```
 
-# Weapons_LauncherState
+# Weapons_LauncherInfo
 ```
 extends RefCounted
 """
-Information about a particular launcher/gun
+Information about a particular launcher/gun that updates frequently (current state)
 """
 
 ## What type of launcher is this? This generally indicates what type of
 ## ammunition it firest (Eg minigun, missile launcher)
 var type: String
 
+```
+
+# Weapons_LauncherState
+```
+extends RefCounted
+"""
+Information about a particular launcher/gun that updates frequently (current state)
+"""
+
 ## What is this gun currently shooting at?
 var current_target: String
 
 ## Is this gun currently engaging a target
-var active: bool
+## This can be:
+##  - "idle"
+##  - "tracking"
+##  - "loading"
+##  - "firing"
+var state: String
 
 ## How many more rounds of ammunitino does this gun contain?
 var ammo: int

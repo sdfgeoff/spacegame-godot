@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0wioa6et8eob"]
+[gd_scene load_steps=9 format=3 uid="uid://d0wioa6et8eob"]
 
 [ext_resource type="PackedScene" uid="uid://7g5ghxbt1cet" path="res://Components/Ships/TestShip.tscn" id="1_np6y4"]
 [ext_resource type="PackedScene" uid="uid://dfccmo6388xr6" path="res://Components/Scenery/Station.blend" id="1_nvhek"]
@@ -6,6 +6,7 @@
 [ext_resource type="Environment" uid="uid://dxu4i5aaen8d7" path="res://World.tres" id="2_f1g1a"]
 [ext_resource type="Script" path="res://StarsSkyShader.gd" id="4_chcoy"]
 [ext_resource type="PackedScene" uid="uid://dvxobuns28na6" path="res://Components/Ships/Ship1.tscn" id="4_q0i6t"]
+[ext_resource type="PackedScene" uid="uid://drasdvr0s15mm" path="res://Effects/MinigunRoundBase.tscn" id="5_2bdio"]
 [ext_resource type="PackedScene" uid="uid://bydrs0npk8apr" path="res://Components/Ships/SmallShuttle.tscn" id="9_drqab"]
 
 [node name="Game" type="Node3D"]
@@ -30,6 +31,50 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 276.341,
 
 [node name="PlayerShip" parent="." instance=ExtResource("4_q0i6t")]
 transform = Transform3D(-0.495348, -0.728243, 0.473595, 0.539424, -0.685195, -0.489418, 0.680921, 0.0130366, 0.732241, -140.192, -13.6984, -926.775)
+
+[node name="Minigun" parent="PlayerShip/Ship1" index="3"]
+target_node = NodePath("")
+bullet = ExtResource("5_2bdio")
+allow_firing = true
+suitable_angle_to_fire = 0.05
+
+[node name="Minigun2" parent="PlayerShip/Ship1" index="4"]
+target_node = NodePath("")
+bullet = ExtResource("5_2bdio")
+allow_firing = true
+suitable_angle_to_fire = 0.05
+
+[node name="Minigun4" parent="PlayerShip/Ship1" index="5"]
+target_node = NodePath("")
+bullet = ExtResource("5_2bdio")
+allow_firing = true
+suitable_angle_to_fire = 0.05
+
+[node name="Minigun3" parent="PlayerShip/Ship1" index="6"]
+target_node = NodePath("")
+bullet = ExtResource("5_2bdio")
+allow_firing = true
+suitable_angle_to_fire = 0.05
+
+[node name="RailGun" parent="PlayerShip/Ship1" index="7"]
+target_node = NodePath("")
+reload_variance_proportion = 0.1
+allow_firing = true
+
+[node name="RailGun2" parent="PlayerShip/Ship1" index="8"]
+target_node = NodePath("")
+reload_variance_proportion = 0.1
+allow_firing = true
+
+[node name="RailGun3" parent="PlayerShip/Ship1" index="9"]
+target_node = NodePath("")
+reload_variance_proportion = 0.1
+allow_firing = true
+
+[node name="RailGun4" parent="PlayerShip/Ship1" index="10"]
+target_node = NodePath("")
+reload_variance_proportion = 0.1
+allow_firing = true
 
 [node name="Camera3D" parent="PlayerShip/Ship1/BusCamera" index="0"]
 current = true
