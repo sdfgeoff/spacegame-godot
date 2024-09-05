@@ -21,14 +21,14 @@ void fragment() {
 	float viewAngle = dot(VIEW, NORMAL);
 
 	float noise = texture(noisetex, UV * vec2(1,0) + vec2(0, TIME / 1.0)).b;
-	
-	
+
+
 	float intensity = (output_percent - UV.y) / output_percent;
 	intensity = clamp(intensity, 0.0, 1.0);
 	intensity = pow(intensity, 2.0); // SMoother falloff
 
 	intensity *= viewAngle; // Don't want to see the edges anywhere
-	
+
 	intensity = pow(intensity, 0.5 / noise);
 	ALBEDO = color.rgb;
 	EMISSION = color.rgb * intensity * 5.0 * output_percent;

@@ -11,6 +11,7 @@ const Ping = preload('res://Scripts/NetworkBus/Messages/Ping.gd')
 const Pong = preload('res://Scripts/NetworkBus/Messages/Pong.gd')
 const Sensor_Objects = preload('res://Scripts/NetworkBus/Messages/Sensor_Objects.gd')
 const Subscriptions = preload('res://Scripts/NetworkBus/Messages/Subscriptions.gd')
+const Weapons_LauncherInfo = preload('res://Scripts/NetworkBus/Messages/Weapons_LauncherInfo.gd')
 const Weapons_LauncherState = preload('res://Scripts/NetworkBus/Messages/Weapons_LauncherState.gd')
 const Weapons_LauncherTarget = preload('res://Scripts/NetworkBus/Messages/Weapons_LauncherTarget.gd')
 
@@ -24,6 +25,7 @@ enum Topic {
 	PONG,
 	SENSOR_OBJECTS,
 	SUBSCRIPTIONS,
+	WEAPONS_LAUNCHERINFO,
 	WEAPONS_LAUNCHERSTATE,
 	WEAPONS_LAUNCHERTARGET,
 }
@@ -38,6 +40,7 @@ const TOPIC_TO_STRING = {
 	Topic.PONG: "Pong",
 	Topic.SENSOR_OBJECTS: "Sensor_Objects",
 	Topic.SUBSCRIPTIONS: "Subscriptions",
+	Topic.WEAPONS_LAUNCHERINFO: "Weapons_LauncherInfo",
 	Topic.WEAPONS_LAUNCHERSTATE: "Weapons_LauncherState",
 	Topic.WEAPONS_LAUNCHERTARGET: "Weapons_LauncherTarget",
 }
@@ -52,6 +55,7 @@ const STRING_TO_TOPIC = {
 	"Pong": Topic.PONG,
 	"Sensor_Objects": Topic.SENSOR_OBJECTS,
 	"Subscriptions": Topic.SUBSCRIPTIONS,
+	"Weapons_LauncherInfo": Topic.WEAPONS_LAUNCHERINFO,
 	"Weapons_LauncherState": Topic.WEAPONS_LAUNCHERSTATE,
 	"Weapons_LauncherTarget": Topic.WEAPONS_LAUNCHERTARGET,
 }
@@ -115,11 +119,15 @@ static func create_subscriptions(to_topics: Array) -> Subscriptions:
 	message.to_topics = to_topics
 	return message
 
-static func create_weapons_launcherstate(type: String, current_target: String, active: bool, ammo: int) -> Weapons_LauncherState:
-	var message = Weapons_LauncherState.new()
+static func create_weapons_launcherinfo(type: String) -> Weapons_LauncherInfo:
+	var message = Weapons_LauncherInfo.new()
 	message.type = type
+	return message
+
+static func create_weapons_launcherstate(current_target: String, state: String, ammo: int) -> Weapons_LauncherState:
+	var message = Weapons_LauncherState.new()
 	message.current_target = current_target
-	message.active = active
+	message.state = state
 	message.ammo = ammo
 	return message
 
@@ -138,6 +146,7 @@ const TOPIC_TO_TYPE = {
 	Topic.PONG: Pong,
 	Topic.SENSOR_OBJECTS: Sensor_Objects,
 	Topic.SUBSCRIPTIONS: Subscriptions,
+	Topic.WEAPONS_LAUNCHERINFO: Weapons_LauncherInfo,
 	Topic.WEAPONS_LAUNCHERSTATE: Weapons_LauncherState,
 	Topic.WEAPONS_LAUNCHERTARGET: Weapons_LauncherTarget,
 }

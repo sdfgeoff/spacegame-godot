@@ -82,12 +82,18 @@ export interface SubscriptionsMessage {
 	};
 }
 
+export interface Weapons_LauncherInfoMessage {
+	topic: 'Weapons_LauncherInfo';
+	payload: {
+		type: string
+	};
+}
+
 export interface Weapons_LauncherStateMessage {
 	topic: 'Weapons_LauncherState';
 	payload: {
-		type: string;
 		current_target: string;
-		active: boolean;
+		state: string;
 		ammo: number
 	};
 }
@@ -99,4 +105,4 @@ export interface Weapons_LauncherTargetMessage {
 	};
 }
 
-export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | GNC_ThrusterCommandMessage | GNC_ThrusterStateMessage | PingMessage | PongMessage | Sensor_ObjectsMessage | SubscriptionsMessage | Weapons_LauncherStateMessage | Weapons_LauncherTargetMessage
+export type Message = AllMessage | GNC_StateMessage | GNC_TargetsMessage | GNC_ThrusterCommandMessage | GNC_ThrusterStateMessage | PingMessage | PongMessage | Sensor_ObjectsMessage | SubscriptionsMessage | Weapons_LauncherInfoMessage | Weapons_LauncherStateMessage | Weapons_LauncherTargetMessage

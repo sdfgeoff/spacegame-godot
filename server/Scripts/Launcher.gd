@@ -18,6 +18,7 @@ extends CollisionShape3D
 
 
 @export var ammo: int = 100
+
 @export var seconds_between_shots: float = 1.0
 @export var reload_variance_proportion: float = 0.1
 @export var muzzle_velocity: float = 0.0
@@ -30,11 +31,15 @@ var active_barrel: int = 0
 var reload_state: float = 0
 
 
-var _time_since_status_report: float = 0
-
 var target_designation: String = ''
 
 var target: Node3D = null
+
+var state: String = "idle"
+
+
+var _time_since_message_state: float = 0
+var _time_since_message_info: float = 0
 
 
 func _ready():
@@ -45,6 +50,7 @@ func _ready():
 	
 	if target_node != null:
 		target = get_node_or_null(target_node)
+		
 
 
 func on_message(message: Message):
@@ -83,29 +89,49 @@ func _process(delta):
 	
 	if reload_state > 0:
 		reload_state -= delta
-	_time_since_status_report += delta
+		
+	_time_since_message_state += delta
+	_time_since_message_info += delta
 	
 		
-	if _time_since_status_report > 0.5:
+	if _time_since_message_state > 0.5:
 		$BusConnection.queue_message(
 			Payload.Topic.WEAPONS_LAUNCHERSTATE,
 			Payload.create_weapons_launcherstate(
-				launcher_type,
 				target_designation,
-				allow_firing,
+				state,
 				ammo
 			)
 		)
-		_time_since_status_report -= 0.5
+		_time_since_message_state -= 0.5
+		
+	if _time_since_message_info > 2.0:
+		$BusConnection.queue_message(
+			Payload.Topic.WEAPONS_LAUNCHERINFO,
+			Payload.create_weapons_launcherinfo(
+				launcher_type,
+			)
+		)
+		_time_since_message_info -= 2.0
 
 	if target == null:
+		state = "idle"
 		return
-	var angle_to_target = aim_at(target)
 
-	if allow_firing and angle_to_target < suitable_angle_to_fire:
-		if reload_state <= 0 and ammo > 0:
-			fire(delta)
-			
+	var angle_to_target = aim_at(target)
+	if angle_to_target > suitable_angle_to_fire:
+		state = "tracking"
+		return
+
+	if reload_state > 0 or ammo <= 0:
+		state = "loading"
+		return
+
+	if !allow_firing:
+		return
+		
+	state = "firing"
+	fire(delta)
 
 
 func aim_at(target: Node3D) -> float:

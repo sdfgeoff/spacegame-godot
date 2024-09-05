@@ -23,7 +23,7 @@ func ship_name():
 	return get_parent().name
 	
 func ship_type():
-	return get_parent().name
+	return get_parent().ship_type
 
 func _ready():
 	tracker_client.connection_closed.connect(_closed)
