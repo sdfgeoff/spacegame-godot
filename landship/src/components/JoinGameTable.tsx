@@ -19,7 +19,14 @@ export const JoinGameTable: React.FC<{
             joinShip(ship);
           }}
         >
-          <div className="flex-grow-1 d-flex flex-column"><div><h3>{ship.ship.name}</h3></div><div><small>{ship.ship.type}</small></div></div>
+          <div className="flex-grow-1 d-flex flex-column">
+            <div>
+              <h3>{ship.ship.name}</h3>
+            </div>
+            <div>
+              <small>{ship.ship.type}</small>
+            </div>
+          </div>
         </Button>
       ))}
     </div>

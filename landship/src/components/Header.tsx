@@ -28,29 +28,28 @@ export const Header: React.FC<{
       </Panel>
 
       <div className="d-flex">
-          {Screens.map((s) => {
-            return (
-              <Button
-                variant="secondary"
-                key={s.name}
-                className="p-1"
-                onClick={() => {
-                  if (screen === s) {
-                    setScreen(undefined);
-                  } else {
-                    setScreen(s);
-                  }
-                }}
-                active={screen === s}
-              >
-                <div className="flex-grow-1">{s.name}</div>
-              </Button>
-            );
-          })}
-        </div>
+        {Screens.map((s) => {
+          return (
+            <Button
+              variant="secondary"
+              key={s.name}
+              className="p-1"
+              onClick={() => {
+                if (screen === s) {
+                  setScreen(undefined);
+                } else {
+                  setScreen(s);
+                }
+              }}
+              active={screen === s}
+            >
+              <div className="flex-grow-1">{s.name}</div>
+            </Button>
+          );
+        })}
+      </div>
 
-        <div className="flex-grow-1" />
-
+      <div className="flex-grow-1" />
 
       {/* Tracker State */}
       <small className="d-flex flex-column justify-content-stretch">
@@ -98,9 +97,9 @@ export const Header: React.FC<{
         )}
       </small>
       {gameMode.mode === "play" && (
-      <Button variant="dark" onClick={returnToShipSelector}>
-        Sign Off
-      </Button>
+        <Button variant="dark" onClick={returnToShipSelector}>
+          Sign Off
+        </Button>
       )}
     </Panel>
   );

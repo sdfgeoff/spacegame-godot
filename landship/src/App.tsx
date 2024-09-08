@@ -78,13 +78,22 @@ function App() {
             }}
           />
           <div className="fill d-flex flex-column">
-            <Header returnToShipSelector={leaveShip} screen={screen} setScreen={setScreen} />
-            <div className="flex-grow-1 d-flex">
+            <Header
+              returnToShipSelector={leaveShip}
+              screen={screen}
+              setScreen={setScreen}
+            />
+            <div className="flex-grow-1 d-flex p-1 gap-1">
               {mode.mode === "home" && (
                 <Home tracker={trackerData.tracker} joinShip={joinShip} />
               )}
               {mode.mode === "play" && (
-                <Play tracker={trackerData.tracker} shipData={mode.shipData} screen={screen} setScreen={setScreen} />
+                <Play
+                  tracker={trackerData.tracker}
+                  shipData={mode.shipData}
+                  screen={screen}
+                  setScreen={setScreen}
+                />
               )}
             </div>
           </div>

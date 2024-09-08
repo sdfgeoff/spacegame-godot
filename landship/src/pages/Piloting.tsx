@@ -76,25 +76,24 @@ export const Piloting: React.FC = () => {
 
   return (
     <Panel variant="dark" className="flex-grow-1">
-
-    <div className="d-flex">
-      <div
-        style={{
-          width: "10em",
-          height: "10em",
-        }}
-      >
-        <JoyPad onPositionChange={pad1} />
+      <div className="d-flex">
+        <div
+          style={{
+            width: "10em",
+            height: "10em",
+          }}
+        >
+          <JoyPad onPositionChange={pad1} />
+        </div>
+        <div
+          style={{
+            width: "10em",
+            height: "10em",
+          }}
+        >
+          <JoyPad onPositionChange={pad2} />
+        </div>
       </div>
-      <div
-        style={{
-          width: "10em",
-          height: "10em",
-        }}
-      >
-        <JoyPad onPositionChange={pad2} />
-      </div>
-    </div>
     </Panel>
   );
 };
