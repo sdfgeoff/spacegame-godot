@@ -71,6 +71,8 @@ export const TacticalDisplay = ({
     }
   }, [orbitRef, onCameraMove]);
 
+  console.log(scale, Math.pow(10, Math.ceil(Math.log10(scale))))
+
   return (
     <Canvas
       {...props}

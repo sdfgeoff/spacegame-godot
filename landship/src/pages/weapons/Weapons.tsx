@@ -147,6 +147,19 @@ export const Weapons: React.FC = () => {
             );
           })}
         </div>
+        <h3>Systems</h3>
+
+        <Button
+          variant="warning"
+          className="p-1 w-100"
+          onClick={() => {
+            availableWeaponState.forEach((weap) => {
+              setTarget(weap.address_from, "");
+            });
+          }}
+        >
+          Clear Targets
+        </Button>
       </PanelTitled>
       <div className="d-flex flex-column gap-1">
         <Panel variant="dark" className="p-1" extraBorder="corner">
@@ -154,6 +167,7 @@ export const Weapons: React.FC = () => {
             style={{
               aspectRatio: "1/1",
             }}
+
           >
             <TacticalDisplay
               displayItems={sensedObjects?.message.payload.objects ?? []}
@@ -164,14 +178,7 @@ export const Weapons: React.FC = () => {
               sensorPosition={sensorPosition}
             />
           </div>
-        </Panel>
-
-        <PanelTitled
-          variant="dark"
-          heading={<h2 className="m-0">Selected</h2>}
-          className="p-1"
-        >
-          <div className="py-1">
+          <div>
             <div>
               Selected: {selectedObject ? selectedObject.designation : "-"}
             </div>
@@ -205,26 +212,7 @@ export const Weapons: React.FC = () => {
               {selectedWeaponAddresses.length > 1 ? "s" : ""}
             </Button>
           </div>
-        </PanelTitled>
-        <PanelTitled
-          variant="dark"
-          heading={<h2 className="m-0">Systems</h2>}
-          className="py-1"
-        >
-          <div className="p-1">
-            <Button
-              variant="warning"
-              className="p-1 w-100"
-              onClick={() => {
-                availableWeaponState.forEach((weap) => {
-                  setTarget(weap.address_from, "");
-                });
-              }}
-            >
-              Cease Fire
-            </Button>
-          </div>
-        </PanelTitled>
+        </Panel>
       </div>
     </>
   );

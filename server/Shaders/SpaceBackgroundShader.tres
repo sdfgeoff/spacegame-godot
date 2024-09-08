@@ -69,14 +69,14 @@ vec2 to_cells(vec3 rayDirection) {
 			uv = (norm.yz / absnorm.x) * vec2(-1.0, 1.0);
 		}
 	}
-    
+
     // Inflate the cube to reduce distortion due to corners.
     // I kinda stubled over this one experimentally, no idea if it has a name, but
     // it works quite well at making the cells closer to equal area.
     // It's probably got a name.
     //float d_edge = 2.0 - max(abs(uv.x), abs(uv.y));
     //uv *= sqrt(d_edge);
-    
+
     return (uv * 0.499 * (1.0/3.0) + 0.5) + face / 3.0;
 }
 
@@ -88,7 +88,7 @@ vec4 sampleSkybox(vec2 cellId) {
 vec3 stars(vec2 uv, float lens, float seed, float numCells) {
     vec2 rawCells = uv * numCells;
     vec2 cellId = floor(rawCells);
-    
+
     float starDensity = pow(1.0 - sampleSkybox(cellId / numCells).a, 2.0);
 
 	vec2 innerCoords = fract(rawCells);
@@ -96,19 +96,19 @@ vec3 stars(vec2 uv, float lens, float seed, float numCells) {
     vec4 offsets = hash43(vec3(cellId, seed));
     innerCoords += (offsets.xy - 0.5) * 1.0;
     innerCoords = abs(innerCoords - 0.5) * 2.0;
-    
+
     float dist = length(innerCoords) * SCREEN_RESOLUTION.y;
     float radius = max(1.0 - dist / (numCells * FOV * STAR_RADIUS), 0.0);
     float intensity = pow(radius, 4.0); // Falloff - bright in center
     intensity *= pow(offsets.w, STAR_GAMMA); // more dim stars than bright ones
     intensity *= step(offsets.z, starDensity);
 	// return vec3(starDensity);
-    
+
     return intensity * mix(
         stars_color,
         clouds_color,
         offsets.z
-    ) * 1.0; 
+    ) * 1.0;
 }
 
 
@@ -119,12 +119,12 @@ vec3 stars(vec2 uv, float lens, float seed, float numCells) {
 
 void sky() {
 	vec3 direction = EYEDIR;
-	
+
 	vec3 steps = step(0.0, direction) * 0.5;
 	vec2 cells = to_cells(direction);
 	vec4 skybox = sampleSkybox(cells);
 	skybox.rgb = pow(skybox.rgb, vec3(2.2)); // Gamma correct
-	
+
 	float clouds = (1.0 - skybox.a) * 0.2;
 	vec3 cloudsCol = clouds * vec3(clouds_color);
 
@@ -134,18 +134,17 @@ void sky() {
     //starsCol += stars(cells, FOV, 3.0, 800.0) * 0.7;
     starsCol += stars(cells, FOV, 4.0, 800.0) * 0.8;
     starsCol += stars(cells, FOV, 5.0, 700.0) * 0.5;
-	
+
 	float sunOuterSize = 0.005;
 	float sunInnerSize = 0.2;
 	float sun = (dot(LIGHT0_DIRECTION, EYEDIR)  - 1.0 + sunOuterSize) / sunOuterSize;
 	sun = clamp(sun / sunInnerSize, 0.0, 1.0);
 	sun = pow(sun, 4.0);
-	
+
 	vec3 c2 = LIGHT0_COLOR * LIGHT0_COLOR * LIGHT0_ENERGY;
-	
+
 	vec3 sunCol = sun * c2;
-	
+
 	COLOR = starsCol + cloudsCol + sunCol + skybox.rgb * 2.0;
 }
-
 "

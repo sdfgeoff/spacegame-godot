@@ -37,7 +37,7 @@ export const createMaterials = (): Materials => {
             
 
             float coordToLine(float coord, float widthFactor) {
-                float LINE_WIDTH = widthFactor * scale;
+                float LINE_WIDTH = widthFactor;
                 float base = abs(0.5 - mod(coord, 1.0)) * 2.0;
                 return clamp((base - 1.0 + LINE_WIDTH) / LINE_WIDTH, 0.0, 1.0);
             }
@@ -45,8 +45,23 @@ export const createMaterials = (): Materials => {
             void main() {
                 vec2 uv = (vUv.xy - vec2(0.5, 0.5)) * 2.0;
 
-                float lines1 = coordToLine(vPosition.x, 0.01) + coordToLine(vPosition.z, 0.01);
-                float lines10 = coordToLine(vPosition.x / 10.0, 0.001) + coordToLine(vPosition.z / 10.0, 0.001);
+                // Figure out which grid lines we need to display based on the scale by rounding to the nearest power of 10
+                float digits = log(scale) / log(10.0) + 0.5;
+                float digitsCeil = ceil(digits);
+                float digitsFract = digits - floor(digits);
+                float scaleBase = pow(
+                    10.0,
+                    digitsCeil
+                );
+
+
+                float lines01 = coordToLine(vPosition.x / scaleBase * 10.0, 0.1) + coordToLine(vPosition.z / scaleBase * 10.0, 0.1);
+                float lines1 = coordToLine(vPosition.x / scaleBase * 100.0, 0.1) + coordToLine(vPosition.z / scaleBase * 100.0, 0.1);
+                float lines10 = coordToLine(vPosition.x / scaleBase * 1000.0, 0.1) + coordToLine(vPosition.z / scaleBase * 1000.0, 0.1);
+
+                // Fade between lines based on the digitsFract
+                float lines = lines1 + mix(lines10, lines01, digitsFract);
+                
                 float radius = 1.0 - length((vUv.xy - vec2(0.5, 0.5)) * 2.0);
 
 
@@ -55,7 +70,7 @@ export const createMaterials = (): Materials => {
 
                 float outBright = 0.0;
                 outBright += radius * 0.25;
-                outBright += (lines1 * 0.5 + lines10) * radius * 0.25;
+                outBright += lines * radius * 0.25;
                 outBright *= pow(abs(facing), 0.5);
                 
                 vec4 col = uv.x > 0.0 && abs(uv.y) < 0.01 ? vec4(0.5, 0.5, 1.0, outBright * 2.0) : vec4(vec3(1), outBright);
