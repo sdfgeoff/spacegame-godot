@@ -161,11 +161,11 @@ export const Weapons: React.FC = () => {
           Clear Targets
         </Button>
       </PanelTitled>
-      <div className="d-flex flex-column gap-1">
         <Panel variant="dark" className="p-1" extraBorder="corner">
           <div
             style={{
               aspectRatio: "1/1",
+              height: "70vh"
             }}
 
           >
@@ -213,7 +213,6 @@ export const Weapons: React.FC = () => {
             </Button>
           </div>
         </Panel>
-      </div>
     </>
   );
 };

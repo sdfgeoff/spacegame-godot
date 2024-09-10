@@ -26,7 +26,6 @@ func idToDesignation(id: int) -> String:
 	var f3 = int(id / 100.0) % 10
 	var f4 = int(id / 1000.0) % 10
 	var outstr := '%s-%d%s%d' % [char(f1+65), f2, char(f3+65), f4]
-	print(outstr)
 	return outstr
 
 

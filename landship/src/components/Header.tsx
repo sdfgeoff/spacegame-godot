@@ -33,7 +33,7 @@ export const Header: React.FC<{
             <Button
               variant="secondary"
               key={s.name}
-              className="p-1"
+              className="px-1"
               onClick={() => {
                 if (screen === s) {
                   setScreen(undefined);
@@ -97,7 +97,7 @@ export const Header: React.FC<{
         )}
       </small>
       {gameMode.mode === "play" && (
-        <Button variant="dark" onClick={returnToShipSelector}>
+        <Button variant="secondary" onClick={returnToShipSelector}>
           Sign Off
         </Button>
       )}

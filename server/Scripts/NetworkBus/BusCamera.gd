@@ -21,4 +21,5 @@ func _process(_delta):
 	# You can also set "V Flip" to true if not on the root Viewport.
 	img.flip_y()
 	# Convert Image to ImageTexture.
-	img.save_jpg("/home/geoffrey/test.jpg")
+	var id = self.get_instance_id()
+	img.save_jpg("/dev/shm/test-%X.jpg" % id)

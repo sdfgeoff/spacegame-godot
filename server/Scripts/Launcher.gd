@@ -43,6 +43,7 @@ var _time_since_message_info: float = 0
 
 
 func _ready():
+	assert(suitable_angle_to_fire != null)
 	$BusConnection.subscriptions = [
 		Payload.Topic.SENSOR_OBJECTS,
 	]
