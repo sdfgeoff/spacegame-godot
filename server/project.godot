@@ -13,13 +13,17 @@ config_version=5
 config/name="TunnelRacer"
 run/main_scene="res://Game.tscn"
 run/main_loop_type="GameMainLoop"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 ConsoleTracker="*res://Scripts/Server/Tracker/ConsoleTracker.gd"
 BulletRenderer="*res://Scripts/BulletRenderer.gd"
+
+[dotnet]
+
+project/assembly_name="TunnelRacer"
 
 [input]
 

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bq6itsssuuekf"]
+
+[ext_resource type="PackedScene" uid="uid://c4yn7sdbuvbf0" path="res://Components/ShipParts/GNCSimple.tscn" id="1_fm7ie"]
+[ext_resource type="PackedScene" uid="uid://dcn1rri2dami2" path="res://Components/ShipParts/EngineLarge.tscn" id="2_asbpx"]
+[ext_resource type="Script" path="res://Scripts/NetworkBus/NetworkBus.gd" id="3_yxd6s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4on1v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5gjyl"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="GNCSimple" parent="RigidBody3D" instance=ExtResource("1_fm7ie")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_4on1v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_5gjyl")
+
+[node name="EngineLarge" parent="RigidBody3D" instance=ExtResource("2_asbpx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 0)
+
+[node name="NetworkBus" type="Node" parent="RigidBody3D"]
+script = ExtResource("3_yxd6s")
