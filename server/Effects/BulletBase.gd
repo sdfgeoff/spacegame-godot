@@ -15,3 +15,4 @@ func setup(delta, time_offset):
 	velocityVector *= (delta + time_offset)
 	time_offset = 0
 	target_position = Vector3(0, velocityVector.length(),0)
+	# add_to_group("sensable")

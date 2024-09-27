@@ -1,3 +1,4 @@
+class_name Sensor_Objects
 extends RefCounted
 """
 Contains information about what devices the spaceship sensors can see.

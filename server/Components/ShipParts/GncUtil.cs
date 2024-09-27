@@ -68,25 +68,11 @@ public partial class GncUtil : Node
 			// Thrusters can't pull and are scaled from 0-1, so clamp them
 			for (int j = 0; j < guess.Count; j++)
 			{
-				if (guess[j] < 0)
-				{
-					guess[j] = 0;
-				}
-				else if (guess[j] > 1)
-				{
-					guess[j] = 1;
-				}
+				guess[j] = Mathf.Clamp(guess[j], 0, 1);
 			}
 		}
 
-		// Convert the forces to a Godot array
-		Godot.Collections.Array<float> thrustArray = new Godot.Collections.Array<float>();
-		for (int i = 0; i < guess.Count; i++)
-		{
-			thrustArray.Add(guess[i]);
-		}
-
-		return thrustArray;
+		return floatVectorToGodotArray(guess);
 	}
 
 	// Often we want to specify inputs in terms of percent of peak performance.
@@ -103,59 +89,57 @@ public partial class GncUtil : Node
 
 		// TODO: Do both force and torque at the same time rather than splitting them out. This will remove a bunch of logic
 
-		Vector<float> forcePercentNorm = Vector<float>.Build.DenseOfArray(new float[] { desiredForce.X, desiredForce.Y, desiredForce.Z });
-		forcePercentNorm.Normalize(2);
-		Vector<float> microForce = Vector<float>.Build.DenseOfArray(new float[] { 0, 0, 0 });
-		if (forcePercentNorm.L2Norm() > EPS)
-		{
-			microForce = forcePercentNorm.Multiply(EPS / (float)forcePercentNorm.L2Norm());
-		}
+		Vector<float> targetMotion = Vector<float>.Build.DenseOfArray(new float[] { desiredForce.X, desiredForce.Y, desiredForce.Z, desiredTorque.X, desiredTorque.Y, desiredTorque.Z });
+		float targetMotionPercent = (float)targetMotion.L2Norm();
+		Vector<float> targetMotionNorm = targetMotion.Normalize(2);
 
-		Vector<float> torquePercentNorm = Vector<float>.Build.DenseOfArray(new float[] { desiredTorque.X, desiredTorque.Y, desiredTorque.Z });
-		torquePercentNorm.Normalize(2);
-		Vector<float> microTorque = Vector<float>.Build.DenseOfArray(new float[] { 0, 0, 0 });
-		if (torquePercentNorm.L2Norm() > EPS)
+		Vector<float> microMotion = Vector<float>.Build.DenseOfArray(new float[] { 0, 0, 0, 0, 0, 0 });
+		if (targetMotionPercent > EPS)
 		{
-			microTorque = torquePercentNorm.Multiply(EPS / (float)torquePercentNorm.L2Norm());
+			microMotion = targetMotionNorm.Multiply(EPS);
 		}
-
-		float targetMotionPercent = (float)Vector<float>.Build.DenseOfArray(new float[] { desiredForce.X, desiredForce.Y, desiredForce.Z, desiredTorque.X, desiredTorque.Y, desiredTorque.Z }).L2Norm();
 
 		// Solve for the forces
 		Godot.Collections.Array<float> guessRaw = SolveForces(
-			new Godot.Vector3(microForce[0], microForce[1], microForce[2]), 
-			new Godot.Vector3(microTorque[0], microTorque[1], microTorque[2]), 
+			new Godot.Vector3(microMotion[0], microMotion[1], microMotion[2]), 
+			new Godot.Vector3(microMotion[3], microMotion[4], microMotion[5]), 
 			kinematicsMatrix, 
 			kinematicsMatrixInverse
 		);
 		Vector<float> guess = Vector<float>.Build.DenseOfEnumerable(guessRaw);
 
-
-		float maxPercent = 0.0f;
-		for (int i = 0; i < guess.Count; i++)
-		{
-			if (guess[i] > maxPercent)
-			{
-				maxPercent = guess[i];
-			}
-		}
-
-		if (maxPercent == 0.0f)
-		{
-			guess = guess.Multiply(0f);
-		}
-		else
-		{
+		float maxPercent = maximumItemValue(guess);
+		if (maxPercent != 0.0f) {
 			guess = guess.Multiply(1.0f / maxPercent);
 		}
 		guess = guess.Multiply(targetMotionPercent);
 
 		// Convert the forces to a Godot array
-		Godot.Collections.Array<float> thrustArray = new Godot.Collections.Array<float>();
-		for (int i = 0; i < guess.Count; i++)
+		return floatVectorToGodotArray(guess);	
+	}
+
+
+	private Godot.Collections.Array<float> floatVectorToGodotArray(Vector<float> vec)
+	{
+		Godot.Collections.Array<float> arr = new Godot.Collections.Array<float>();
+		for (int i = 0; i < vec.Count; i++)
 		{
-			thrustArray.Add(guess[i]);
+			arr.Add(vec[i]);
 		}
-		return thrustArray;	
+		return arr;
+	}
+
+
+	private float maximumItemValue(Vector<float> vec)
+	{
+		float max = 0;
+		for (int i = 0; i < vec.Count; i++)
+		{
+			if (vec[i] > max)
+			{
+				max = vec[i];
+			}
+		}
+		return max;
 	}
 }

@@ -75,7 +75,7 @@ func _process(_delta):
 		targets.angular_x,
 		targets.angular_y,
 		targets.angular_z
-	) * 500.0
+	) * 10.0
 	
 	
 	var ship: RigidBody3D = get_parent()
@@ -86,34 +86,25 @@ func _process(_delta):
 	
 	# I wonder if the oscillation in linear comes from offset between intended motion and real motion causing coupling between rotation and translation
 	# The damping here is not ideal as this is not a real controller.
-	var target_force = (lin_targets - lin_velocity_shipspace) * -0.1 # TODO: Find where this -1 comes from. Am I doing force.cross(distance) wrokng up above or something?
-	var target_torque = (ang_targets - ang_velocity_shipspace) * 0.1
+	var target_force = (lin_targets - lin_velocity_shipspace * 0.1) * -1.0 # TODO: Find where this -1 comes from. Am I doing force.cross(distance) wrokng up above or something?
+	var target_torque = (ang_targets - ang_velocity_shipspace * 1.0)
 	
 	# Clamp target force and torque
 	target_force = target_force.limit_length(1.0)
 	target_torque = target_torque.limit_length(1.0)
-	
-		
+
 	var thruster_percents = $GncUtil.ComputeThrustForPercentMotion(
 		target_force,
 		target_torque,
 		kinematics_matrix_forward,
 		kinematics_matrix_pseudo_inverse
 	)
-	
+
 	for thruster_id in thrusters.size():
 		var thruster_message = thrusters[thruster_id]
 		var thruster: GNC_ThrusterState = thruster_message.data
 		var thruster_address = thruster_message.address_from
 		
-		#var engine_local_vector := -thruster.mount.basis.y * thruster.max_thrust_newtons
-		#var engine_local_position := thruster.mount.origin
-		#
-		#var engine_lin_component := engine_local_vector.dot(target_force);
-		#var engine_torque_output := engine_local_position.cross(engine_local_vector).normalized();
-		#var engine_ang_component := engine_torque_output.dot(target_torque);
-#
-		#var engine_output := engine_lin_component + engine_ang_component;
 		var engine_output = thruster_percents[thruster_id]
 		engine_output = clamp(engine_output, 0.0, 1.0) * thruster.max_thrust_newtons;
 		

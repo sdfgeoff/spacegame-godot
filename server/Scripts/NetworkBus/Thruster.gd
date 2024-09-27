@@ -11,8 +11,7 @@ var connection_nodes: Array[BusConnection] = []
 # What this thruster applies force to
 var root_body: RigidBody3D
 
-const NOTIFICATION_TIME_SECONDS: float = 1.0;
-var last_notify_time: float = 0.0;
+var send_message_thruster_state_timer: OffsetTimer = OffsetTimer.new(2.0);
 
 var targets: Array[GNC_ThrusterCommand] = []
 
@@ -37,7 +36,22 @@ func _ready():
 
 	root_body = get_parent()
 	
-
+	add_child(send_message_thruster_state_timer)
+	send_message_thruster_state_timer.connect("timeout", send_thruster_state)
+	
+func send_thruster_state():
+	for id in len(flame_nodes):
+		var flame := flame_nodes[id]
+		var connection := connection_nodes[id]
+		var relativeTransform = transform * flame.transform
+		connection.queue_message(
+			Payload.Topic.GNC_THRUSTERSTATE,
+			Payload.create_gnc_thrusterstate(
+				relativeTransform,
+				max_thrust
+			)
+		)
+	
 	
 
 func on_message(id: int, message: Message):
@@ -47,22 +61,6 @@ func on_message(id: int, message: Message):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
-	last_notify_time += delta
-	if last_notify_time > NOTIFICATION_TIME_SECONDS:
-		last_notify_time -= NOTIFICATION_TIME_SECONDS
-		
-		for id in len(flame_nodes):
-			var flame := flame_nodes[id]
-			var connection := connection_nodes[id]
-			var relativeTransform = transform * flame.transform
-			connection.queue_message(
-				Payload.Topic.GNC_THRUSTERSTATE,
-				Payload.create_gnc_thrusterstate(
-					relativeTransform,
-					max_thrust
-				)
-			)
-	
 	for id in len(flame_nodes):
 		var flame := flame_nodes[id]
 		var target := targets[id]

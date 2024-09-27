@@ -10,7 +10,6 @@ var _address = -1
 @export var subscriptions = []  # Should be typed as Array[Payload.Topic] but this breaks things for some reason
 
 
-
 func queue_message(topic, data, address_to=null):
 	_outbox.append(Message.new(topic, data, address_to, null))
 	

@@ -1,22 +1,24 @@
 extends CollisionShape3D
 
+## Name of the launcher to display to the user
 @export var launcher_type: String = ""
 
-# Node containing FakeMotor to use as X Axis
+## Node containing FakeMotor to use as X Axis
 @export var x_axis: NodePath = ""
 
-# Node containing FakeMotor to use as Y Axis
+## Node containing FakeMotor to use as Y Axis
 @export var y_axis: NodePath = ""
 
-# What node to use to aim the turret. This node will end up pointing at the target
+## What node to use to aim the turret. This node will end up pointing at the target
 @export var node_sight: NodePath = ""
 
-# Guns!
+# Where to spawn bullets from
 @export var barrels: Array[NodePath] = []
 
+## What node to aim at
 @export var target_node: NodePath
 
-
+## How much ammunition is currently held in the launcher itself
 @export var ammo: int = 100
 
 @export var seconds_between_shots: float = 1.0
@@ -26,7 +28,10 @@ extends CollisionShape3D
 
 @export var bullet_spread: float = 0.003
 @export var allow_firing: bool = true
-@export var suitable_angle_to_fire = 0.05;  # How locked on does it have to be to fire
+
+## How locked on does it have to be to fire
+@export var suitable_angle_to_fire = 0.05;  
+
 var active_barrel: int = 0
 var reload_state: float = 0
 
@@ -38,8 +43,28 @@ var target: Node3D = null
 var state: String = "idle"
 
 
-var _time_since_message_state: float = 0
-var _time_since_message_info: float = 0
+var send_message_state_timer: OffsetTimer = OffsetTimer.new(0.5)
+var send_message_info_timer: OffsetTimer = OffsetTimer.new(2.0)
+
+
+
+func send_launcher_state():
+	$BusConnection.queue_message(
+		Payload.Topic.WEAPONS_LAUNCHERSTATE,
+		Payload.create_weapons_launcherstate(
+			target_designation,
+			state,
+			ammo
+		)
+	)
+
+func send_launcher_info():
+	$BusConnection.queue_message(
+		Payload.Topic.WEAPONS_LAUNCHERINFO,
+		Payload.create_weapons_launcherinfo(
+			launcher_type,
+		)
+	)
 
 
 func _ready():
@@ -52,37 +77,48 @@ func _ready():
 	if target_node != null:
 		target = get_node_or_null(target_node)
 		
+	add_child(send_message_info_timer)
+	send_message_info_timer.connect("timeout", send_launcher_info)
+	
+	add_child(send_message_state_timer)
+	send_message_state_timer.connect("timeout", send_launcher_state)
 
+
+func _handle_sensor_objects(message: Message):
+	var possible_targets: Sensor_Objects = message.data
+	if target_designation == '':
+		if target != null:
+			target.queue_free()
+			target = null
+
+	else:
+		if target == null:
+			target = Node3D.new()
+			add_child(target)
+			target.top_level = true
+		
+		var target_data = null
+		for p_target in possible_targets.objects:
+			if p_target['designation'] == target_designation:
+				target_data = p_target
+		if target_data != null:
+			target.global_position.x = target_data.position[0]
+			target.global_position.y = target_data.position[1]
+			target.global_position.z = target_data.position[2]
+			allow_firing = true
+		else:
+			allow_firing = false
+			
 
 func on_message(message: Message):
 	if message.topic == Payload.Topic.SENSOR_OBJECTS:
-		var possible_targets = message.data.objects
-		if target_designation == '':
-			if target != null:
-				target.queue_free()
-				target = null
-
-		else:
-			if target == null:
-				target = Node3D.new()
-				add_child(target)
-				target.top_level = true
-			
-			var target_data = null
-			for p_target in possible_targets:
-				if p_target['designation'] == target_designation:
-					target_data = p_target
-			if target_data != null:
-				target.global_position.x = target_data.position[0]
-				target.global_position.y = target_data.position[1]
-				target.global_position.z = target_data.position[2]
-				allow_firing = true
-			else:
-				allow_firing = false
-				
+		_handle_sensor_objects(message)
 		
 	if message.topic == Payload.Topic.WEAPONS_LAUNCHERTARGET:
 		target_designation = message.data.target_designation
+
+
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -90,30 +126,6 @@ func _process(delta):
 	
 	if reload_state > 0:
 		reload_state -= delta
-		
-	_time_since_message_state += delta
-	_time_since_message_info += delta
-	
-		
-	if _time_since_message_state > 0.5:
-		$BusConnection.queue_message(
-			Payload.Topic.WEAPONS_LAUNCHERSTATE,
-			Payload.create_weapons_launcherstate(
-				target_designation,
-				state,
-				ammo
-			)
-		)
-		_time_since_message_state -= 0.5
-		
-	if _time_since_message_info > 2.0:
-		$BusConnection.queue_message(
-			Payload.Topic.WEAPONS_LAUNCHERINFO,
-			Payload.create_weapons_launcherinfo(
-				launcher_type,
-			)
-		)
-		_time_since_message_info -= 2.0
 
 	if target == null:
 		state = "idle"

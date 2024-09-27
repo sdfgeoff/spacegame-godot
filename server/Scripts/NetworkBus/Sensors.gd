@@ -44,10 +44,10 @@ func _process(_delta):
 	var nodes = get_tree().get_nodes_in_group('sensable')
 	
 	for n in nodes:
-		var node: MeshInstance3D = n
+		var node: Node = n
 		var id = node.get_instance_id()
-		var mesh = node.mesh
-		var mesh_id = mesh.get_rid()
+		#var mesh = node.mesh
+		#var mesh_id = mesh.get_rid()
 		
 		# If it's the first time we've seen this, assign it a name and ensure it has
 		# a visual representation
@@ -55,13 +55,13 @@ func _process(_delta):
 			known_objects[id] = {
 				'designation': idToDesignation(id)
 			}
-			if !meshes.has(mesh_id):
-				print("Generating mesh for ", mesh_id)
-				meshes[mesh_id] = mesh.surface_get_arrays(0)
+		#	if !meshes.has(mesh_id):
+		#		print("Generating mesh for ", mesh_id)
+		#		meshes[mesh_id] = mesh.surface_get_arrays(0)
 
 		known_objects[id]['position'] = [node.global_position.x, node.global_position.y, node.global_position.z]
 		known_objects[id]['time_last_seen'] = current_time
-		known_objects[id]['mesh'] = mesh_id
+		#known_objects[id]['mesh'] = mesh_id
 
 	$BusConnection.queue_message(
 		Payload.Topic.SENSOR_OBJECTS,

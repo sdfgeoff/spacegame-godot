@@ -5,7 +5,7 @@
 
 [node name="MinigunRoundBase" type="RayCast3D" groups=["tracers"]]
 script = ExtResource("1_mlhe1")
-mass_kg = 0.5
+mass_kg = 0.36
 tracer_size = 0.1
 tracer_hue = 0.99
 explosion = ExtResource("2_gsei5")
