@@ -6,12 +6,6 @@ using GodotMatrixType = Godot.Collections.Array<Godot.Collections.Array<float>>;
 
 public partial class GncUtil : Node
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		GD.Print("Hello from C# to Godot :)");
-	}
-	
 	// Inverts a matrix using the pseudo inverse method
 	public GodotMatrixType PseudoInverse(GodotMatrixType mat)
 	{

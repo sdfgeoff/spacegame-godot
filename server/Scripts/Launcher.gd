@@ -1,5 +1,8 @@
 extends CollisionShape3D
 
+const OffsetTimer = preload("res://Scripts/OffsetTimer.cs")
+
+
 ## Name of the launcher to display to the user
 @export var launcher_type: String = ""
 
@@ -43,8 +46,8 @@ var target: Node3D = null
 var state: String = "idle"
 
 
-var send_message_state_timer: OffsetTimer = OffsetTimer.new(0.5)
-var send_message_info_timer: OffsetTimer = OffsetTimer.new(2.0)
+var send_message_state_timer: OffsetTimer = OffsetTimer.Create(0.5)
+var send_message_info_timer: OffsetTimer = OffsetTimer.Create(2.0)
 
 
 
@@ -78,10 +81,10 @@ func _ready():
 		target = get_node_or_null(target_node)
 		
 	add_child(send_message_info_timer)
-	send_message_info_timer.connect("timeout", send_launcher_info)
+	send_message_info_timer.connect("Timeout", send_launcher_info)
 	
 	add_child(send_message_state_timer)
-	send_message_state_timer.connect("timeout", send_launcher_state)
+	send_message_state_timer.connect("Timeout", send_launcher_state)
 
 
 func _handle_sensor_objects(message: Message):

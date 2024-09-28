@@ -1,5 +1,7 @@
 extends CollisionShape3D
 
+const OffsetTimer = preload("res://Scripts/OffsetTimer.cs")
+
 @export var flames: Array[NodePath] = []
 @export var max_thrust: float = 10.0
 
@@ -11,7 +13,7 @@ var connection_nodes: Array[BusConnection] = []
 # What this thruster applies force to
 var root_body: RigidBody3D
 
-var send_message_thruster_state_timer: OffsetTimer = OffsetTimer.new(2.0);
+var send_message_thruster_state_timer: OffsetTimer = OffsetTimer.Create(2.0);
 
 var targets: Array[GNC_ThrusterCommand] = []
 
@@ -37,7 +39,7 @@ func _ready():
 	root_body = get_parent()
 	
 	add_child(send_message_thruster_state_timer)
-	send_message_thruster_state_timer.connect("timeout", send_thruster_state)
+	send_message_thruster_state_timer.connect("Timeout", send_thruster_state)
 	
 func send_thruster_state():
 	for id in len(flame_nodes):
