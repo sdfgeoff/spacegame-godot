@@ -26,13 +26,8 @@ extends RefCounted
 
 var time_sent: float
 
-var pos_x: float
-var pos_y: float
-var pos_z: float
-
-var ang_x: float
-var ang_y: float
-var ang_z: float
+var pos: Array[float]
+var quat: Array[float]
 
 ```
 
@@ -124,6 +119,7 @@ var time_server_send: int
 
 # Sensor_Objects
 ```
+class_name Sensor_Objects
 extends RefCounted
 """
 Contains information about what devices the spaceship sensors can see.
@@ -169,7 +165,7 @@ var to_topics: Array
 ```
 extends RefCounted
 """
-Information about a particular launcher/gun that updates frequently (current state)
+Information about a particular launcher/gun that updates infrequently (eg mount position)
 """
 
 ## What type of launcher is this? This generally indicates what type of

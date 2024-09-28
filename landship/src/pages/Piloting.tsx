@@ -10,7 +10,7 @@ export const Piloting: React.FC = () => {
     dataChannelConsole: { dataChannelConsole, subscribeTopic },
   } = useAppContext();
 
-  const [_latestMessage, setLatestMessage] = React.useState<
+  const [latestMessage, setLatestMessage] = React.useState<
     FromRouterMessage<"GNC_State"> | undefined
   >();
 
@@ -74,7 +74,7 @@ export const Piloting: React.FC = () => {
     [keys, setTargets],
   );
 
-  return (
+  return (<>
     <Panel variant="dark" className="flex-grow-1">
       <div className="d-flex">
         <div
@@ -95,6 +95,10 @@ export const Piloting: React.FC = () => {
         </div>
       </div>
     </Panel>
+    <Panel variant="dark" className="flex-grow-1">
+      {JSON.stringify(latestMessage?.message.payload)}
+    </Panel>
+    </>
   );
 };
 

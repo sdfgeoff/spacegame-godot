@@ -37,7 +37,7 @@ static func deserialize(d: String) -> Message:
 		_to_int(as_dict.get("address_to")),
 		_to_int(as_dict.get("address_from"))
 	)
-	
+
 
 static func _obj_to_dict(d: Object):
 	var out = {}
@@ -46,6 +46,7 @@ static func _obj_to_dict(d: Object):
 			continue
 		if prop['name'].contains('.'):
 			continue
+
 		out[prop['name']] = d.get(prop['name'])
 	return out
 	
@@ -59,6 +60,7 @@ static func _dict_to_obj(t: Payload.Topic, d: Dictionary):
 			continue
 		if prop['name'].contains('.'):
 			continue
+
 		new.set(prop['name'], d[prop['name']])
 
 	return new

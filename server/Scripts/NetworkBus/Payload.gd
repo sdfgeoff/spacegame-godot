@@ -65,15 +65,11 @@ static func create_all() -> All:
 
 	return message
 
-static func create_gnc_state(time_sent: float, pos_x: float, pos_y: float, pos_z: float, ang_x: float, ang_y: float, ang_z: float) -> GNC_State:
+static func create_gnc_state(time_sent: float, pos: Array, quat: Array) -> GNC_State:
 	var message = GNC_State.new()
 	message.time_sent = time_sent
-	message.pos_x = pos_x
-	message.pos_y = pos_y
-	message.pos_z = pos_z
-	message.ang_x = ang_x
-	message.ang_y = ang_y
-	message.ang_z = ang_z
+	message.pos = pos
+	message.quat = quat
 	return message
 
 static func create_gnc_targets(linear_x: float, linear_y: float, linear_z: float, angular_x: float, angular_y: float, angular_z: float) -> GNC_Targets:

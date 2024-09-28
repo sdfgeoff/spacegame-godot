@@ -116,16 +116,24 @@ func _process(_delta):
 			thruster_address
 		)
 	
+	var transf = ship.global_transform
+	var tranq = transf.basis.get_rotation_quaternion()
+	
 	$BusConnection.queue_message(
 		Payload.Topic.GNC_STATE,
 		Payload.create_gnc_state(
 			Time.get_ticks_msec(),
-			ship.global_position.x,
-			ship.global_position.y,
-			ship.global_position.z,
-			ship.global_rotation.x,
-			ship.global_rotation.y,
-			ship.global_rotation.z,
+			[
+				transf.origin.x,
+				transf.origin.y,
+				transf.origin.z,
+			],
+			[
+				tranq.x,
+				tranq.y,
+				tranq.z,
+				tranq.w,
+			]
 		),
 		null
 	)

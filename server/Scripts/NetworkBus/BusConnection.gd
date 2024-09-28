@@ -10,6 +10,17 @@ var _address = -1
 @export var subscriptions = []  # Should be typed as Array[Payload.Topic] but this breaks things for some reason
 
 
+var _bus: WeakRef = weakref(null)
+
+var LOG = Log.new("BusConnection")
+
+func _ready():
+	var bus: NetworkBus = get_parent().get_parent().get_node_or_null("NetworkBus")
+	if bus == null:
+		LOG.warn("no_network_bus_found", {})
+	_bus = weakref(bus)
+
+
 func queue_message(topic, data, address_to=null):
 	_outbox.append(Message.new(topic, data, address_to, null))
 	
@@ -30,12 +41,11 @@ func poll():
 	for message in _inbox:
 		got_message.emit(message)
 	_inbox.clear()
-		
-	var bus = get_parent().get_parent().get_node_or_null("NetworkBus")
+
+	var bus = _bus.get_ref()
 	if bus != null:
 		bus.device_exists(self)
-	else:
-		print("No Bus")
+
 
 func _process(_delta):
 	poll()

@@ -16,12 +16,8 @@ export interface GNC_StateMessage {
 	topic: 'GNC_State';
 	payload: {
 		time_sent: number;
-		pos_x: number;
-		pos_y: number;
-		pos_z: number;
-		ang_x: number;
-		ang_y: number;
-		ang_z: number
+		pos: any;
+		quat: any
 	};
 }
 
